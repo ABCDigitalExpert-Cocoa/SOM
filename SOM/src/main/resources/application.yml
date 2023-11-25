@@ -3,3 +3,10 @@ server:
     session:
       tracking-modes: cookie
   port: 9003
+
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: som
+    password: 1234
+    driver-class-name: oracle.jdbc.driver.OracleDriver
