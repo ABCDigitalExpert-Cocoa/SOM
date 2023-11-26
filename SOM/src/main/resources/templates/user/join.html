@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<head th:replace="~{head :: #head}"></head>
+
+<body>
+	<header th:replace="~{header :: #menu}"></header>
+
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-center">
+                        <h2 class="lg-title">Welcome To SOM</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <section class="pt-5 padding-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <h2 class="mb-4">Sign Up</h2>
+
+                            <form action="/user/join" method="post" th:object="${joinForm}" id="contact-form" class="contact-form ">
+								<div th:if="${#fields.hasGlobalErrors()}">
+      								<p class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+  							  </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="email">ID (email)</label>
+                                            <input class="form-control form-control-email" name="member_id" id="member_id"
+                                                type="email">
+                                                <div class="error" th:errors="*{member_id}"></div>
+                                           </div>
+
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input class="form-control form-control-password" name="password"
+                                                id="password" type="password"></input>
+                                                <div class="error" th:errors="*{password}"></div>
+                                        </div>
+										
+										<div class="form-group">
+                                            <label for="name">이름</label>
+                                            <input class="form-control form-control-name" name="member_name"
+                                                id="member_name" type="text"></input>
+                                                <div class="error" th:errors="*{member_name}"></div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="nickname">닉네임(별명)</label>
+                                            <input class="form-control form-control-nickname" name="nickname"
+                                                id="nickname" type="text"></input>
+                                                <div class="error" th:errors="*{nickname}"></div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="age">나이</label>
+                                            <input class="form-control form-control-age" name="age"
+                                                id="age" type="text"></input>
+                                                <div class="error" th:errors="*{age}"></div>
+                                        </div>
+
+										<div class="form-group">
+                                            <label for="region">지역</label>
+                                            <input class="form-control form-control-region" name="region"
+                                                id="region" type="text"></input>
+                                                <div class="error" th:errors="*{region}"></div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="mbti">MBTI</label>
+                                            <input class="form-control form-control-mbti" name="mbti"
+                                                id="mbti" type="text"></input>
+                                                <div class="error" th:errors="*{mbti}"></div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="phone">휴대폰 번호</label>
+                                            <input class="form-control form-control-phone" name="phone"
+                                                id="phone" type="text"></input>
+                                                <div class="error" th:errors="*{phone}"></div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="gender">성별</label>
+                                            <input class="form-control form-control-gender" name="gender"
+                                                id="gender" type="text"></input>
+                                                <div class="error" th:errors="*{gender}"></div>
+                                        </div>
+
+
+                                        <button class="btn btn-primary solid blank mt-3" type="submit">Sign Up</button>
+                                        <button class="btn btn-primary solid blank mt-3" type="reset">Reset</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section th:replace="~{footer :: #footer}"></section>
+
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.som.repository.MemberMapper">
+    <insert id="saveMember">
+        insert into member (
+            member_id,
+            password,
+            member_name,
+            age,
+            region,
+            mbti,
+            phone,
+            gender
+        ) values (
+            #{member_id},
+            #{password},
+            #{member_name},
+            #{age},
+            #{region},
+            #{mbti},
+            #{phone},
+            #{gender}
+        )
+    </insert>
+
+   <select id="findMember" resultType="member">
+        select * from member where member_id = #{member_id}
+    </select>
+</mapper>
