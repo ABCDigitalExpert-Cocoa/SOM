@@ -34,7 +34,7 @@
 						<div class="row no-gutters">
 							<div class="col-md-12">
 								<div class="post-article mt-sm-3">
-									<h3 class="mt-2"><a href="#" th:text="${board.title}"></a></h3>
+									<h3 class="mt-2"><a th:href="@{/board/read(seq_id=${board.seq_id})}" th:text="${board.title}"></a></h3>
 									<div class="post-meta">
 										<ul class="list-inline">
 											<li class="list-inline-item letter-spacing-1">[[${board.hit}]] views</li>
@@ -49,7 +49,7 @@
 					 <nav class="post-pagination">
                         <div class="next-post">
                             <a href="/board/write?board_category=NOTICE">
-                                <span class="text-uppercase font-sm letter-spacing ti-pencil-alt"> 작성하기</span>
+                                <span class="text-uppercase font-sm ti-pencil-alt"> 작성하기</span>
                             </a>
                         </div>
                     </nav>

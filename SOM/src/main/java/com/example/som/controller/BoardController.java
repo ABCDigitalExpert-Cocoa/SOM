@@ -62,4 +62,13 @@ public class BoardController {
 		
 		return "redirect:/board/notice?board_category=NOTICE";
 	}
+	
+	@GetMapping("read")
+	public String read(@RequestParam Long seq_id,
+						Model model) {
+		Board findBoardById = boardService.findBoardById(seq_id);
+		model.addAttribute("board", findBoardById);
+		
+		return "board/read";
+	}
 }

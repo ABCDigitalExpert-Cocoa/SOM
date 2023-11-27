@@ -22,9 +22,14 @@ public class BoardService {
 		
 		return boardMapper.findBoards(board_category);
 	}
-
+	
+	@Transactional
 	public void saveBoard(Board board) {
 		boardMapper.saveBoard(board);
+	}
+	
+	public Board findBoardById(Long seq_id) {
+		return boardMapper.findBoardById(seq_id);
 	}
 
 }
