@@ -116,9 +116,12 @@
                                         
                                         <div class="form-group">
                                             <label for="gender">Gender</label>
-                                            <input class="form-control form-control-gender" name="gender"
-                                                id="gender" type="text"></input>
-                                                <div class="error" th:errors="*{gender}"></div>
+                                            <select class="form-control form-control-gender" name="gender" id="gender" size="1">
+												<option value="default" selected>성별 선택</option>
+							                        <option value="Male">Male</option>
+							                        <option value="Female">Female</option>
+                                            </select>
+                                                  <div class="error" th:errors="*{gender}"></div>
                                         </div>
 
 
