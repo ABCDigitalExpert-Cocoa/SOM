@@ -27,4 +27,8 @@
 		)
 	</insert>
 	
+	<select id="findBoardById" resultType="board">
+		select * from board where seq_id = #{seq_id}
+	</select>
+	
 </mapper>
