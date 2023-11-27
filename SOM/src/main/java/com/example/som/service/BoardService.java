@@ -23,4 +23,8 @@ public class BoardService {
 		return boardMapper.findBoards(board_category);
 	}
 
+	public void saveBoard(Board board) {
+		boardMapper.saveBoard(board);
+	}
+
 }

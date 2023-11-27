@@ -8,4 +8,23 @@
 		select * from board where board_category = #{board_category}
 	</select>
 	
+	<insert id="saveBoard">
+		<selectKey keyProperty="seq_id" resultType="long" order="BEFORE">
+			select seq_id.nextval from dual
+		</selectKey>
+		insert into board(
+			seq_id,
+			title,
+			content,
+			member_id,
+			board_category
+		)values(
+			#{seq_id},
+			#{title},
+			#{content},
+			#{member_id},
+			#{board_category}
+		)
+	</insert>
+	
 </mapper>

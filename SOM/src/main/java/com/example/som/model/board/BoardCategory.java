@@ -1,7 +1,7 @@
 package com.example.som.model.board;
 
 public enum BoardCategory {
-	NOTICE("공지 게시판");
+	NOTICE("Notice");
 	
 	private String description;
 	

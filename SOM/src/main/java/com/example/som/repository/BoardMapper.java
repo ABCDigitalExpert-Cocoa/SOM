@@ -12,4 +12,6 @@ public interface BoardMapper {
 
 	List<Board> findBoards(BoardCategory board_category);
 
+	void saveBoard(Board board);
+
 }
