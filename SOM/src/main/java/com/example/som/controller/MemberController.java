@@ -23,8 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class MemberController {
 	
-//	private final MemberService memberService;
-	private final MemberMapper memberMapper;
+	private final MemberService memberService;
 	
 	// 회원가입 페이지 이동
     @GetMapping("join")
@@ -52,8 +51,9 @@ public class MemberController {
             // user/join.html 페이지를 리턴한다.
             return "user/join";
         }
+        
         // 사용자로부터 입력받은 아이디로 데이터베이스에서 Member 를 검색한다.
-        Member member = memberMapper.findMember(joinForm.getMember_id());
+        Member member = memberService.findMember(joinForm.getMember_id());
         // 사용자 정보가 존재하면
         if (member != null) {
             log.info("이미 가입된 이메일 입니다.");
@@ -63,7 +63,7 @@ public class MemberController {
             return "user/join";
         }
         // MemberJoinForm 객체를 Member 타입으로 변환하여 데이터베이스에 저장한다.
-        memberMapper.saveMember(MemberJoinForm.toMember(joinForm));
+        memberService.saveMember(MemberJoinForm.toMember(joinForm));
         // 메인 페이지로 리다이렉트한다.
         return "redirect:/";
     }
