@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.som.model.member.Member;
 import com.example.som.model.member.MemberJoinForm;
-import com.example.som.repository.MemberMapper;
 import com.example.som.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
