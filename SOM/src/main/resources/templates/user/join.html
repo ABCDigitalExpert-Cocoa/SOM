@@ -44,7 +44,7 @@
                                         <div class="form-group">
                                             <label for="email">ID (email)</label>
                                             <input class="form-control form-control-email" name="member_id" id="member_id"
-                                                type="email">
+                                                type="email" placeholder="이메일 형식으로 입력">
                                                 <div class="error" th:errors="*{member_id}"></div>
                                            </div>
 
@@ -79,7 +79,7 @@
 										<div class="form-group">
                                             <label for="region">Region</label>
 												<input type="button" onclick="searchPost()" value="우편번호 찾기"><br>
-												<input class="form-control form-control-region" type="text" name="region"  id="region" placeholder="주소">
+												<input class="form-control form-control-region" type="text" name="region"  id="region" placeholder="주소입력">
                                                 <div class="error" th:errors="*{region}"></div>
                                         </div>
                                         
@@ -110,7 +110,7 @@
                                         <div class="form-group">
                                             <label for="phone">Phone</label>
                                             <input class="form-control form-control-phone" name="phone"
-                                                id="phone" type="text"></input>
+                                                id="phone" type="text" placeholder="휴대폰번호 입력 ('-'제외하고 입력)"></input>
                                                 <div class="error" th:errors="*{phone}"></div>
                                         </div>
                                         
