@@ -15,7 +15,7 @@ public class MemberJoinForm {
     @Size(min = 4, max = 100)
     @NotBlank
     private String member_id;
-    @Size(min = 4, max = 50)
+    @Size(min = 4, max = 100)
     @NotBlank
     private String password;
     @NotBlank
@@ -27,6 +27,7 @@ public class MemberJoinForm {
     private LocalDate birth;
     private String region;
     private String mbti;
+    @Size(min=10, max=11)
     private String phone;
     private String gender;
     

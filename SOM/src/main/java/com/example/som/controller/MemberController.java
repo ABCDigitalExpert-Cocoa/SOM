@@ -71,4 +71,10 @@ public class MemberController {
 	public String loginForm() {
 		return "user/login";
 	}
+	
+	@PostMapping("login")
+	public String login() {
+		return "redirect:/";
+	}
+	
 }

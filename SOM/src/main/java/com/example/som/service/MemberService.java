@@ -1,5 +1,6 @@
 package com.example.som.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +16,17 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MemberService {
 	private final MemberMapper memberMapper ;
+	private final PasswordEncoder passwordEncoder;
 	
+	@Transactional
 	public void saveMember(Member member) {
+		String rawPassword = member.getPassword();
+		//비크립트 방식으로 암호화
+		String encPassword = passwordEncoder.encode(rawPassword);
+		
+		member.setPassword(encPassword);
+		
+		log.info("encPassword:{}", encPassword);
 		memberMapper.saveMember(member);
 	}
 	
