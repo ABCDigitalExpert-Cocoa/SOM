@@ -31,4 +31,14 @@
 		select * from board where seq_id = #{seq_id}
 	</select>
 	
+	<update id="updateBoard">
+		update board
+		<set>
+			<if test="title != null">title = #{title},</if>
+			<if test="content != null">content = #{content},</if>
+			update_date = sysdate
+		</set>
+		where seq_id = #{seq_id}
+	</update>
+	
 </mapper>

@@ -16,4 +16,6 @@ public interface BoardMapper {
 	
 	Board findBoardById(Long seq_id);
 
+	void updateBoard(Board board);
+
 }

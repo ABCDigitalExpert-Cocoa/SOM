@@ -32,4 +32,8 @@ public class BoardService {
 		return boardMapper.findBoardById(seq_id);
 	}
 
+	public void updateBoard(Board board) {
+		boardMapper.updateBoard(board);
+	}
+
 }

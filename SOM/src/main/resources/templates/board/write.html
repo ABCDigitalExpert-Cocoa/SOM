@@ -44,7 +44,7 @@
 						
 						<input type="hidden" th:field="${write.board_category}">
                         <input class="btn btn-primary" type="submit" value="작성하기">
-                        <input class="btn btn-primary" type="button" th:onclick="|location.href='@{/board/notice(board_category=${param.board_category})}'|" value="목록으로">
+                        <input class="btn btn-primary" type="button" th:onclick="|location.href='@{/board/list(board_category=${param.board_category})}'|" value="목록으로">
                     </form>
 					
                 </div>
