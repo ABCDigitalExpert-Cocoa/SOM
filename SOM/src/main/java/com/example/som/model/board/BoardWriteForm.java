@@ -6,7 +6,9 @@ import lombok.Data;
 
 @Data
 public class BoardWriteForm {
+	@NotBlank
 	private String title;
+	@NotBlank
 	private String content;
 	private BoardCategory board_category;
 	

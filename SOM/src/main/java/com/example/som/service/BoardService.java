@@ -36,4 +36,8 @@ public class BoardService {
 		boardMapper.updateBoard(board);
 	}
 
+	public void removeBoard(Long seq_id) {
+		boardMapper.removeBoard(seq_id);
+	}
+
 }

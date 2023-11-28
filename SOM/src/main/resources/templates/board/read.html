@@ -44,7 +44,7 @@
 						
 						<input type="hidden" th:field="${board.board_category}">
                         <input class="btn btn-primary" type="button" th:onclick="|location.href='@{/board/update(seq_id=${board.seq_id})}'|" value="수정하기">
-                        <input class="btn btn-primary" type="button" value="삭제하기">
+                        <input class="btn btn-primary" type="button" th:onclick="|location.href='@{/board/delete(seq_id=${board.seq_id})}'|" value="삭제하기">
                         <input class="btn btn-primary" type="button" th:onclick="|location.href='@{/board/list(board_category=${board.board_category})}'|" value="목록으로">
                     </form>
 					

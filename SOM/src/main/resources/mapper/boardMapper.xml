@@ -41,4 +41,8 @@
 		where seq_id = #{seq_id}
 	</update>
 	
+	<delete id="removeBoard">
+		delete from board where seq_id = #{seq_id}
+	</delete>
+	
 </mapper>

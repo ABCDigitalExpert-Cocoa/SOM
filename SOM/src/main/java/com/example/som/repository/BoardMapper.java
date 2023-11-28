@@ -18,4 +18,6 @@ public interface BoardMapper {
 
 	void updateBoard(Board board);
 
+	void removeBoard(Long seq_id);
+
 }

@@ -4,16 +4,20 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.example.som.model.board.Board;
 import com.example.som.model.board.BoardCategory;
 import com.example.som.model.board.BoardUpdateForm;
 import com.example.som.model.board.BoardWriteForm;
+import com.example.som.model.member.Member;
 import com.example.som.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -57,14 +61,20 @@ public class BoardController {
 	
 	// 게시글 작성 저장
 	@PostMapping("write")
-	public String write(@RequestParam BoardCategory board_category,
-						@ModelAttribute("write") BoardWriteForm boardWriteForm) {
+	public String write(@SessionAttribute(value = "loginMember", required = false) Member loginMember,
+						@RequestParam BoardCategory board_category,
+						@Validated @ModelAttribute("write") BoardWriteForm boardWriteForm,
+						BindingResult result) {
+		// validation 에러가 있으면 작성페이지로 다시 이동.
+		if(result.hasErrors()) {
+			return "board/write";
+		}
 		
 		log.info("board: {}", boardWriteForm);
 		// 파라미터로 받은 boardWriteForm 객체를 Board 타입으로 변환
 		Board board = BoardWriteForm.toBoard(boardWriteForm);
 		// board 객체 작성자 및 카테고리 설정
-		board.setMember_id("test@test.com");
+		board.setMember_id(loginMember.getMember_id);
 		// board 객체 DB저장
 		boardService.saveBoard(board);
 		
@@ -85,10 +95,17 @@ public class BoardController {
 	
 	// 게시글 수정 페이지 이동
 	@GetMapping("update")
-	public String update(@RequestParam Long seq_id,
+	public String update(@SessionAttribute(value = "loginMember", required = false) Member loginMember,
+						@RequestParam Long seq_id,
 						Model model) {
 		// 수정할 게시물의 seq_id를 받아와서 DB에서 찾는다.
 		Board board = boardService.findBoardById(seq_id);
+		
+		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 목록창으로 돌아간다.
+		if(board == null || !board.getMember_id().equals(loginMember.getMember_id())) {
+			return "redirect:/board/list?board_category=" + board.getBoard_category();
+		}
+		
 		// model에 찾은 객체를 update라는 이름으로 담아서 view로 보내준다.
 		model.addAttribute("update", board);
 		
@@ -97,12 +114,19 @@ public class BoardController {
 	
 	// 게시글 수정 저장
 	@PostMapping("update")
-	public String update(@ModelAttribute("update") BoardUpdateForm boardUpdateForm,
+	public String update(@SessionAttribute(value = "loginMember", required = false) Member loginMember,
+						@ModelAttribute("update") BoardUpdateForm boardUpdateForm,
 						@RequestParam Long seq_id) {
 		log.info("update: {}", boardUpdateForm);
 		
 		// 수정할 board를 찾는다.
 		Board board = boardService.findBoardById(seq_id);
+		
+		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 목록창으로 돌아간다.
+		if(board == null || !board.getMember_id().equals(loginMember.getMember_id())) {
+			return "redirect:/board/list?board_category=" + board.getBoard_category();
+		}
+		
 		// 찾은 board 객체에 수정받은 제목과 내용으로 수정해준다.
 		board.setTitle(boardUpdateForm.getTitle());
 		board.setContent(boardUpdateForm.getContent());
@@ -110,5 +134,24 @@ public class BoardController {
 		boardService.updateBoard(board);
 		
 		return "redirect:/board/list?board_category=" + board.getBoard_category();
+	}
+	
+	// 게시물 삭제
+	@GetMapping("delete")
+	public String remove(@SessionAttribute(value = "loginMember", required = false) Member loginMember,
+						@RequestParam Long seq_id) {
+		// 삭제할 board를 찾는다.
+		Board board = boardService.findBoardById(seq_id);
+		BoardCategory board_category = board.getBoard_category();
+		
+		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 조회창으로 돌아간다.
+		if(board == null || !board.getMember_id().equals(loginMember.getMember_id())) {
+			return "redirect:/board/read?board_id=" + board.getSeq_id();
+		}
+		
+		// 게시글을 삭제
+		boardService.removeBoard(seq_id);
+		
+		return "redirect:/board/list?board_category=" + board_category;
 	}
 }
