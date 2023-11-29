@@ -12,6 +12,6 @@ spring:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     
 mybatis:
-#  type-aliases-package: com.example.som.model
+  type-aliases-package: com.example.som.model
   mapper-locations: classpath:mapper/**/*.xml
-  config-location: classpath:config/mybatis-config.xml
+
