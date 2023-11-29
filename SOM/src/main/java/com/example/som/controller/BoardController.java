@@ -74,7 +74,7 @@ public class BoardController {
 		// 파라미터로 받은 boardWriteForm 객체를 Board 타입으로 변환
 		Board board = BoardWriteForm.toBoard(boardWriteForm);
 		// board 객체 작성자 및 카테고리 설정
-		board.setMember_id(loginMember.getMember_id);
+		board.setMember_id(loginMember.getMember_id());
 		// board 객체 DB저장
 		boardService.saveBoard(board);
 		

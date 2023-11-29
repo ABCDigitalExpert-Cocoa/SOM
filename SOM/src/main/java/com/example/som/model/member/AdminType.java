@@ -1,13 +1,14 @@
-package com.example.som.model.board;
+package com.example.som.model.member;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@Getter
 @RequiredArgsConstructor
-public enum BoardCategory {
-	NOTICE("Notice");
+@Getter
+public enum AdminType {
+	ROLE_USER("사용자"),
+	ROLE_ADMIN("관리자");
 	
 	private final String description;
-	
+
 }
