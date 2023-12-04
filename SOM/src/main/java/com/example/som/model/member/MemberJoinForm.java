@@ -2,7 +2,9 @@ package com.example.som.model.member;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
@@ -14,6 +16,7 @@ import lombok.Data;
 public class MemberJoinForm {
     @Size(min = 4, max = 100)
     @NotBlank
+    @Email
     private String member_id;
     @Size(min = 4, max = 100)
     @NotBlank

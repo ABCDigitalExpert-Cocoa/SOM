@@ -33,7 +33,7 @@ public class SecurityConfig {
 			.and()
 			//URL별 권한접근 제어
 			.authorizeRequests()
-			.antMatchers("/","/user/join","/user/login","/user/login-failed","/user/logout").permitAll()
+			.antMatchers("/","/user/join","/user/login","/user/login-failed","/user/logout", "/user/update").permitAll()
 			.antMatchers("/css/**","/js/**","/favicon.ico","/error", "/plugins/**", "/images/**").permitAll()
 			// "/admin" 하위의 모든 요청은 인증 후에 ADMIN 권한을 가진 사용자만 접근 가능
 			.antMatchers("/admin/**").hasAnyRole("ADMIN")
