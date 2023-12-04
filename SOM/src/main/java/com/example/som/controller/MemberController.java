@@ -167,10 +167,6 @@ public class MemberController {
 	        return "redirect:/";
 	    }
 	    
-	    if(memberUpdateForm.getPassword() == null || memberUpdateForm.getPassword().isEmpty()) { 
-	    	memberUpdateForm.setPassword(member.getPassword());
-	    }
-	    
 	    log.info("updateForm: {}", memberUpdateForm);
 	    log.info("member: {}", member);
 

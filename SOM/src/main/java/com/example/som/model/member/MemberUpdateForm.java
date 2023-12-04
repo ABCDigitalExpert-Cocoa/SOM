@@ -18,6 +18,7 @@ public class MemberUpdateForm {
 	@NotBlank
 	@Email
 	private String member_id;
+	@NotBlank
 	private String password;
     @Size(min = 4, max = 100)
     @NotBlank
