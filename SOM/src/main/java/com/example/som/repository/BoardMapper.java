@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.som.model.board.Board;
 import com.example.som.model.board.BoardCategory;
+import com.example.som.model.file.SavedFile;
 
 @Mapper
 public interface BoardMapper {
@@ -19,5 +20,11 @@ public interface BoardMapper {
 	void updateBoard(Board board);
 
 	void removeBoard(Long seq_id);
+
+	SavedFile findFileByFileId(Long file_id);
+	
+	void saveBoardFile(SavedFile savedFile);
+
+	SavedFile findFileBySeqId(Long seq_id);
 
 }

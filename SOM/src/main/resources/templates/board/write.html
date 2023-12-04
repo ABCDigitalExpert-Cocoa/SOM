@@ -29,7 +29,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<form class="comment-form mb-5 gray-bg p-5" id="write-form" action="write" method="post">
+					<form class="comment-form mb-5 gray-bg p-5" id="write-form" action="write" method="post" enctype="multipart/form-data">
                         <div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
@@ -40,8 +40,12 @@
                                 <textarea class="form-control mb-3" th:field="${write.content}" cols="30" rows="5"
                                     placeholder="내용을 입력해주세요."></textarea>
                             </div>
+                            <div class="col-lg-12">
+								<input class="form-control" type="file" name="file">
+							</div>
                         </div>
 						
+						<br>
 						<input type="hidden" th:field="${write.board_category}">
                         <input class="btn btn-primary" type="submit" value="작성하기">
                         <input class="btn btn-primary" type="button" th:onclick="|location.href='@{/board/list(board_category=${param.board_category})}'|" value="목록으로">

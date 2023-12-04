@@ -5,32 +5,35 @@
 		"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.som.repository.BoardMapper">
 	<select id="findBoards" resultType="board">
-		select * from board where board_category = #{board_category}
+		select * from board where
+		board_category = #{board_category}
 	</select>
-	
+
 	<insert id="saveBoard">
-		<selectKey keyProperty="seq_id" resultType="long" order="BEFORE">
+		<selectKey keyProperty="seq_id" resultType="long"
+			order="BEFORE">
 			select seq_id.nextval from dual
 		</selectKey>
 		insert into board(
-			seq_id,
-			title,
-			content,
-			member_id,
-			board_category
+		seq_id,
+		title,
+		content,
+		member_id,
+		board_category
 		)values(
-			#{seq_id},
-			#{title},
-			#{content},
-			#{member_id},
-			#{board_category}
+		#{seq_id},
+		#{title},
+		#{content},
+		#{member_id},
+		#{board_category}
 		)
 	</insert>
-	
+
 	<select id="findBoardById" resultType="board">
-		select * from board where seq_id = #{seq_id}
+		select * from board where
+		seq_id = #{seq_id}
 	</select>
-	
+
 	<update id="updateBoard">
 		update board
 		<set>
@@ -40,9 +43,41 @@
 		</set>
 		where seq_id = #{seq_id}
 	</update>
-	
+
 	<delete id="removeBoard">
 		delete from board where seq_id = #{seq_id}
 	</delete>
-	
+
+	<insert id="saveBoardFile">
+		<selectKey keyProperty="file_id" resultType="long"
+			order="BEFORE">
+			select file_id.nextval from dual
+		</selectKey>
+		insert into saved_file (
+		file_id,
+		seq_id,
+		original_filename,
+		saved_filename,
+		file_size
+		) values (
+		#{file_id},
+		#{seq_id},
+		#{original_filename},
+		#{saved_filename},
+		#{file_size}
+		)
+	</insert>
+
+	<select id="findFileBySeqId" resultType="file">
+		select * from saved_file where seq_id = #{seq_id}
+	</select>
+
+	<select id="findFileByFileId" resultType="file">
+		select * from saved_file where file_id = #{file_id}
+	</select>
+
+	<delete id="removeFile">
+		delete from saved_file where file_id = #{file_id}
+	</delete>
+
 </mapper>
