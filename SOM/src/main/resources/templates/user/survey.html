@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>Stress Survey</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<head th:replace="~{head :: #head}"></head>
+
+<body>
+	<header th:replace="~{header :: #menu}"></header>
+
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-center">
+                        <h2 class="lg-title">Stress Survey</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="pt-5 padding-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+	table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+      margin-top: -150px;
+      margin-left: 80px;
+    }
+    
+    th, td {
+      padding: 15px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #F8EFEA;
+      color: white;
+    }
+
+    td {
+      text-align: left;
+    }
+    
+	td input[type="radio"] {
+		margin: 0;
+		display: block;
+		margin: auto;
+		text-align: center;
+	}
+	
+	.btn-submit {
+		margin-top: -50px;
+		margin-bottom: 50px;
+	}
+		
+	</style>
+      <form action="submit_survey" method="post">
+
+    <table style="width: 1300px;">
+      <tr>
+        <th>문항</th>
+        <th>전혀 없었다</th>
+        <th>거의 없었다</th>
+        <th>가끔 있었다</th>
+        <th>자주 있었다</th>
+        <th>매우 자주 있었다</th>
+      </tr>
+	<tr>
+        <td>1. 지난 한 달 동안, 예상치 못한 일이 생겨서 기분 나빠진 적이 얼마나 있었나요?</td>
+        <td><label><input type="radio" name="stressLevel_1" value="NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_1" value="ALMOST_NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_1" value="SOMETIMES" required></label></td>
+        <td><label><input type="radio" name="stressLevel_1" value="OFTEN" required></label></td>
+        <td><label><input type="radio" name="stressLevel_1" value="VERY_OFTEN" required></label></td>
+ 	</tr>
+	<tr>
+        <td>2. 지난 한 달 동안, 중요한 일들을 통제할 수 없다고 느낀 적은 얼마나 있었나요?</td>
+        <td><label><input type="radio" name="stressLevel_2" value="NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_2" value="ALMOST_NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_2" value="SOMETIMES" required></label></td>
+        <td><label><input type="radio" name="stressLevel_2" value="OFTEN" required></label></td>
+        <td><label><input type="radio" name="stressLevel_2" value="VERY_OFTEN" required></label></td>
+	</tr>
+	<tr>
+        <td>3. 지난 한 달 동안, 초조하거나 스트레스가 쌓인다고 느낀 적은 얼마나 있었나요?</td>
+        <td><label><input type="radio" name="stressLevel_3" value="NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_3" value="ALMOST_NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_3" value="SOMETIMES" required></label></td>
+        <td><label><input type="radio" name="stressLevel_3" value="OFTEN" required></label></td>
+        <td><label><input type="radio" name="stressLevel_3" value="VERY_OFTEN" required></label></td>
+	</tr>
+	<tr>
+        <td>4. 지난 한 달 동안, 짜증나고 성가신 일들을 성공적으로 처리한 적이 얼마나 있었나요?</td>
+        <td><label><input type="radio" name="stressLevel_4" value="NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_4" value="ALMOST_NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_4" value="SOMETIMES" required></label></td>
+        <td><label><input type="radio" name="stressLevel_4" value="OFTEN" required></label></td>
+        <td><label><input type="radio" name="stressLevel_4" value="VERY_OFTEN" required></label></td>
+	</tr>
+	<tr>
+        <td>5. 지난 한 달 동안, 생활 속에서 일어난 중요한 변화들을 효과적으로 대처한 적이 얼마나 있었나요?</td>
+        <td><label><input type="radio" name="stressLevel_5" value="NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_5" value="ALMOST_NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_5" value="SOMETIMES" required></label></td>
+        <td><label><input type="radio" name="stressLevel_5" value="OFTEN" required></label></td>
+        <td><label><input type="radio" name="stressLevel_5" value="VERY_OFTEN" required></label></td>
+	</tr>
+	<tr>
+        <td>6. 지난 한 달 동안, 개인적인 문제를 처리하는 능력에 대해 자신감을 느낀 적은 얼마나 있었나요?</td>
+        <td><label><input type="radio" name="stressLevel_6" value="NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_6" value="ALMOST_NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_6" value="SOMETIMES" required></label></td>
+        <td><label><input type="radio" name="stressLevel_6" value="OFTEN" required></label></td>
+        <td><label><input type="radio" name="stressLevel_6" value="VERY_OFTEN" required></label></td>
+	</tr>
+	<tr>
+        <td>7. 지난 한 달 동안, 자신의 뜻대로 일이 진행된다고 느낀 적은 얼마나 있었나요?</td>
+        <td><label><input type="radio" name="stressLevel_7" value="NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_7" value="ALMOST_NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_7" value="SOMETIMES" required></label></td>
+        <td><label><input type="radio" name="stressLevel_7" value="OFTEN" required></label></td>
+        <td><label><input type="radio" name="stressLevel_7" value="VERY_OFTEN" required></label></td>
+	</tr>
+	<tr>
+        <td>8. 지난 한 달 동안, 매사를 잘 컨트롤하고 있다고 느낀 적이 얼마나 있었나요?</td>
+        <td><label><input type="radio" name="stressLevel_8" value="NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_8" value="ALMOST_NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_8" value="SOMETIMES" required></label></td>
+        <td><label><input type="radio" name="stressLevel_8" value="OFTEN" required></label></td>
+        <td><label><input type="radio" name="stressLevel_8" value="VERY_OFTEN" required></label></td>
+	</tr>
+	<tr>
+        <td>9. 지난 한 달 동안, 당신이 통제할 수 없는 범위에서 발생한 일 때문에 화가 난 적이 얼마나 있었나요?</td>
+        <td><label><input type="radio" name="stressLevel_9" value="NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_9" value="ALMOST_NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_9" value="SOMETIMES" required></label></td>
+        <td><label><input type="radio" name="stressLevel_9" value="OFTEN" required></label></td>
+        <td><label><input type="radio" name="stressLevel_9" value="VERY_OFTEN" required></label></td>
+	</tr>
+	<tr>
+        <td>10. 지난 한 달 동안, 어려운 일이 너무 많이 쌓여서 극복할 수 없다고 느낀 적이 얼마나 있었나요?</td>
+        <td><label><input type="radio" name="stressLevel_10" value="NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_10" value="ALMOST_NONE" required></label></td>
+        <td><label><input type="radio" name="stressLevel_10" value="SOMETIMES" required></label></td>
+        <td><label><input type="radio" name="stressLevel_10" value="OFTEN" required></label></td>
+        <td><label><input type="radio" name="stressLevel_10" value="VERY_OFTEN" required></label></td>
+	</tr>
+    </table>
+	<div class="text-center">    
+    	<button type="submit" class="btn btn-grey mt-3 btn-submit">제출</button>
+    </div>	
+    
+	<section th:replace="~{footer :: #footer}"></section>
+</body>
+
+</html>
