@@ -34,4 +34,15 @@ public class Member {
 	    	this.gender = gender;
 	    	this.admin = admin;
 	    }
+	    
+	 // Member 엔터티를 업데이트하는 메서드
+	    public static MemberUpdateForm  toUpdateMember(Member member) {
+	    	MemberUpdateForm memberForm = new MemberUpdateForm();
+	       memberForm.setPassword(member.getPassword());
+	       memberForm.setNickname(member.getNickname());
+	       memberForm.setRegion(member.getRegion());
+	       memberForm.setMbti(member.getMbti());
+	       memberForm.setPhone(member.getPhone());
+	       return memberForm;
+	    }
 }

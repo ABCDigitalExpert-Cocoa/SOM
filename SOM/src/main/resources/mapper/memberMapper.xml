@@ -30,4 +30,17 @@
    <select id="findMember" resultType="member">
         select * from member where member_id = #{member_id}
     </select>
+    
+   	<update id="updateMember">
+	update member
+	<set>
+		<if test="password != null">password = #{password},</if>
+		<if test="nickname != null">nickname = #{nickname},</if>
+		<if test="region != null">region = #{region},</if>
+		<if test="mbti != null">mbti = #{mbti},</if>
+		<if test="phone != null">phone = #{phone}</if>
+	</set>
+	where member_id = #{member_id}
+</update>
+    
 </mapper>

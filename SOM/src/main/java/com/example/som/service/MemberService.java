@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.som.model.member.Member;
+import com.example.som.model.member.MemberUpdateForm;
 import com.example.som.repository.MemberMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,19 @@ public class MemberService {
 	
 	public Member findMember(String member_id) {
 		return memberMapper.findMember(member_id);
+	}
+	
+	@Transactional
+	public void updateMember(MemberUpdateForm updateMember) {
+		 String rawPassword = updateMember.getPassword();
+		    
+		    // 새로운 비밀번호가 입력되었을 경우에만 암호화하여 저장
+		    if (rawPassword != null && !rawPassword.isEmpty()) {
+		        String encPassword = passwordEncoder.encode(rawPassword);
+		        updateMember.setPassword(encPassword);
+		    }
+		    
+		memberMapper.updateMember(updateMember);
 	}
 		
 }
