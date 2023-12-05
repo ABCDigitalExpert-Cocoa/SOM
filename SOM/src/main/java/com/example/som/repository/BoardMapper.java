@@ -27,4 +27,6 @@ public interface BoardMapper {
 
 	SavedFile findFileBySeqId(Long seq_id);
 
+	void removeSavedFile(Long file_id);
+
 }

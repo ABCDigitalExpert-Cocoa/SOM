@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 
@@ -129,7 +128,7 @@ public class BoardController {
 		}
 		
 		// model에 찾은 객체를 update라는 이름으로 담아서 view로 보내준다.
-		model.addAttribute("update", board);
+		model.addAttribute("update", Board.toBoardUpdateForm(board));
 		
 		// 첨부파일을 찾아서 model에 담아준다.
 		SavedFile savedFile = boardService.findFileBySeqId(seq_id);
@@ -141,9 +140,15 @@ public class BoardController {
 	// 게시글 수정 저장
 	@PostMapping("update")
 	public String update(@AuthenticationPrincipal PrincipalDetails userInfo,
-						@ModelAttribute("update") BoardUpdateForm boardUpdateForm,
-						@RequestParam Long seq_id) {
+						@Validated @ModelAttribute("update") BoardUpdateForm boardUpdateForm,
+						@RequestParam Long seq_id,
+						BindingResult result,
+						@RequestParam(required = false) MultipartFile file) {
 		log.info("update: {}", boardUpdateForm);
+		
+		if(result.hasErrors()) {
+			return "board/update";
+		}
 		
 		// 수정할 board를 찾는다.
 		Board board = boardService.findBoardById(seq_id);
@@ -157,7 +162,7 @@ public class BoardController {
 		board.setTitle(boardUpdateForm.getTitle());
 		board.setContent(boardUpdateForm.getContent());
 		// 새롭게 수정된 객체로 DB를 update해준다.
-		boardService.updateBoard(board);
+		boardService.updateBoard(board, boardUpdateForm.isFileRemoved(), file);
 		
 		return "redirect:/board/list?board_category=" + board.getBoard_category();
 	}
