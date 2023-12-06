@@ -7,6 +7,7 @@
 	<select id="findBoards" resultType="board">
 		select * from board where
 		board_category = #{board_category}
+		order by create_date desc
 	</select>
 
 	<insert id="saveBoard">
@@ -79,5 +80,9 @@
 	<delete id="removeSavedFile">
 		delete from saved_file where file_id = #{file_id}
 	</delete>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) from board where board_category = #{board_category}
+	</select>
 
 </mapper>

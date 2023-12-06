@@ -2,6 +2,7 @@ package com.example.som.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,9 +27,10 @@ public class BoardService {
 	@Value("${file.upload.path}")
 	private String uploadPath;
 	
-	public List<Board> findBoards(BoardCategory board_category) {
+	public List<Board> findBoards(BoardCategory board_category, int startRecord, int countPerPage) {
+		RowBounds rowBounds = new RowBounds(startRecord, countPerPage);
 		
-		return boardMapper.findBoards(board_category);
+		return boardMapper.findBoards(board_category, rowBounds);
 	}
 	
 	@Transactional
@@ -87,6 +89,10 @@ public class BoardService {
 
 	public SavedFile findFileBySeqId(Long seq_id) {
 		return boardMapper.findFileBySeqId(seq_id);
+	}
+	
+	public int getTotal(BoardCategory board_category) {
+		return boardMapper.getTotal(board_category);
 	}
 
 }
