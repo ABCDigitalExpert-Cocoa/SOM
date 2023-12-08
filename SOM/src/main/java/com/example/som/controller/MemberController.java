@@ -3,8 +3,6 @@ package com.example.som.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.example.som.config.PrincipalDetails;
 import com.example.som.model.member.Member;
@@ -126,7 +122,7 @@ public class MemberController {
 	
 	@GetMapping("update")
 	public String updateForm(Model model, 
-													@AuthenticationPrincipal PrincipalDetails principalDetails) {
+							@AuthenticationPrincipal PrincipalDetails principalDetails) {
 	    
 	    // 아이디를 기반으로 DB에서 회원 정보를 조회.
 	    Member dbMember = memberService.findMember(principalDetails.getUsername());
