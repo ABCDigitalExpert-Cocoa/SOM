@@ -30,6 +30,8 @@
 			vertical-align: middle;
 		}
 	</style>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script>
 		$(function(){
 			$("#resultBox").hide();
@@ -52,14 +54,32 @@
 					}
 					if (inp[i].checked) {
 						sum += Number(inp[i].value);
-
 					}
 				}
 			}
-
-
+			
+			$("#resultBox").show();
+			
 			$("#sum").html("<p style='font-size: large;'>당신의 테스트 결과 점수는 : <strong class='fcR fs16'>" + sum + "점</strong> 입니다.</p>");
-
+			
+			saveResult(sum);
+		}
+		
+		function saveResult(sum){
+			console.log(sum);
+			$.ajax({
+				url: "/test/stress",
+				type: "post",
+				data: {
+					"result": sum
+				},
+				success: function(data){
+					console.log(data);
+				},
+				error: function(status){
+					console.log(status);
+				}
+			});
 		}
 		
 	</script>
