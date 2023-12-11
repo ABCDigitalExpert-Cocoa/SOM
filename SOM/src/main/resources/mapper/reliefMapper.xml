@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.som.repository.ReliefMapper">
+	<select id="findReliefs" resultType="relief">
+		select * from relief where
+		relief_category = #{relief_category}
+	</select>
+
+	<insert id="saveRelief">
+		<selectKey keyProperty="seq_id" resultType="long"
+			order="BEFORE">
+			select seq_id.nextval from dual
+		</selectKey>
+		insert into relief(
+		seq_id,
+		title,
+		content,
+		relief_category
+		)values(
+		#{seq_id},
+		#{title},
+		#{content},
+		#{relief_category}
+		)
+	</insert>
+
+	<select id="findReliefById" resultType="relief">
+		select * from relief where
+		seq_id = #{seq_id}
+	</select>
+
+	<update id="updateRelief">
+		update relief
+		<set>
+			<if test="title != null">title = #{title},</if>
+			<if test="content != null">content = #{content},</if>
+			update_date = sysdate
+		</set>
+		where seq_id = #{seq_id}
+	</update>
+
+	<delete id="removeRelief">
+		delete from relief where seq_id = #{seq_id}
+	</delete>
+
+	<insert id="saveReliefFile">
+		<selectKey keyProperty="file_id" resultType="long"
+			order="BEFORE">
+			select file_id.nextval from dual
+		</selectKey>
+		insert into saved_file (
+		file_id,
+		seq_id,
+		original_filename,
+		saved_filename,
+		file_size
+		) values (
+		#{file_id},
+		#{seq_id},
+		#{original_filename},
+		#{saved_filename},
+		#{file_size}
+		)
+	</insert>
+
+	<select id="findFileBySeqId" resultType="file">
+		select * from saved_file where seq_id = #{seq_id}
+	</select>
+
+	<select id="findFileByFileId" resultType="file">
+		select * from saved_file where file_id = #{file_id}
+	</select>
+
+	<delete id="removeFile">
+		delete from saved_file where file_id = #{file_id}
+	</delete>
+
+</mapper>

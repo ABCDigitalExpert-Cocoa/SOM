@@ -57,6 +57,8 @@ public class BoardController {
 		List<Board> boards = boardService.findBoards(board_category);
 		// 찾아온 List를 model에 담아서 view로 넘겨준다.
 		model.addAttribute("boards", boards);
+		model.addAttribute("board_category", board_category);
+		log.info("boards:{}", boards);
 		
 		return "board/list";
 	}
@@ -72,7 +74,8 @@ public class BoardController {
 		// 작성페이지로 객체를 model에 담아서 넘겨준다
 		model.addAttribute("write", writeForm);
 		
-		return "board/write";
+
+			return "/board/write";
 	}
 	
 	// 게시글 작성 저장
@@ -97,7 +100,8 @@ public class BoardController {
 		// board 객체 DB저장
 		boardService.saveBoard(board, file);
 		
-		return "redirect:/board/list?board_category=" + board_category;
+		return "redirect:/board/list?board_category=" + board.getBoard_category();
+		
 	}
 	
 	// 게시글 조회
@@ -142,6 +146,7 @@ public class BoardController {
 	@PostMapping("update")
 	public String update(@AuthenticationPrincipal PrincipalDetails userInfo,
 						@ModelAttribute("update") BoardUpdateForm boardUpdateForm,
+						@RequestParam BoardCategory board_category,
 						@RequestParam Long seq_id) {
 		log.info("update: {}", boardUpdateForm);
 		
@@ -158,8 +163,9 @@ public class BoardController {
 		board.setContent(boardUpdateForm.getContent());
 		// 새롭게 수정된 객체로 DB를 update해준다.
 		boardService.updateBoard(board);
+	
+			return "redirect:/board/list?board_category=" + board.getBoard_category();
 		
-		return "redirect:/board/list?board_category=" + board.getBoard_category();
 	}
 	
 	// 게시물 삭제
@@ -178,8 +184,9 @@ public class BoardController {
 		// 게시글을 삭제
 		boardService.removeBoard(seq_id);
 		
-		return "redirect:/board/list?board_category=" + board_category;
+			return "redirect:/board/list?board_category=" + board.getBoard_category();
 	}
+	
 	
 	@GetMapping("download/{id}")
     public ResponseEntity<Resource> download(@PathVariable Long id) throws MalformedURLException {
