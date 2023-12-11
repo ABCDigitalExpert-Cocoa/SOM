@@ -46,24 +46,6 @@ public class ReliefController {
 	@Value("${file.upload.path}")
     private String uploadPath;
 	
-	// MBTI 페이지
-	@GetMapping("mbti")
-	public String mbti(@RequestParam ReliefCategory relief_category,
-												Model model) {
-			log.info("category: {}", relief_category);
-			
-			// DB에서 카테고리에 맞는 게시물들을 List형식으로 받아온다.
-			List<Relief> reliefs = reliefService.findReliefs(relief_category);
-			
-			// 찾아온 List를 model에 담아서 view로 넘겨준다.
-			model.addAttribute("relief_category", relief_category);
-			model.addAttribute("relief", reliefs);
-			log.info("reliefs:{}", reliefs);
-			return "relief/mbti";
-		}
-	
-	
-	
 	// 각 해소법 페이지 이동
 	@GetMapping("list")
 	public String list(@RequestParam ReliefCategory relief_category ,
@@ -75,7 +57,7 @@ public class ReliefController {
 		
 		// 찾아온 List를 model에 담아서 view로 넘겨준다.
 		model.addAttribute("relief_category", relief_category);
-		model.addAttribute("relief", reliefs);
+		model.addAttribute("reliefs", reliefs);
 		log.info("reliefs:{}", reliefs);
 		return "relief/list";
 	}
@@ -116,15 +98,10 @@ public class ReliefController {
 		reliefService.saveRelief(relief, file);
 		log.info("relief: {}", relief);
 		
-		if(relief.getRelief_category().equals(relief_category.MBTI)){
-			return "redirect:/relief/mbti?relief_category=" + relief.getRelief_category();
-		} if(relief.getRelief_category().equals(relief_category.MUSIC)) {
-			return "redirect:/relief/music?relief_category=" + relief.getRelief_category();
-		} else {
-			return "redirect:/relief/workout?relief_category=" + relief.getRelief_category();
-			
-		}
+			return "redirect:/relief/list?relief_category=" + relief.getRelief_category();
+
 	}
+
 	
 	// 게시글 조회
 	@GetMapping("read")
@@ -179,16 +156,10 @@ public class ReliefController {
 		log.info("relief:{}" , relief);
 		log.info("category:{}" , relief.getRelief_category());
 		
-		if(relief.getRelief_category().equals(relief_category.MBTI)){
-			return "redirect:/relief/mbti?relief_category=" + relief.getRelief_category();
-		} if(relief.getRelief_category().equals(relief_category.MUSIC)) {
-			return "redirect:/relief/music?relief_category=" + relief.getRelief_category();
-		} else {
-			return "redirect:/relief/workout?relief_category=" + relief.getRelief_category();
+		return "redirect:/relief/list?relief_category=" + relief.getRelief_category();
 			
-		}
-		
 	}
+		
 	
 	// 게시물 삭제
 	@GetMapping("delete")
@@ -202,15 +173,10 @@ public class ReliefController {
 		// 게시글을 삭제
 		reliefService.removeRelief(seq_id);
 		
-		if(relief.getRelief_category().equals(relief_category.MBTI)){
-			return "redirect:/relief/mbti?relief_category=" + relief.getRelief_category();
-		} if(relief.getRelief_category().equals(relief_category.MUSIC)) {
-			return "redirect:/relief/music?relief_category=" + relief.getRelief_category();
-		} else {
-			return "redirect:/relief/workout?relief_category=" + relief.getRelief_category();
+		return "redirect:/relief/list?relief_category=" + relief.getRelief_category();
 			
-		}
 	}
+
 	
 	@GetMapping("download/{id}")
     public ResponseEntity<Resource> download(@PathVariable Long id) throws MalformedURLException {

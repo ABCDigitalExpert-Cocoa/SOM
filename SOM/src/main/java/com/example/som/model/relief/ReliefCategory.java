@@ -6,9 +6,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum ReliefCategory {
-	MBTI("mbti"),
-	MUSIC("music"),
-	WORKOUT("workout");
+	MBTI("MBTI"),
+	STRESS_LEVEL("Stress");
 	
 	private final String description;
 	

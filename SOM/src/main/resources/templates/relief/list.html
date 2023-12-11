@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title th:text="${param.relief_category != null ? T(com.example.som.model.relief.ReliefCategory).valueOf(param.relief_category).description : ''}"></title>
+    <title th:text="${param.relief_category} ? ${ T(com.example.som.model.relief.ReliefCategory).valueOf(param.relief_category).description} : '' "></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
