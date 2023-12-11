@@ -17,8 +17,6 @@ public class HomeController {
     public String home(@AuthenticationPrincipal PrincipalDetails userInfo, Model model) {
         log.info("userInfo:{}", userInfo);
     	
-    	model.addAttribute("loginUser", userInfo);
-    	
     	return "index";
     }
 

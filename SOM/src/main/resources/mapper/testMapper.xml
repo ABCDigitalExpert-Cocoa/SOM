@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.som.repository.TestMapper">
+    <insert id="saveTest">
+    	<selectKey keyProperty="test_id" resultType="long"
+			order="BEFORE">
+			select test_id.nextval from dual
+		</selectKey>
+        insert into test (
+            test_id,
+            member_id,
+            test_result,
+            stress_level
+        ) values (
+            #{test_id},
+            #{member_id},
+            #{test_result},
+            #{stress_level}
+        )
+    </insert>
+    
+</mapper>

@@ -1,6 +1,8 @@
 package com.example.som.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,6 +21,8 @@ import com.example.som.model.member.Member;
 import com.example.som.model.member.MemberJoinForm;
 import com.example.som.model.member.MemberLoginForm;
 import com.example.som.model.member.MemberUpdateForm;
+import com.example.som.model.test.Test;
+import com.example.som.repository.TestMapper;
 import com.example.som.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 	
 	private final MemberService memberService;
+	private final TestMapper testMapper;
 	
 	// 회원가입 페이지 이동
     @GetMapping("join")
@@ -93,8 +98,29 @@ public class MemberController {
 	
 	
 	@GetMapping("login-success")
-	public String loginSuccess() {
+	public String loginSuccess(HttpServletRequest request,
+								HttpServletResponse response,
+								@AuthenticationPrincipal PrincipalDetails userInfo) {
 		log.info("로그인 성공");
+		
+		Cookie[] cookies = request.getCookies();
+		if(cookies != null) {
+			for(Cookie index : cookies) {
+				String cookieName = index.getName();
+				if(cookieName.equals("stress")) {
+					Test test = new Test();
+					test.setMember_id(userInfo.getUsername());
+					test.setTest_result(index.getValue());
+					test.setStressLevel();
+					testMapper.saveTest(test);
+				}
+			}
+		}
+		
+		Cookie cookie = new Cookie("stress", null);
+		cookie.setPath("/");
+		cookie.setMaxAge(0);
+		response.addCookie(cookie);
 	
 		return "redirect:/";
 	}

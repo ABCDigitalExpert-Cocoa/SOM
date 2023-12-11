@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>My Diary</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<head th:replace="~{head :: #head}"></head>
+
+<body>
+	<header th:replace="~{header :: #menu}"></header>
+
+	<div class="breadcrumb-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="text-center">
+						<h2 class="lg-title">My Diary</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="post-pagination col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="next-post" style="margin-bottom: 30px;">
+						<a href="/mySpace/writeDiary">
+							<span class="ti-pencil-alt"> 작성하기</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="row">
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<article class="post-grid mb-5 ">
+								<a class="post-thumb mb-4 d-block" href="blog-single.html">
+									<img src="/images/news/news-1.jpg" alt="" class="img-fluid w-100">
+								</a>
+
+								<div class="post-content-grid">
+									<div class="label-date">
+										<span class="day">15</span>
+										<span class="month text-uppercase">apr</span>
+									</div>
+									<span
+										class="cat-name text-color font-extra font-sm text-uppercase letter-spacing">Travel</span>
+									<h3 class="post-title mt-1"><a href="blog-single.html">The best soft chocolate chip
+											cookies</a></h3>
+									<p>Lorem ipsum dolor sitamet consectetu ocilng elit. Donec eros aseb dui, suscipit
+										ex uti commodo dignis justo acas turpis egestas. Nullam et cursus</p>
+								</div>
+							</article>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<article class="post-grid mb-5">
+								<a class="post-thumb mb-4 d-block" href="blog-single.html">
+									<img src="/images/news/news-2.jpg" alt="" class="img-fluid w-100">
+								</a>
+								<div class="post-content-grid">
+									<div class="label-date">
+										<span class="day">02</span>
+										<span class="month text-uppercase">Jan</span>
+									</div>
+									<span
+										class="cat-name text-color font-sm font-extra text-uppercase letter-spacing">lifestyle</span>
+									<h3 class="post-title mt-1"><a href="blog-single.html">A Simple Way to Feel Like
+											Home</a></h3>
+									<p>Lorem ipsum dolor sitamet consectetu ocilng elit. Donec eros aseb dui, suscipit
+										ex uti commodo dignis justo acas turpis egestas. Nullam et cursus</p>
+
+								</div>
+
+							</article>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<article class="post-grid mb-5">
+								<a class="post-thumb mb-4 d-block" href="blog-single.html">
+									<img src="/images/news/news-3.jpg" alt="" class="img-fluid w-100">
+								</a>
+								<div class="post-content-grid">
+									<div class="label-date">
+										<span class="day">20</span>
+										<span class="month text-uppercase">sep</span>
+									</div>
+									<span
+										class=" cat-name text-color font-sm font-extra text-uppercase letter-spacing">weekends</span>
+									<h3 class="post-title mt-1"><a href="blog-single.html">5 tips to plan your
+											weekends</a></h3>
+									<p>Lorem ipsum dolor sitamet consectetu ocilng elit. Donec eros aseb dui, suscipit
+										ex uti commodo dignis justo acas turpis egestas. Nullam et cursus</p>
+								</div>
+
+							</article>
+						</div>
+					</div>
+				</div>
+
+				<div class="m-auto">
+					<div class="pagination mt-5 pt-4">
+						<ul class="list-inline">
+							<li class="list-inline-item"><a href="#" class="active">1</a></li>
+							<li class="list-inline-item"><a href="#">2</a></li>
+							<li class="list-inline-item"><a href="#">3</a></li>
+							<li class="list-inline-item"><a href="#" class="prev-posts"><i
+										class="ti-arrow-right"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section th:replace="~{footer :: #footer}"></section>
+</body>
+
+</html>
