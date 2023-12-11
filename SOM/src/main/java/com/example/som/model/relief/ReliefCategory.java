@@ -1,13 +1,13 @@
-package com.example.som.model.board;
+package com.example.som.model.relief;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum BoardCategory {
-	NOTICE("Notice"),
-	WORRY("Worry");
+public enum ReliefCategory {
+	MBTI("MBTI"),
+	STRESS_LEVEL("Stress");
 	
 	private final String description;
 	
