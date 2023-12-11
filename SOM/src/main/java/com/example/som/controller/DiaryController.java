@@ -4,7 +4,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.som.config.PrincipalDetails;
 import com.example.som.model.diary.DiaryWriteForm;
@@ -34,5 +38,13 @@ public class DiaryController {
 		
 		
 		return "mySpace/writeDiary";
+	}
+	
+	@PostMapping("write")
+	public String writeDiary(@ModelAttribute("write") DiaryWriteForm writeForm,
+							@RequestParam(required = false) MultipartFile file) {
+		log.info("write: {}", writeForm);
+		
+		return "redirect:/mySpace/diary";
 	}
 }

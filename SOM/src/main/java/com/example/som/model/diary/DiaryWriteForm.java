@@ -11,5 +11,5 @@ public class DiaryWriteForm {
 	private String emotion;
 	private LocalDateTime create_date;
 	private String member_id;
-	private Long open_or_not;
+	private char open_or_not;
 }

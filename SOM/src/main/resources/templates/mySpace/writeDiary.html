@@ -33,35 +33,42 @@
                         <div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-                                    <input class="form-control" type="text" th:field="${write.emotion}" placeholder="제목 :">
+                                    <input class="form-control" type="text" th:field="${write.title}" placeholder="제목 :">
                                 </div>
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
 									<select class="form-control" th:field="${write.emotion}">
 										<option value="" selected>오늘의 기분</option>
-										<option value="happy" data-icon="ti-shine">행복</option>
-										<option value="love"></option>
-										<option value="funny"></option>
-										<option value="bad"></option>
-										<option value="good"></option>
-										<option value="smile"></option>
-										<option value="sad"></option>
+										<option value="happy">행복함</option>
+										<option value="funny">즐거움</option>
+										<option value="bad">나쁨</option>
+										<option value="good">좋음</option>
+										<option value="smile">미소</option>
+										<option value="sad">슬픔</option>
 									</select>
                                 </div>
 							</div>
                             <div class="col-lg-12">
-                                <textarea class="form-control mb-3" th:field="${write.content}" cols="30" rows="5"
+                                <textarea class="form-control mb-3" th:field="${write.content}" cols="30" rows="20"
                                     placeholder="내용을 입력해주세요."></textarea>
                             </div>
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
 								<input class="form-control" type="file" name="file">
+							</div>
+                            <div class="col-lg-6">
+								<div class="form-control">
+									<label for="open">공개</label>
+									<input type="radio" name="open_or_not" id="open" value="1">
+									<label for="not_open" style="margin-left: 30px;">비공개</label>
+									<input type="radio" name="open_or_not" id="not_open" value="0" checked>
+								</div>
 							</div>
                         </div>
 						
 						<br>
                         <input class="btn btn-primary" type="submit" value="작성하기">
-                        <input class="btn btn-primary" type="button" th:onclick="|location.href='@{/board/list(board_category=${param.board_category})}'|" value="목록으로">
+                        <input class="btn btn-primary" type="button" onclick="location.href='/mySpace/diary'" value="목록으로">
                     </form>
 					
                 </div>
