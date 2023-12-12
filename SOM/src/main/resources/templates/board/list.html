@@ -7,6 +7,7 @@
     <title th:text="${param.board_category} ? ${T(com.example.som.model.board.BoardCategory).valueOf(param.board_category).description} : ''"></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 </head>
 
 <head th:replace="~{head :: #head}"></head>
@@ -25,7 +26,8 @@
             </div>
         </div>
     </div>
-    <section class="pt-5 padding-bottom">
+
+        <section class="pt-5 padding-bottom">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -51,13 +53,13 @@
 
 					<nav class="post-pagination">
 						<div class="next-post">
-							<a href="/board/write?board_category=NOTICE">
+							<a th:href="@{/board/write(board_category=${board_category})}">
 								<span class="text-uppercase font-sm ti-pencil-alt"> 작성하기</span>
 							</a>
 						</div>
 					</nav>
 
-					<div class="pagination mt-5 pt-4">
+					<di	v class="pagination mt-5 pt-4">
 						<ul class="list-inline">
 							<li class="list-inline-item" th:if="${navi.currentPage - 1 > 0}">
 								<a th:href="@{/board/list(page=${navi.currentPage - 1}, board_category=${board_category})}" class="next-posts">

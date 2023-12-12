@@ -26,6 +26,7 @@
 				},
 				success: function (data, success, xhr) {
 					console.log(data);
+					$("#reply").val('');
 					getReplies();
 				},
 				error: function (xhr, status, error) {
