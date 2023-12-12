@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.example.som.model.board.Reply;
+import com.example.som.model.reply.Reply;
 
 @Mapper
 public interface ReplyMapper {

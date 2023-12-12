@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.example.som.config.PrincipalDetails;
-import com.example.som.model.board.Reply;
-import com.example.som.model.board.ReplyDto;
 import com.example.som.model.member.Member;
+import com.example.som.model.reply.Reply;
+import com.example.som.model.reply.ReplyDto;
 import com.example.som.repository.ReplyMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -44,14 +44,6 @@ public class ReplyRestController {
 		replyMapper.saveReply(reply);
 		
 		return ResponseEntity.ok("등록 성공");
-	}
-	
-	// 리플 읽기 (/reply/게시물아이디/리플아이디)
-	@GetMapping("{seq_id}/{reply_id}")
-	public ResponseEntity<Reply> findReply(@PathVariable Long seq_id,
-										   @PathVariable Long reply_id) {
-		Reply reply = null;
-		return ResponseEntity.ok(reply);
 	}
 	
 	// 리플 목록

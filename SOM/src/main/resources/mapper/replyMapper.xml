@@ -28,8 +28,21 @@
     
     <!-- 리플 목록 -->
 	<select id="findReplies" resultType="reply">
-		select * from reply 
-		where seq_id = #{seq_id} 
+		select
+			 r.reply_id,
+			 r.content,
+			 m.member_id,
+			 m.nickname,
+			 r.seq_id,
+			 r.create_date,
+			 r.update_date
+		from
+			reply r left outer join member m
+			on (r.member_id = m.member_id) 
+		where
+			seq_id = #{seq_id} 
+		order by
+			r.create_date desc
 	</select>
     
     <!-- 리플 수정 -->
