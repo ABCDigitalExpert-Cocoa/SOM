@@ -30,6 +30,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div text-align: "center">
+						[내 주변 스트레스 해소 장소 찾아보기]<p>
+						<a href="https://map.naver.com">[네이버]</a>&nbsp;|
+						<a href="https://map.kakao.com">[카카오]</a>&nbsp;|
+						<a href="https://www.google.com/maps">[구글]</a>
+					</div>
 					
 					<div class="mb-4 post-list border-bottom pb-4" th:each="relief : ${reliefs}">
 						<div class="row no-gutters">
@@ -48,9 +54,9 @@
 					
 					 <nav class="post-pagination">
                         <div class="next-post">
-                            <a href="/relief/write?relief_category=${param.relief_category}">
+                            <a th:href="@{/relief/write(relief_category=${relief_category})}">
                                 <span class="text-uppercase font-sm ti-pencil-alt"> 작성하기</span>
-                            </a>
+                            </tha>
                         </div>
                     </nav>
 					

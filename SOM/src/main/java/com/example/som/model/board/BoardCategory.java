@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum BoardCategory {
 	NOTICE("Notice"),
-	WORRY("Worry");
+	COUNSEL("Counsel");
 	
 	private final String description;
 	

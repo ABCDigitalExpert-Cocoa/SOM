@@ -29,7 +29,7 @@
     <!-- 리플 목록 -->
 	<select id="findReplies" resultType="reply">
 		select * from reply 
-		where seq_id = #{seq_id} 
+		where seq_id = #{seq_id} order by create_date
 	</select>
     
     <!-- 리플 수정 -->

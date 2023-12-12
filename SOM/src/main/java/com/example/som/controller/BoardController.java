@@ -191,7 +191,7 @@ public class BoardController {
 		
 		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 조회창으로 돌아간다.
 		if(board == null || !board.getMember_id().equals(userInfo.getUsername())) {
-			return "redirect:/board/read?board_id=" + board.getSeq_id();
+			return "redirect:/board/read?seq_id=" + board.getSeq_id();
 		}
 		
 		// 게시글을 삭제

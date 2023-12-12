@@ -12,7 +12,7 @@ public class Reply {
 	private String content;		// 리플 내용
 	private String member_id;	// 작성자 아이디
 	private Long seq_id;		// 게시글 아이디
-	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime create_date;	// 등록시간
 	
 	public static ReplyDto toDto(Reply reply) {
