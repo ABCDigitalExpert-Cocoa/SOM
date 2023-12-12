@@ -59,12 +59,12 @@
 					str += "<h4 class='mb-0'>" + obj.nickname + "</h4>";
 					str += "<span class='date-comm font-sm text-capitalize text-color'>";
 					str += "<i class='ti-time mr-2'></i>" + obj.create_date + "</span>";
-					str += "<div class='comment-content mt-3'>";
-					str += "<p>" + obj.content + "</p>";
 					if(obj.writer == true){
-						str += "<a class='author-social' href='javascript:removeReply(" + obj.reply_id + ")'><i class='ti-trash'> 삭제</i></a>"
+						str += "<a class='author-social ml-2' href='javascript:removeReply(" + obj.reply_id + ")'><i class='ti-trash'> 삭제</i></a>"
 						str += "<a class='author-social' href='javascript:updateReply(" + obj.reply_id + ")'><i class='ti-eraser'> 수정</i></a>"
 					}
+					str += "<div class='comment-content mb-3 border-bottom'>";
+					str += "<p>" + obj.content + "</p>";
                     str += "</div>";
 				});
 			} else {
