@@ -12,7 +12,7 @@ import com.example.som.model.file.SavedFile;
 @Mapper
 public interface BoardMapper {
 
-	List<Board> findBoards(BoardCategory board_category, RowBounds rowBounds);
+	List<Board> findBoards(BoardCategory board_category, String searchText,  RowBounds rowBounds);
 
 	void saveBoard(Board board);
 	
@@ -30,6 +30,6 @@ public interface BoardMapper {
 
 	void removeSavedFile(Long file_id);
 	
-	int getTotal(BoardCategory board_category);
+	int getTotal(BoardCategory board_category, String searchText);
 
 }

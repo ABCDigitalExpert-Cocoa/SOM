@@ -53,20 +53,24 @@ public class BoardController {
 	// 게시판 글 목록 출력
 	@GetMapping("list")
 	public String readNotice(@RequestParam(value = "page", defaultValue = "1") int page,
-							@RequestParam BoardCategory board_category,
+							@RequestParam  BoardCategory board_category,
+							@RequestParam(value="searchText", defaultValue="") String searchText,
 							Model model) {
 		log.info("category: {}", board_category);
+		log.info("searchText: {}", searchText);
 		
-		int total = boardService.getTotal(board_category);
+		
+		int total = boardService.getTotal(board_category, searchText);
 		
 		PageNavigator navi = new PageNavigator(coutPerPage, pagePerGroup, page, total);
 		
 		// DB에서 카테고리에 맞는 게시물들을 List형식으로 받아온다.
-		List<Board> boards = boardService.findBoards(board_category, navi.getStartRecord(), navi.getCountPerPage());
+		List<Board> boards = boardService.findBoards(board_category, searchText, navi.getStartRecord(), navi.getCountPerPage());
 		// 찾아온 List를 model에 담아서 view로 넘겨준다.
 		model.addAttribute("boards", boards);
 		model.addAttribute("navi", navi);
 		model.addAttribute("board_category", board_category);
+		model.addAttribute("searchText", searchText);
 		
 		return "board/list";
 	}

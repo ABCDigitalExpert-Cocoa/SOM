@@ -6,7 +6,10 @@
 <mapper namespace="com.example.som.repository.BoardMapper">
 	<select id="findBoards" resultType="board">
 		select * from board where
-		board_category = #{board_category}
+		board_category = #{arg0}
+		   <if test="_parameter != null">
+            and title like '%' || #{arg1} || '%'
+        </if>
 		order by create_date desc
 	</select>
 
@@ -82,7 +85,11 @@
 	</delete>
 	
 	<select id="getTotal" resultType="int">
-		select count(*) from board where board_category = #{board_category}
+		select count(*) from board 
+		where board_category = #{arg0} 
+		<if test="_parameter != null">
+            and title like '%' || #{arg1} || '%'
+        </if>
 	</select>
 
 </mapper>
