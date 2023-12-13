@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>My Diary</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script th:inline="javascript">
+		function writeReply() {
+			let seq_id = /*[[${board.seq_id}]]*/'';
+			let content = $("#reply").val();
+			// 리플 내용이 없으면 등록하지 않는다.
+			if (content === "") {
+				alert("리플 내용을 입력하세요");
+				$("#reply").focus();
+				return;
+			}
+			$.ajax({
+				url: "/reply/" + seq_id,
+				type: "post",
+				data: {
+					"content": content
+				},
+				success: function (data, success, xhr) {
+					console.log(data);
+					$("#reply").val('');
+					getReplies();
+				},
+				error: function (xhr, status, error) {
+					console.log(status);
+				}
+			});
+		}
+
+		function getReplies() {
+			let seq_id = /*[[${board.seq_id}]]*/'';
+			$.ajax({
+				url: "/reply/" + seq_id,
+				success: function (data, success, xhr) {
+					console.log(data);
+					showReplies(data);
+				},
+				error: function (xhr, status, error) {
+					console.log(status);
+				}
+			});
+		}
+
+		function showReplies(data) {
+			$("#replies").html("");
+			let str = "";
+			str += "<div class='comment-area-box media'>";
+			str += "	<div class='media-body ml-4'>";
+			if (data.length > 0) {
+				$(data).each(function (idx, obj) {
+					str += "<h4 class='mb-0'>" + obj.nickname + "</h4>";
+					str += "<span class='date-comm font-sm text-capitalize text-color'>";
+					str += "<i class='ti-time mr-2'></i>" + obj.create_date + "</span>";
+					if(obj.writer == true){
+						str += "<a class='author-social ml-2' href='javascript:removeReply(" + obj.reply_id + ")'><i class='ti-trash'> 삭제</i></a>"
+						str += "<a class='author-social' href='javascript:updateReply(" + obj.reply_id + ")'><i class='ti-eraser'> 수정</i></a>"
+					}
+					str += "<div class='comment-content mb-3 border-bottom'>";
+					str += "<p>" + obj.content + "</p>";
+                    str += "</div>";
+				});
+			} else {
+				str += "<div class='comment-content mt-3' style='text-align: center;'>"
+				str += "<p>등록된 댓글이 없습니다.</p>"
+				str += "</div>"
+			}
+			str += "	</div>";
+			str += "</div>";
+			$("#replies").append(str);
+		}
+
+		function updateReply(reply_id) {
+			let check = confirm("수정 하시겠습니까?");
+			if (check) {
+				let seq_id = /*[[${board.seq_id}]]*/'';
+				let content = $("#reply_" + reply_id).val();
+				$.ajax({
+					url: "/reply/" + seq_id + "/" + reply_id,
+					type: "put",
+					data: {
+						"content": content
+					},
+					success: function (data) {
+						console.log(data);
+						getReplies();
+					},
+					error: function (xhr, status, error) {
+						console.log(status);
+					}
+				});
+			}
+		}
+
+		function removeReply(reply_id) {
+			let check = confirm("삭제 하시겠습니까?");
+			if (check) {
+				let seq_id = /*[[${board.seq_id}]]*/'';
+				$.ajax({
+					url: "/reply/" + seq_id + "/" + reply_id,
+					type: "delete",
+					success: function (data) {
+						getReplies();
+					},
+					error: function (xhr, status, error) {
+						console.log(status);
+					}
+				});
+			}
+		}
+
+		$(function () {
+			// 페이지가 로딩되면 getReplies() 함수를 자동으로 호출한다.
+			getReplies();
+			// 리플을 작성하고 엔터키를 입력하면 리플을 등록한다.
+			$("#reply").keydown(function (event) {
+				if (event.originalEvent.code === "Enter") {
+					writeReply();
+				}
+			});
+		});
+	</script>
+
+
+</head>
+
+<head th:replace="~{head :: #head}"></head>
+
+<body>
+	<header th:replace="~{header :: #menu}"></header>
+
+	<div class="breadcrumb-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="text-center">
+						<h2 class="lg-title"
+							th:text="${T(com.example.som.model.board.BoardCategory).valueOf(board.board_category).description}">
+						</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section class="pt-5 padding-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<form class="comment-form mb-5 gray-bg p-5">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="form-group">
+									<div class="form-control" th:text="${board.title}"></div>
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<textarea class="form-control mb-3" th:text="${board.content}" cols="30" rows="5"
+									readonly></textarea>
+							</div>
+							<div class="col-lg-12" th:if="${file}">
+								<div class="form-group">
+									<a class="form-control" th:href="@{/board/download/{id}(id=${file.file_id})}"
+										th:text="${file.original_filename}"></a>
+								</div>
+							</div>
+						</div>
+
+						<input type="hidden" th:field="${board.board_category}">
+						<input class="btn btn-primary" type="button"
+							th:onclick="|location.href='@{/board/update(seq_id=${board.seq_id})}'|" value="수정하기">
+						<input class="btn btn-primary" type="button"
+							th:onclick="|location.href='@{/board/delete(seq_id=${board.seq_id})}'|" value="삭제하기">
+						<input class="btn btn-primary" type="button"
+							th:onclick="|location.href='@{/board/list(board_category=${board.board_category})}'|"
+							value="목록으로">
+					</form>
+
+					<form class="comment-form mb-5 gray-bg p-5" id="comment-form">
+						<h3 class="mb-4 text-center">Leave a reply</h3>
+						<div class="row">
+							<div class="col-lg-12">
+								<textarea class="form-control mb-3" name="reply" id="reply" cols="30" rows="2"
+									placeholder="댓글을 남기세요."></textarea>
+							</div>
+						</div>
+
+						<input class="btn btn-primary" type="button" onclick="writeReply()" value="작성하기">
+					</form>
+
+					<div class="comment-area my-5" id="replies">
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section th:replace="~{footer :: #footer}"></section>
+</body>
+
+</html>

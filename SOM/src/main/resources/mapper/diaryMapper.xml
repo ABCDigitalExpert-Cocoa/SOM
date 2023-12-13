@@ -28,7 +28,23 @@
 	</insert>
 	
 	<select id="findAllDiary" resultType="diary">
-		select * from diary where member_id = #{member_id} order by create_date desc
+		select
+			d.diary_id,
+			d.title,
+			d.content,
+			d.emotion,
+			d.create_date,
+			d.update_date,
+			d.member_id,
+			d.open_or_not,
+			f.saved_filename
+		from
+			diary d left outer join saved_file f
+			on (d.diary_id = f.diary_id) 
+		where
+			d.member_id = #{member_id} 
+		order by
+			d.create_date desc
 	</select>
 
 </mapper>

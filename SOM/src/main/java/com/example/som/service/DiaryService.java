@@ -40,10 +40,5 @@ public class DiaryService {
 		return diaryMapper.findAllDiary(member_id);
 	}
 	
-	public List<SavedFile> findAllFile(){
-		return fileMapper.findAllFile();
-	}
-	
-	
 
 }

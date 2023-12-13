@@ -17,6 +17,4 @@ public interface FileMapper {
 	void removeSavedFile(Long file_id);
 	
 	void saveDiaryFile(SavedFile savedFile);
-	
-	List<SavedFile> findAllFile();
 }

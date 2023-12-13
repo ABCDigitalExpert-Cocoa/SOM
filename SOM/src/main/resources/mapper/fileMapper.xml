@@ -57,10 +57,6 @@
 		select * from saved_file where file_id = #{file_id}
 	</select>
 	
-	<select id="findAllFile" resultType="file">
-		select * from saved_file
-	</select>
-
 	<delete id="removeSavedFile">
 		delete from saved_file where file_id = #{file_id}
 	</delete>

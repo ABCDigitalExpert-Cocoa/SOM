@@ -14,4 +14,5 @@ public class Diary {
 	private LocalDateTime update_date;
 	private String member_id;
 	private char open_or_not;
+	private String saved_filename;
 }

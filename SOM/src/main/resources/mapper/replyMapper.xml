@@ -40,7 +40,7 @@
 			reply r left outer join member m
 			on (r.member_id = m.member_id) 
 		where
-			seq_id = #{seq_id} 
+			r.seq_id = #{seq_id} 
 		order by
 			r.create_date desc
 	</select>

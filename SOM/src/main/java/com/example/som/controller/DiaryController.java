@@ -24,30 +24,28 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("mySpace")
+@RequestMapping("mySpace/diary")
 @RequiredArgsConstructor
 @Slf4j
 public class DiaryController {
 	
 	private final DiaryService diaryService;
 	
-	@GetMapping("diary")
+	@GetMapping("list")
 	public String diaryList(@AuthenticationPrincipal PrincipalDetails userInfo,
 							Model model) {
 		List<Diary> diarys = diaryService.findAllDiary(userInfo.getUsername());
-		List<SavedFile> findAllFile = diaryService.findAllFile();
 		model.addAttribute("diarys", diarys);
-		model.addAttribute("files", findAllFile);
 		
-		return "mySpace/diary";
+		return "mySpace/diary/list";
 	}
 	
-	@GetMapping("writeDiary")
+	@GetMapping("write")
 	public String writeDiary(Model model) {
 		DiaryWriteForm writeForm = new DiaryWriteForm();
 		model.addAttribute("write", writeForm);
 		
-		return "mySpace/writeDiary";
+		return "mySpace/diary/write";
 	}
 	
 	@PostMapping("write")
@@ -56,7 +54,7 @@ public class DiaryController {
 							@AuthenticationPrincipal PrincipalDetails userInfo,
 							BindingResult result) {
 		if(result.hasErrors()) {
-			return "mySpace/writeDiary";
+			return "mySpace/diary/write";
 		}
 		
 		Diary diary = DiaryWriteForm.toDiary(writeForm);
@@ -65,6 +63,6 @@ public class DiaryController {
 		
 		diaryService.saveDiary(diary, file);
 
-		return "redirect:/mySpace/diary";
+		return "redirect:/mySpace/diary/list";
 	}
 }
