@@ -64,15 +64,15 @@
 						</div>
 					</div>
 
-					<nav class="post-pagination">
-						<div class="next-post">
-							<a th:href="@{/board/write(board_category=${board_category})}">
-								<span class="text-uppercase font-sm ti-pencil-alt"> 작성하기</span>
-							</a>
-						</div>
-					</nav>
-
-					<di	v class="pagination mt-5 pt-4">
+				<nav class="post-pagination">
+                        <div class="next-post">
+                            <a th:href="@{/board/write(board_category=${board_category})}">
+                                <span class="text-uppercase font-sm ti-pencil-alt"> 작성하기</span>
+                            </tha>
+                        </div>
+                    </nav>
+				
+					<div class="pagination mt-5 pt-4">
 						<ul class="list-inline">
 							<li class="list-inline-item" th:if="${navi.currentPage - 1 > 0}">
 								<a th:href="@{/board/list(page=${navi.currentPage - 1}, board_category=${board_category}, searchText=${searchText})}" class="next-posts">

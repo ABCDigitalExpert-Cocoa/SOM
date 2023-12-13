@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 
@@ -31,6 +30,7 @@ import com.example.som.model.relief.ReliefCategory;
 import com.example.som.model.relief.ReliefUpdateForm;
 import com.example.som.model.relief.ReliefWriteForm;
 import com.example.som.service.ReliefService;
+import com.example.som.util.PageNavigator;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,26 +43,38 @@ public class ReliefController {
 	
 	private final ReliefService reliefService;
 	
+	// 페이징 상수 값
+		final int coutPerPage = 7;
+		final int pagePerGroup = 5;
+	
 	@Value("${file.upload.path}")
     private String uploadPath;
 	
 	// 각 해소법 페이지 이동
 	@GetMapping("list")
-	public String list(@RequestParam ReliefCategory relief_category ,
+	public String list(@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam ReliefCategory relief_category ,
+			@RequestParam(value="searchText", defaultValue="") String searchText,
 			Model model) {
 		log.info("category: {}", relief_category);
+		log.info("searchText: {}", searchText);
+		
+		int total = reliefService.getTotal(relief_category, searchText);
+		
+		PageNavigator navi = new PageNavigator(coutPerPage, pagePerGroup, page, total);
 		
 		// DB에서 카테고리에 맞는 게시물들을 List형식으로 받아온다.
-		List<Relief> reliefs = reliefService.findReliefs(relief_category);
+		List<Relief> reliefs = reliefService.findReliefs(relief_category, searchText, navi.getStartRecord(), navi.getCountPerPage());
 		
 		// 찾아온 List를 model에 담아서 view로 넘겨준다.
 		model.addAttribute("relief_category", relief_category);
+		model.addAttribute("navi", navi);
 		model.addAttribute("reliefs", reliefs);
+		model.addAttribute("searchText", searchText);
 		log.info("reliefs:{}", reliefs);
 		return "relief/list";
 	}
 	
-
 	// 게시글 작성페이지 이동
 	@GetMapping("write")
 	public String wrtie(@RequestParam ReliefCategory relief_category,
@@ -94,6 +106,7 @@ public class ReliefController {
 		log.info("relief: {}", reliefWriteForm);
 		// 파라미터로 받은 reliefWriteForm 객체를 Relief 타입으로 변환
 		Relief relief = ReliefWriteForm.toRelief(reliefWriteForm);
+	
 		// relief 객체 DB저장
 		reliefService.saveRelief(relief, file);
 		log.info("relief: {}", relief);
@@ -141,18 +154,25 @@ public class ReliefController {
 	public String update(@AuthenticationPrincipal PrincipalDetails userInfo,
 						@ModelAttribute("update") ReliefUpdateForm reliefUpdateForm,
 						@RequestParam Long seq_id,
-						ReliefCategory relief_category) {
+						ReliefCategory relief_category,
+						@RequestParam(required = false) MultipartFile file,
+						BindingResult result) {
 		log.info("update: {}", reliefUpdateForm);
+		
+		// validation 에러가 있으면 작성페이지로 다시 이동.
+				if(result.hasErrors()) {
+					return "relief/update";
+				}
 		
 		// 수정할 relief를 찾는다.
 		Relief relief = reliefService.findReliefById(seq_id);
 		
-		
 		// 찾은 relief 객체에 수정받은 제목과 내용으로 수정해준다.
 		relief.setTitle(reliefUpdateForm.getTitle());
 		relief.setContent(reliefUpdateForm.getContent());
+		
 		// 새롭게 수정된 객체로 DB를 update해준다.
-		reliefService.updateRelief(relief);
+		reliefService.updateRelief(relief, reliefUpdateForm.isFileRemoved(), file);
 		log.info("relief:{}" , relief);
 		log.info("category:{}" , relief.getRelief_category());
 		

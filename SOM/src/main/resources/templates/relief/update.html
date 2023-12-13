@@ -7,6 +7,12 @@
     <title>update</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <script>
+		function removeFile() {
+			document.getElementById("fileRemoved").value = "true";
+			document.getElementById("savedFile").style.display = "none";
+		}
+	</script>
 </head>
 <head th:replace="~{head :: #head}"></head>
 
@@ -41,13 +47,21 @@
                                     placeholder="내용을 입력해주세요."></textarea>
                             </div>
 							<div class="col-lg-12">
-								<div class="form-group" th:if="${file}">
-									<div class="form-control" th:text="${file.original_filename}"><i class="ti-trash" onclick="removeFile()">삭제</i></div>
-								</div>
+								<div class="form-control" id="savedFile" th:if="${file}">
+										<span th:text="${file.original_filename}"></span>
+										<a href="javascript:void(0);" onclick="removeFile();"><i class="ti-trash"></i></a>
+									</div>
 							</div>
                         </div>
+                        <div class="form-group">
+									<div class="form-control">
+										<input type="file" name="file">
+									</div>
+								</div>
 						
+						<input type="hidden" th:field="${update.relief_category}">
 						<input type="hidden" th:field="${update.seq_id}">
+						<input type="hidden" th:field="${update.fileRemoved}">
                         <input class="btn btn-primary" type="submit" value="수정하기">
                         <input class="btn btn-primary" type="button" th:onclick="|location.href='@{/relief/list(relief_category=${update.relief_category})}'|" value="목록으로">
                     </form>

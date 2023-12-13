@@ -138,6 +138,7 @@ public class BoardController {
 						Model model) {
 		// 수정할 게시물의 seq_id를 받아와서 DB에서 찾는다.
 		Board board = boardService.findBoardById(seq_id);
+		log.info("board:{}", board);
 		
 		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 목록창으로 돌아간다.
 		if(board == null || !board.getMember_id().equals(userInfo.getUsername())) {

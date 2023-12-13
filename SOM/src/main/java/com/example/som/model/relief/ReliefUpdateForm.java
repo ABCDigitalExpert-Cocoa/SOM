@@ -12,5 +12,8 @@ public class ReliefUpdateForm {
 	private String title;
 	@NotBlank
 	private String content;
+	private LocalDateTime create_date;
 	private LocalDateTime update_date;
+	private ReliefCategory relief_category;
+	private boolean fileRemoved;
 }

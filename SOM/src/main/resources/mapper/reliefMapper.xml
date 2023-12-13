@@ -6,7 +6,10 @@
 <mapper namespace="com.example.som.repository.ReliefMapper">
 	<select id="findReliefs" resultType="relief">
 		select * from relief where
-		relief_category = #{relief_category}
+		relief_category = #{arg0}
+		  <if test="_parameter != null">
+            and title like '%' || #{arg1} || '%'
+        </if>
 	</select>
 
 	<insert id="saveRelief">
@@ -74,8 +77,16 @@
 		select * from saved_file where file_id = #{file_id}
 	</select>
 
-	<delete id="removeFile">
+	<delete id="removeSavedFile">
 		delete from saved_file where file_id = #{file_id}
 	</delete>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) from relief 
+		where relief_category = #{arg0} 
+		<if test="_parameter != null">
+            and title like '%' || #{arg1} || '%'
+        </if>
+	</select>
 
 </mapper>
