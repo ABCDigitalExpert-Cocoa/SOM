@@ -12,6 +12,7 @@ import com.example.som.model.board.Board;
 import com.example.som.model.board.BoardCategory;
 import com.example.som.model.file.SavedFile;
 import com.example.som.repository.BoardMapper;
+import com.example.som.repository.FileMapper;
 import com.example.som.util.FileService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardService {
 	
 	private final BoardMapper boardMapper;
+	private final FileMapper fileMapper;
 	private final FileService fileService;
 	
 	@Value("${file.upload.path}")
@@ -40,7 +42,7 @@ public class BoardService {
 		if(file != null && file.getSize() > 0) {
 			SavedFile savedFile = fileService.saveFile(file);
 			savedFile.setSeq_id(board.getSeq_id());
-			boardMapper.saveBoardFile(savedFile);
+			fileMapper.saveBoardFile(savedFile);
 		}
 	}
 	
@@ -53,28 +55,29 @@ public class BoardService {
 		Board board = boardMapper.findBoardById(updateBoard.getSeq_id());
 		if(board != null) {
 			boardMapper.updateBoard(board);
-			SavedFile savedFile = boardMapper.findFileBySeqId(updateBoard.getSeq_id());
+			SavedFile savedFile = fileMapper.findFileBySeqId(updateBoard.getSeq_id());
 			if(savedFile != null && (isFileRemoved || (file != null && file.getSize() > 0))) {
 				removeSavedFile(savedFile.getFile_id());
 			}
 			if(file != null && file.getSize() > 0) {
 				SavedFile newFile = fileService.saveFile(file);
 				newFile.setSeq_id(updateBoard.getSeq_id());
-				boardMapper.saveBoardFile(newFile);
+				fileMapper.saveBoardFile(newFile);
 			}
 		}
 	}
 	
 	@Transactional
 	public void removeSavedFile(Long file_id) {
-		SavedFile savedFile = boardMapper.findFileByFileId(file_id);
+		SavedFile savedFile = fileMapper.findFileByFileId(file_id);
 		if(savedFile != null) {
 			String fullPath = uploadPath + "/" + savedFile.getSaved_filename();
             fileService.deleteFile(fullPath);
-            boardMapper.removeSavedFile(savedFile.getFile_id());
+            fileMapper.removeSavedFile(savedFile.getFile_id());
 		}
 	}
-
+	
+	@Transactional
 	public void removeBoard(Long seq_id) {
 		SavedFile savedFile = findFileBySeqId(seq_id);
 		if(savedFile != null) {
@@ -84,11 +87,11 @@ public class BoardService {
 	}
 
 	public SavedFile findFileByFileId(Long file_id) {
-		return boardMapper.findFileByFileId(file_id);
+		return fileMapper.findFileByFileId(file_id);
 	}
 
 	public SavedFile findFileBySeqId(Long seq_id) {
-		return boardMapper.findFileBySeqId(seq_id);
+		return fileMapper.findFileBySeqId(seq_id);
 	}
 	
 	public int getTotal(BoardCategory board_category) {

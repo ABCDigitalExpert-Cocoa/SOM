@@ -40,11 +40,10 @@
 								<div class="form-group">
 									<select class="form-control" th:field="${write.emotion}">
 										<option value="" selected>오늘의 기분</option>
-										<option value="happy">행복함</option>
+										<option value="happy">행복</option>
 										<option value="funny">즐거움</option>
 										<option value="bad">나쁨</option>
 										<option value="good">좋음</option>
-										<option value="smile">미소</option>
 										<option value="sad">슬픔</option>
 									</select>
                                 </div>
@@ -59,9 +58,9 @@
                             <div class="col-lg-6">
 								<div class="form-control">
 									<label for="open">공개</label>
-									<input type="radio" name="open_or_not" id="open" value="1">
-									<label for="not_open" style="margin-left: 30px;">비공개</label>
-									<input type="radio" name="open_or_not" id="not_open" value="0" checked>
+									<input type="radio" name="open_or_not" id="open" value="1" style="vertical-align: middle;">
+									<label for="not_open" class="ml-2">비공개</label>
+									<input type="radio" name="open_or_not" id="not_open" value="0" style="vertical-align: middle;" checked>
 								</div>
 							</div>
                         </div>

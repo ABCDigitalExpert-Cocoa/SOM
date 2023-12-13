@@ -1569,4 +1569,28 @@ footer
   }
 }
 
+/*-------------------------------
+table
+-------------------------------*/
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th,
+td {
+	padding: 10px;
+	border: 1px solid #ddd;
+}
+
+tr th {
+	background-color: #F8EFEA;
+	text-align: center;
+}
+
+.td-center {
+	text-align: center;
+	vertical-align: middle;
+}
+
 /*# sourceMappingURL=style.css.map */

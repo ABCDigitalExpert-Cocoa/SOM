@@ -13,5 +13,5 @@ public class Diary {
 	private LocalDateTime create_date;
 	private LocalDateTime update_date;
 	private String member_id;
-	private Long open_or_not;
+	private char open_or_not;
 }

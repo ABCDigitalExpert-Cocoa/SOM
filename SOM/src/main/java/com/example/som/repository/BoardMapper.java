@@ -22,14 +22,6 @@ public interface BoardMapper {
 
 	void removeBoard(Long seq_id);
 
-	SavedFile findFileByFileId(Long file_id);
-	
-	void saveBoardFile(SavedFile savedFile);
-
-	SavedFile findFileBySeqId(Long seq_id);
-
-	void removeSavedFile(Long file_id);
-	
 	int getTotal(BoardCategory board_category);
 
 }

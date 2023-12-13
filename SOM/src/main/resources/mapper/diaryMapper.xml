@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.som.repository.DiaryMapper">
+
+	<insert id="saveDiary">
+		<selectKey keyProperty="diary_id" resultType="long"
+			order="BEFORE">
+			select diary_id.nextval from dual
+		</selectKey>
+		insert into diary(
+		diary_id,
+		title,
+		content,
+		emotion,
+		member_id,
+		open_or_not
+		)values(
+		#{diary_id},
+		#{title},
+		#{content},
+		#{emotion},
+		#{member_id},
+		#{open_or_not}
+		)
+	</insert>
+	
+	<select id="findAllDiary" resultType="diary">
+		select * from diary where member_id = #{member_id} order by create_date desc
+	</select>
+
+</mapper>

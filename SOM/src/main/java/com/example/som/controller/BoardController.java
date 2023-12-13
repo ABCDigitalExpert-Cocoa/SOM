@@ -187,7 +187,6 @@ public class BoardController {
 						@RequestParam Long seq_id) {
 		// 삭제할 board를 찾는다.
 		Board board = boardService.findBoardById(seq_id);
-		BoardCategory board_category = board.getBoard_category();
 		
 		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 조회창으로 돌아간다.
 		if(board == null || !board.getMember_id().equals(userInfo.getUsername())) {
