@@ -33,6 +33,17 @@
                         <div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
+									 <select class="form-control" id="mbti" name="mbti" th:field="${write.mbti}">
+							             <option value="ISTJ">ISTJ</option>
+				                        <option value="ISTP">ISTP</option>
+				                        <option value="ISFJ">ISFJ</option>
+				                        <option value="ISFP">ISFP</option>
+				                        <option value="INTJ">INTJ</option>
+				                        <option value="INTP">INTP</option>
+				                        <option value="INFJ">INFJ</option>
+				                        <option value="INFP">INFP</option>
+							        </select>
+							       <p>
                                     <input class="form-control" type="text" th:field="${write.title}" placeholder="제목 :">
                                 </div>
 							</div>

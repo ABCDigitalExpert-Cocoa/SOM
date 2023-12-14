@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -25,10 +26,12 @@ import org.springframework.web.util.UriUtils;
 
 import com.example.som.config.PrincipalDetails;
 import com.example.som.model.file.SavedFile;
+import com.example.som.model.member.Member;
 import com.example.som.model.relief.Relief;
 import com.example.som.model.relief.ReliefCategory;
 import com.example.som.model.relief.ReliefUpdateForm;
 import com.example.som.model.relief.ReliefWriteForm;
+import com.example.som.model.test.Test;
 import com.example.som.service.ReliefService;
 import com.example.som.util.PageNavigator;
 
@@ -52,25 +55,39 @@ public class ReliefController {
 	
 	// 각 해소법 페이지 이동
 	@GetMapping("list")
-	public String list(@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam ReliefCategory relief_category ,
+	public String list(@AuthenticationPrincipal PrincipalDetails userInfo,
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam @Param("relief_category") ReliefCategory relief_category ,
 			@RequestParam(value="searchText", defaultValue="") String searchText,
-			Model model) {
+			Model model
+			) {
 		log.info("category: {}", relief_category);
 		log.info("searchText: {}", searchText);
+		
+		Test test = new Test();
+		log.info("test:{}", test);
+		String mbti = userInfo.getMember().getMbti();
+		Long stress_level = test.getStress_level();
+		
+//		log.info("stressLevel:{}", stressLevel);
+		log.info("mbti:{}", mbti);
+		log.info("stress_level:{}", stress_level);
 		
 		int total = reliefService.getTotal(relief_category, searchText);
 		
 		PageNavigator navi = new PageNavigator(coutPerPage, pagePerGroup, page, total);
 		
 		// DB에서 카테고리에 맞는 게시물들을 List형식으로 받아온다.
-		List<Relief> reliefs = reliefService.findReliefs(relief_category, searchText, navi.getStartRecord(), navi.getCountPerPage());
-		
+		//List<Relief> reliefs = reliefService.findReliefs(relief_category, searchText, navi.getStartRecord(), navi.getCountPerPage());
+		List<Relief> reliefs = reliefService.getReliefs(relief_category, searchText, mbti, stress_level, navi.getStartRecord(), navi.getCountPerPage());
 		// 찾아온 List를 model에 담아서 view로 넘겨준다.
 		model.addAttribute("relief_category", relief_category);
 		model.addAttribute("navi", navi);
 		model.addAttribute("reliefs", reliefs);
 		model.addAttribute("searchText", searchText);
+		model.addAttribute("mbti", mbti);
+		model.addAttribute("stress_level", stress_level);
+		
 		log.info("reliefs:{}", reliefs);
 		return "relief/list";
 	}
@@ -106,6 +123,7 @@ public class ReliefController {
 		log.info("relief: {}", reliefWriteForm);
 		// 파라미터로 받은 reliefWriteForm 객체를 Relief 타입으로 변환
 		Relief relief = ReliefWriteForm.toRelief(reliefWriteForm);
+		relief.setMbti(reliefWriteForm.getMbti());
 	
 		// relief 객체 DB저장
 		reliefService.saveRelief(relief, file);
@@ -124,12 +142,22 @@ public class ReliefController {
 		Relief relief = reliefService.findReliefById(seq_id);
 		// 첨부파일을 찾는다.
 		SavedFile savedFile = reliefService.findFileBySeqId(seq_id);
+		
+		
 		// 찾은 객체를 model에 저장
 		model.addAttribute("relief", relief);
 		model.addAttribute("file", savedFile);
 		
 		return "relief/read";
 	}
+	
+	// 실천하기
+	@PostMapping("read")
+	public String practice(@RequestParam Long seq_id,
+			@AuthenticationPrincipal PrincipalDetails userInfo) {
+		return null ; 
+	}
+	
 	
 	// 게시글 수정 페이지 이동
 	@GetMapping("update")

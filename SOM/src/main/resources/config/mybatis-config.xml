@@ -9,5 +9,6 @@
         <typeAlias type="com.example.som.model.reply.Reply" alias="reply"/>
         <typeAlias type="com.example.som.model.relief.Relief" alias="relief"/>
         <typeAlias type="com.example.som.model.file.SavedFile" alias="file"/>
+        <typeAlias type="com.example.som.model.test.Test" alias="test"/>
     </typeAliases>
 </configuration>

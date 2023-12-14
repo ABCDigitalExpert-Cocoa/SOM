@@ -7,7 +7,20 @@
     <title th:text="${param.relief_category} ? ${ T(com.example.som.model.relief.ReliefCategory).valueOf(param.relief_category).description} : '' "></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <div id="reliefCategory" th:data-relief-category="${relief_category}"></div>
+    <!-- 뷰 페이지에 MBTI 값을 전달받아서 저장하는 스크립트 -->
+	<script>
+	    var userMbti = "${mbti}"; // 모델에서 전달받은 MBTI 값
+	    // userMbti를 사용하여 원하는 작업 수행
+	</script>
+    <script th:inline="javascript">
+		 function search() {
+        let searchText = document.getElementById("searchText").value;
+        let reliefCategory = /*[[${param.relief_category}]]*/
+        location.href="/relief/list?relief_category=" + reliefCategory + '&searchText=' + searchText;
+      }
+    </script>
 </head>
 <head th:replace="~{head :: #head}"></head>
 
@@ -30,24 +43,40 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div text-align: "center">
+					<!--<div text-align: "center">
 						[내 주변 스트레스 해소 장소 찾아보기]<p>
 						<a href="https://map.naver.com">[네이버]</a>&nbsp;|
 						<a href="https://map.kakao.com">[카카오]</a>&nbsp;|
-						<a href="https://www.google.com/maps">[구글]</a>
-					</div>
-					
+						<a href="https://www.google.com/maps">[구글]</a><p>
+					</div>-->
+						<span th:inline="none">MBTI = </span>[(${mbti})] <p>
+						<span th:inline="none">StressLevel = </span>[(${stressLevel})]
+					<div class="text-right mb-3">
+						    <label for="searchText"></label>
+						    <input type="search" id="searchText" name="searchText" th:value="${searchText}">
+						    <input type="button" onclick="search()" class="btn btn-grey" style="padding: 5px 10px;" value="검색">
+						  </div>
+						  <p>
+							   <nav class="post-pagination">
+                        <div class="next-post">
+                            <a th:href="@{/relief/write(relief_category=${relief_category})}">
+                                <span class="text-uppercase font-sm ti-pencil-alt"> 작성하기</span>
+                            </tha>
+                        </div>
+                    </nav>
+                    <p>
 					<div class="mb-4 post-list border-bottom pb-4" th:each="relief : ${reliefs}">
 						<div class="row no-gutters">
 							<div class="col-md-12">
 								<div class="post-article mt-sm-3">
-									<h3 class="mt-2" style="font-family: Open Sans, sans-serif;"><a th:href="@{/relief/read(seq_id=${relief.seq_id})}" th:text="${relief.title}"></a></h3>
+									<h3 class="mt-2" style="font-family: Open Sans, sans-serif;"><a 
+									th:href="@{/relief/read(seq_id=${relief.seq_id})}" 
+									th:text="${relief.title}"></a></h3>
 									<div class="post-meta">
 										<ul class="list-inline">
-												
 											<li class="list-inline-item letter-spacing-1" style="float: right;"
-												th:text="${#temporals.format(relief.create_date, 'yyyy-MM-dd')}"></li>
-
+												th:text="${#temporals.format(relief.create_date, 'yyyy-MM-dd')}">
+												</li>
 										</ul>
 									</div>
 								</div>
@@ -55,13 +84,7 @@
 						</div>
 					</div>
 					
-					 <nav class="post-pagination">
-                        <div class="next-post">
-                            <a th:href="@{/relief/write(relief_category=${relief_category})}">
-                                <span class="text-uppercase font-sm ti-pencil-alt"> 작성하기</span>
-                            </tha>
-                        </div>
-                    </nav>
+					
 					
 				<div class="pagination mt-5 pt-4">
 						<ul class="list-inline">

@@ -4,13 +4,24 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.som.repository.ReliefMapper">
-	<select id="findReliefs" resultType="relief">
+<!-- 	<select id="findReliefs" resultType="relief">
 		select * from relief where
 		relief_category = #{arg0}
 		  <if test="_parameter != null">
             and title like '%' || #{arg1} || '%'
         </if>
-	</select>
+        order by create_date desc
+	</select> -->
+
+<select id="getReliefsByMbti" resultType="relief">
+    SELECT * FROM relief
+    WHERE relief_category = #{relief_category}
+      <if test="_parameter != null">
+            and title like '%' || #{searchText} || '%'
+        </if>
+      AND mbti = #{mbti}
+    ORDER BY create_date DESC
+</select>
 
 	<insert id="saveRelief">
 		<selectKey keyProperty="seq_id" resultType="long"
@@ -21,12 +32,14 @@
 		seq_id,
 		title,
 		content,
-		relief_category
+		relief_category,
+		mbti
 		)values(
 		#{seq_id},
 		#{title},
 		#{content},
-		#{relief_category}
+		#{relief_category},
+		#{mbti}
 		)
 	</insert>
 

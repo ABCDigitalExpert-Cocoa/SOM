@@ -52,7 +52,7 @@ public class BoardController {
 	
 	// 게시판 글 목록 출력
 	@GetMapping("list")
-	public String readNotice(@RequestParam(value = "page", defaultValue = "1") int page,
+	public String readList(@RequestParam(value = "page", defaultValue = "1") int page,
 							@RequestParam  BoardCategory board_category,
 							@RequestParam(value="searchText", defaultValue="") String searchText,
 							Model model) {
