@@ -7,7 +7,14 @@
     <title th:text="${param.board_category} ? ${T(com.example.som.model.board.BoardCategory).valueOf(param.board_category).description} : ''"></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+   <div id="boardCategory" th:data-board-category="${board_category}"></div>
+    <script th:inline="javascript">
+		 function search() {
+        let searchText = document.getElementById("searchText").value;
+        let boardCategory = /*[[${param.board_category}]]*/
+        location.href="/board/list?board_category=" + boardCategory + '&searchText=' + searchText;
+      }
+    </script>
 </head>
 
 <head th:replace="~{head :: #head}"></head>
@@ -31,6 +38,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					 <div class="text-right mb-3">
+						    <label for="searchText"></label>
+						    <input type="search" id="searchText" name="searchText" th:value="${searchText}">
+						    <input type="button" onclick="search()" class="btn btn-grey" style="padding: 5px 10px;" value="검색">
+						  </div>
+						  <p>
 
 					<div class="mb-4 post-list border-bottom pb-4" th:each="board : ${boards}">
 						<div class="row no-gutters">
@@ -62,18 +75,18 @@
 					<div class="pagination mt-5 pt-4">
 						<ul class="list-inline">
 							<li class="list-inline-item" th:if="${navi.currentPage - 1 > 0}">
-								<a th:href="@{/board/list(page=${navi.currentPage - 1}, board_category=${board_category})}" class="next-posts">
+								<a th:href="@{/board/list(page=${navi.currentPage - 1}, board_category=${board_category}, searchText=${searchText})}" class="next-posts">
 									<i class="ti-arrow-left"></i>
 								</a>
 							</li>
 							<li class="list-inline-item" th:if="${navi.endPageGroup ne 0}">
 								<th:block th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
-									<a th:href="@{/board/list(page=${counter}, board_category=${board_category})}"
+									<a th:href="@{/board/list(page=${counter}, board_category=${board_category}, searchText=${searchText})}"
 										th:text="${counter}"></a>&nbsp;
 								</th:block>
 							</li>
 							<li class="list-inline-item" th:if="${navi.currentPage < navi.totalPageCount}">
-								<a th:href="@{/board/list(page=${navi.currentPage + 1}, board_category=${board_category})}" class="prev-posts">
+								<a th:href="@{/board/list(page=${navi.currentPage + 1}, board_category=${board_category}, searchText=${searchText})}" class="prev-posts">
 									<i class="ti-arrow-right"></i>
 								</a>
 							</li>

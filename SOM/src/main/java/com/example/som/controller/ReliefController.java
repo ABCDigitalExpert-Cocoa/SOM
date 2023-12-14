@@ -169,7 +169,6 @@ public class ReliefController {
 		Relief relief = reliefService.findReliefById(seq_id);
 		ReliefCategory relief_category = relief.getRelief_category();
 		
-		
 		// 게시글을 삭제
 		reliefService.removeRelief(seq_id);
 		

@@ -26,10 +26,10 @@ public class BoardService {
 	private final ReplyMapper replyMapper;
 	private final SavedFileService savedFileService;
 	
-	public List<Board> findBoards(BoardCategory board_category, int startRecord, int countPerPage) {
+	public List<Board> findBoards(BoardCategory board_category, String searchText, int startRecord, int countPerPage) {
 		RowBounds rowBounds = new RowBounds(startRecord, countPerPage);
 		
-		return boardMapper.findBoards(board_category, rowBounds);
+		return boardMapper.findBoards(board_category, searchText, rowBounds);
 	}
 	
 	@Transactional
@@ -78,8 +78,8 @@ public class BoardService {
 		boardMapper.removeBoard(seq_id);
 	}
 
-	public int getTotal(BoardCategory board_category) {
-		return boardMapper.getTotal(board_category);
+	public int getTotal(BoardCategory board_category, String searchText) {
+		return boardMapper.getTotal(board_category, searchText);
 	}
 
 }
