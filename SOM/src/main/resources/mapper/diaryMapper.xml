@@ -46,5 +46,43 @@
 		order by
 			d.create_date desc
 	</select>
+	
+	<select id="findDiary" resultType="diary">
+		select
+			d.diary_id,
+			d.title,
+			d.content,
+			d.emotion,
+			d.create_date,
+			d.update_date,
+			d.member_id,
+			d.open_or_not,
+			f.saved_filename
+		from
+			diary d left outer join saved_file f
+			on (d.diary_id = f.diary_id) 
+		where
+			d.diary_id = #{diary_id} 
+	</select>
+	
+	<update id="updateDiary">
+		update diary
+		<set>
+			<if test="title != null">title = #{title},</if>
+			<if test="content != null">content = #{content},</if>
+			<if test="emotion != null">emotion = #{emotion},</if>
+			<if test="open_or_not != null">open_or_not = #{open_or_not},</if>
+			update_date = sysdate
+		</set>
+		where diary_id = #{diary_id}
+	</update>
+	
+	<delete id="removeDiary">
+		delete from diary where diary_id = #{diary_id}
+	</delete>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) from diary where member_id = #{member_id}
+	</select>
 
 </mapper>

@@ -22,6 +22,9 @@ public interface ReplyMapper {
 	
 	// 리플 삭제
 	void removeReply(Long reply_id);
+	
+	// 게시물 삭제
+	void removeAllReply(Long seq_id);
 }
 
 

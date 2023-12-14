@@ -30,6 +30,7 @@ import com.example.som.model.board.BoardUpdateForm;
 import com.example.som.model.board.BoardWriteForm;
 import com.example.som.model.file.SavedFile;
 import com.example.som.service.BoardService;
+import com.example.som.service.SavedFileService;
 import com.example.som.util.PageNavigator;
 
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardController {
 	
 	private final BoardService boardService;
+	private final SavedFileService savedFileService;
 	
 	// 페이징 상수 값
 	final int coutPerPage = 7;
@@ -118,8 +120,9 @@ public class BoardController {
 						Model model) {
 		// seq_id가 같은 board를 찾아서 반환해준다.
 		Board board = boardService.findBoardById(seq_id);
+		boardService.readBoard(seq_id);
 		// 첨부파일을 찾는다.
-		SavedFile savedFile = boardService.findFileBySeqId(seq_id);
+		SavedFile savedFile = savedFileService.findFileBySeqId(seq_id);
 		// 찾은 객체를 model에 저장
 		model.addAttribute("board", board);
 		model.addAttribute("file", savedFile);
@@ -144,7 +147,7 @@ public class BoardController {
 		model.addAttribute("update", Board.toBoardUpdateForm(board));
 		
 		// 첨부파일을 찾아서 model에 담아준다.
-		SavedFile savedFile = boardService.findFileBySeqId(seq_id);
+		SavedFile savedFile = savedFileService.findFileBySeqId(seq_id);
 		model.addAttribute("file", savedFile);
 		
 		return "board/update";
@@ -177,7 +180,7 @@ public class BoardController {
 		// 새롭게 수정된 객체로 DB를 update해준다.
 		boardService.updateBoard(board, boardUpdateForm.isFileRemoved(), file);
 	
-			return "redirect:/board/list?board_category=" + board.getBoard_category();
+		return "redirect:/board/list?board_category=" + board.getBoard_category();
 		
 	}
 	
@@ -203,7 +206,7 @@ public class BoardController {
 	@GetMapping("download/{id}")
     public ResponseEntity<Resource> download(@PathVariable Long id) throws MalformedURLException {
 		// 첨부파일 아이디로 첨부파일 정보를 가져온다.
-		SavedFile savedFile = boardService.findFileByFileId(id);
+		SavedFile savedFile = savedFileService.findFileByFileId(id);
 		// 다운로드 하려는 파일의 절대경로 값을 만든다.
 		String fullPath = uploadPath + "/" + savedFile.getSaved_filename();
         UrlResource resource = new UrlResource("file:" + fullPath);

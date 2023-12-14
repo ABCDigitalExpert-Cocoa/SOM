@@ -44,6 +44,10 @@
 		</set>
 		where seq_id = #{seq_id}
 	</update>
+	
+	<update id="addHit">
+		update board set hit = #{hit} where seq_id = #{seq_id}
+	</update>
 
 	<delete id="removeBoard">
 		delete from board where seq_id = #{seq_id}

@@ -58,6 +58,10 @@
     <delete id="removeReply">
         delete from reply where reply_id = #{reply_id}
     </delete>
+    
+    <delete id="removeAllReply">
+        delete from reply where seq_id = #{seq_id}
+    </delete>
 </mapper>
 
 

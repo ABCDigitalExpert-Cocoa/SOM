@@ -23,5 +23,7 @@ public interface BoardMapper {
 	void removeBoard(Long seq_id);
 
 	int getTotal(BoardCategory board_category);
+	
+	void addHit(Board board);
 
 }

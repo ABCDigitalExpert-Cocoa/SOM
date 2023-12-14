@@ -1,7 +1,5 @@
 package com.example.som.repository;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.som.model.file.SavedFile;
@@ -17,4 +15,6 @@ public interface FileMapper {
 	void removeSavedFile(Long file_id);
 	
 	void saveDiaryFile(SavedFile savedFile);
+
+	SavedFile findFileByDiaryId(Long diary_id);
 }

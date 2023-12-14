@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>Update Diary</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script>
+		function removeFile() {
+			document.getElementById("fileRemoved").value = "true";
+			document.getElementById("savedFile").style.display = "none";
+		}
+	</script>
+</head>
+<head th:replace="~{head :: #head}"></head>
+
+<body>
+	<header th:replace="~{header :: #menu}"></header>
+
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-center">
+                        <h2 class="lg-title" th:text="${#temporals.format(update.create_date, 'yyyy. MM. dd')}"></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="pt-5 padding-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<form class="comment-form mb-5 gray-bg p-5" id="write-form" action="update" method="post" enctype="multipart/form-data">
+                        <div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+                                    <input class="form-control" type="text" th:field="${update.title}" placeholder="제목 :">
+                                </div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<select class="form-control" th:field="${update.emotion}">
+										<option value="" th:selected="${update.emotion}">오늘의 기분</option>
+										<option value="happy" th:selected="${update.emotion}">행복</option>
+										<option value="funny" th:selected="${update.emotion}">즐거움</option>
+										<option value="bad" th:selected="${update.emotion}">나쁨</option>
+										<option value="good" th:selected="${update.emotion}">좋음</option>
+										<option value="sad" th:selected="${update.emotion}">슬픔</option>
+									</select>
+                                </div>
+							</div>
+                            <div class="col-lg-12">
+                                <textarea class="form-control mb-3" th:field="${update.content}" cols="30" rows="20"
+                                    placeholder="내용을 입력해주세요."></textarea>
+                            </div>
+                            <div class="col-lg-3">
+								<div class="form-control">
+									<th:block th:if="${file}">
+										<span th:text="${file.original_filename}" id="savedFile"></span>
+										<a href="javascript:removeFile();"><i class="ti-trash"></i></a>
+									</th:block>
+									<th:block th:unless="${file}">
+										<span>등록된 이미지가 없습니다.</span>
+									</th:block>
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<input class="form-control" type="file" name="file">
+							</div>
+                            <div class="col-lg-6">
+								<div class="form-control">
+									<label for="open">공개</label>
+									<input type="radio" name="open_or_not" id="open" value="1" style="vertical-align: middle;" th:checked="${update.open_or_not} == '1'">
+									<label for="not_open" class="ml-2">비공개</label>
+									<input type="radio" name="open_or_not" id="not_open" value="0" style="vertical-align: middle;" th:checked="${update.open_or_not} == '0'">
+								</div>
+							</div>
+                        </div>
+						
+						<input type="hidden" th:field="${update.fileRemoved}">
+						<input type="hidden" th:field="${update.diary_id}">
+                        <input class="btn btn-primary" type="submit" value="작성하기">
+                        <input class="btn btn-primary" type="button" th:onclick="|location.href='@{/mySpace/diary/list(member_id=${update.member_id})}'|" value="목록으로">
+                    </form>
+					
+                </div>
+            </div>
+        </div>
+    </section>
+    
+	<section th:replace="~{footer :: #footer}"></section>
+</body>
+
+</html>
