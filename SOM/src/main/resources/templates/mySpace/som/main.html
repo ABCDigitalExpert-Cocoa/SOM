@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>My Som</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+
+<head th:replace="~{head :: #head}"></head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+
+<body>
+	<header th:replace="~{header :: #menu}"></header>
+
+	<div class="breadcrumb-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="text-center">
+						<h2 class="lg-title">My SOM</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section class="single-block-wrapper section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					<div class="sidebar sidebar-right">
+						<div class="sidebar-wrap mt-5 mt-lg-0">
+							<div class="sidebar-widget about mb-5 text-center p-3">
+								<div class="about-author">
+									<img src="/images/som.png" alt="" class="img-fluid">
+								</div>
+								<h4 class="mb-0 mt-4">user name</h4>
+								<p>nick-name</p>
+								<p>I'm OOO, last year I decided to quit my job and travel the world. You can follow my
+									journey on this blog!</p>
+							</div>
+
+							<div class="sidebar-widget mb-5 ">
+								<h4 class="text-center widget-title">Recent Diary</h4>
+
+								<div class="media border-bottom py-3 sidebar-post-item" th:each="diary : ${diary}">
+									<div class="media-body">
+										<span class="text-muted letter-spacing text-uppercase font-sm" th:text="${#temporals.format(diary.create_date, 'yyyy-MM-dd')}"></span>
+										<h4><a th:href="@{/mySpace/diary/read(diary_id=${diary.diary_id})}" th:text="${diary.title}"></a></h4>
+									</div>
+								</div>
+							</div>
+
+							<div class="sidebar-widget sidebar-adv mb-5">
+								<a href="#"><img src="images/sidebar-banner3.png" alt="" class="img-fluid w-100"></a>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+					<div class="single-post">
+						<div class="post-header mb-5 text-center">
+							<h2 class="post-title mt-2">Check Stress</h2>
+							<canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+						</div>
+						<div class="post-body">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section th:replace="~{footer :: #footer}"></section>
+
+	<script th:inline="javascript">
+		let stress = /*[[${stress}]]*/'';
+		let date = /*[[${date}]]*/'';
+		console.log(stress);
+		console.log(date);
+
+		var context = document
+			.getElementById('myChart')
+			.getContext('2d');
+		var myChart = new Chart(context, {
+			type: 'line', // 차트의 형태
+			data: { // 차트에 들어갈 데이터
+				labels: date,
+				datasets: [
+					{ //데이터
+						label: 'stress', //차트 제목
+						fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+						data: stress,
+						backgroundColor: [
+							//색상
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(255, 99, 132, 0.2)',
+						],
+						borderColor: [
+							//경계선 색상
+							'rgba(255, 99, 132, 1)',
+							'rgba(255, 99, 132, 1)',
+							'rgba(255, 99, 132, 1)',
+							'rgba(255, 99, 132, 1)',
+							'rgba(255, 99, 132, 1)',
+						],
+						borderWidth: 1 //경계선 굵기
+					}
+				]
+			},
+			options: {
+				scales: {
+					yAxes: [
+						{
+							ticks: {
+								beginAtZero: true
+							}
+						}
+					]
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>

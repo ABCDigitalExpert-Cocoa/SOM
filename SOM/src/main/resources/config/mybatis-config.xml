@@ -10,5 +10,6 @@
         <typeAlias type="com.example.som.model.relief.Relief" alias="relief"/>
         <typeAlias type="com.example.som.model.file.SavedFile" alias="file"/>
         <typeAlias type="com.example.som.model.diary.Diary" alias="diary"/>
+        <typeAlias type="com.example.som.model.test.Test" alias="test"/>
     </typeAliases>
 </configuration>

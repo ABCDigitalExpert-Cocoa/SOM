@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.som.repository.SomMapper">
+	<select id="getRecentStress" resultType="Long">
+		SELECT test_result from
+		(SELECT * FROM test WHERE member_id = #{member_id} ORDER BY test_date DESC)
+		WHERE rownum <![CDATA[<]]> 6
+	</select>
+	
+	<select id="getRecentTestDate" resultType="String">
+		SELECT to_char(test_date, 'YY.MM.DD') from
+		(SELECT * FROM test WHERE member_id = #{member_id} ORDER BY test_date DESC)
+		WHERE rownum <![CDATA[<]]> 6
+	</select>
+	
+	<select id="getRecentDiary" resultType="diary">
+		SELECT * from
+		(SELECT * FROM DIARY WHERE member_id = #{member_id} ORDER BY CREATE_DATE DESC)
+		WHERE rownum <![CDATA[<]]> 4
+	</select>
+</mapper>

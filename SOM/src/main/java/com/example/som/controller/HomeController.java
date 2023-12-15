@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class HomeController {
 	
 	@GetMapping("/")
-    public String home(@AuthenticationPrincipal PrincipalDetails userInfo, Model model) {
+    public String home(@AuthenticationPrincipal PrincipalDetails userInfo) {
         log.info("userInfo:{}", userInfo);
     	
     	return "index";
