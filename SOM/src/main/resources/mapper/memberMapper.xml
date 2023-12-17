@@ -31,6 +31,10 @@
         select * from member where member_id = #{member_id}
     </select>
     
+     <select id="getRanking" resultType="member">
+        SELECT * FROM member ORDER BY point DESC
+    </select>
+    
    	<update id="updateMember">
 	update member
 	<set>
@@ -42,5 +46,10 @@
 	</set>
 	where member_id = #{member_id}
 </update>
+
+
+    <update id="addPoint">
+        UPDATE MEMBER SET POINT = #{point} WHERE MEMBER_ID = #{member_id}
+    </update>
     
 </mapper>

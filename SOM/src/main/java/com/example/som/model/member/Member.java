@@ -19,6 +19,7 @@ public class Member {
 	    private String phone;
 	    private String gender;
 	    private AdminType admin;
+	    private int point;
 	    
 	    @Builder
 	    public Member(String member_id, String password, String member_name, String nickname, LocalDate birth,
@@ -44,5 +45,9 @@ public class Member {
 	       memberForm.setMbti(member.getMbti());
 	       memberForm.setPhone(member.getPhone());
 	       return memberForm;
+	    }
+	    
+	    public void addPoint() {
+	    	this.point += 10;
 	    }
 }

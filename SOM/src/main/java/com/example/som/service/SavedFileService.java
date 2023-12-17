@@ -56,4 +56,10 @@ public class SavedFileService {
 		savedFile.setDiary_id(diary_id);
 		fileMapper.saveDiaryFile(savedFile);
 	}
+	
+	public void saveReliefFile(MultipartFile file, Long seq_id) {
+		SavedFile savedFile = fileService.saveFile(file);
+		savedFile.setSeq_id(seq_id);
+		fileMapper.saveReliefFile(savedFile);
+	}
 }

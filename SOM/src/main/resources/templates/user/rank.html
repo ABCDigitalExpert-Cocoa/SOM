@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Point Ranking</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head th:replace="~{head :: #head}"></head>
+</head>
+
+<body>
+    <header th:replace="~{header :: #menu}"></header>
+
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-center">
+                        <h2 class="lg-title">Point Ranking</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="pt-5 padding-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <table class="table">
+                        
+                            <tr>
+                                <th>순위</th>
+                                <th>유저 이름</th>
+                                <th>포인트</th>
+                            </tr>
+                        
+                        
+                            <!-- 포인트 랭킹 데이터를 반복하여 출력 -->
+                            <tr th:each="member, memberStat : ${ranking}">
+                                <td th:text="${memberStat.count}" class="center"></td>
+                                <td th:text="${member.member_id}" class="center"></td>
+                                <td th:text="${member.point}" class="center"></td>
+                            </tr>
+                       
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section th:replace="~{footer :: #footer}"></section>
+</body>
+
+</html>
