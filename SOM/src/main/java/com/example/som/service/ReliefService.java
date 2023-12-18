@@ -14,8 +14,10 @@ import com.example.som.model.file.SavedFile;
 import com.example.som.model.member.Member;
 import com.example.som.model.relief.Relief;
 import com.example.som.model.relief.ReliefCategory;
+import com.example.som.model.test.Test;
 import com.example.som.repository.MemberMapper;
 import com.example.som.repository.ReliefMapper;
+import com.example.som.repository.TestMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +31,7 @@ public class ReliefService {
 	private final ReliefMapper reliefMapper;
 	private final SavedFileService savedFileService;
 	private final MemberMapper memberMapper;
+	private final TestMapper testMapper;
 	
 	
 	
@@ -89,6 +92,10 @@ public class ReliefService {
 
 	public int getTotal(ReliefCategory relief_category, String searchText) {
 		return reliefMapper.getTotal(relief_category, searchText);
+	}
+	
+	public Test findStressLevelbyId(String member_id) {
+		return testMapper.getResentStressLevel(member_id);
 	}
 
 

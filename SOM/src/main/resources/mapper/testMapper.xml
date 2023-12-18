@@ -21,4 +21,11 @@
         )
     </insert>
     
+    <select id="getResentStressLevel" resultType="test">
+    SELECT * from
+	(SELECT * FROM test WHERE member_id = #{member_id} ORDER BY test_date DESC)
+	WHERE rownum = 1
+    </select>
+    
+    
 </mapper>

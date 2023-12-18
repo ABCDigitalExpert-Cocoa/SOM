@@ -66,13 +66,12 @@ public class ReliefController {
 		log.info("category: {}", relief_category);
 		log.info("searchText: {}", searchText);
 		
-		Test test = new Test();
-		log.info("test:{}", test);
-		String mbti = userInfo.getMember().getMbti();
-		Long stress_level = test.getStress_level();
 		
-//		log.info("stressLevel:{}", stressLevel);
+		String mbti = userInfo.getMember().getMbti();
+		Test test = reliefService.findStressLevelbyId(userInfo.getMember().getMember_id()) ;
+		Long stress_level = test.getStress_level();
 		log.info("mbti:{}", mbti);
+		log.info("test:{}", test);
 		log.info("stress_level:{}", stress_level);
 		
 		int total = reliefService.getTotal(relief_category, searchText);
@@ -126,12 +125,13 @@ public class ReliefController {
 		// 파라미터로 받은 reliefWriteForm 객체를 Relief 타입으로 변환
 		Relief relief = ReliefWriteForm.toRelief(reliefWriteForm);
 		relief.setMbti(reliefWriteForm.getMbti());
+		relief.setStress_level(reliefWriteForm.getStress_level());
 	
 		// relief 객체 DB저장
 		reliefService.saveRelief(relief, file);
 		log.info("relief: {}", relief);
 		
-			return "redirect:/relief/list";
+			return "redirect:/relief/list?relief_category=" + relief.getRelief_category();
 
 	}
 
@@ -166,12 +166,12 @@ public class ReliefController {
 		  log.info("member:{}", member);
 		  Relief relief = reliefService.findReliefById(seq_id);
 		  log.info("relief: {}", relief);
-		  
-		    // ReliefService를 통해 실천 처리
-		    reliefService.practiceRelief(seq_id, member);
+		 
+		    	// ReliefService를 통해 실천 처리
+		        reliefService.practiceRelief(seq_id, member);
 
-		    // 실천하기 버튼을 클릭하면 포인트가 지급되고, 리스트로 돌아간다.
-		    return "relief/read";
+		        // 실천하기 버튼을 클릭하면 포인트가 지급되고, 리스트로 돌아간다.
+		        return "redirect:/relief/list?relief_category=" + relief.getRelief_category();
 	}
 	
 	

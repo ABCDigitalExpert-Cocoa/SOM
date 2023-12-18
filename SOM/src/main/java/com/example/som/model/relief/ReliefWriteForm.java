@@ -11,7 +11,7 @@ public class ReliefWriteForm {
 	@NotBlank
 	private String content;
 	private String mbti;
-	private String stress_level;
+	private Long stress_level;
 	private ReliefCategory relief_category;
 	
 	public static Relief toRelief(ReliefWriteForm reliefWriteForm) {

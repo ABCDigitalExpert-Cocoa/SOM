@@ -3,75 +3,88 @@
 <html lang="ko">
 
 <head>
-    <meta charset="utf-8">
-    <title>글 작성하기</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8">
+	<title>글 작성하기</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
+
 <head th:replace="~{head :: #head}"></head>
 
 <body>
 	<header th:replace="~{header :: #menu}"></header>
 
-    <div class="breadcrumb-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="text-center">
-                        <h2 class="lg-title" th:text="${T(com.example.som.model.relief.ReliefCategory).valueOf(param.relief_category).description}"></h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="breadcrumb-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="text-center">
+						<h2 class="lg-title"
+							th:text="${T(com.example.som.model.relief.ReliefCategory).valueOf(param.relief_category).description}">
+						</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <section class="pt-5 padding-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<form class="comment-form mb-5 gray-bg p-5" id="write-form" action="write" method="post" enctype="multipart/form-data">
-                        <div class="row">
+	<section class="pt-5 padding-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<form class="comment-form mb-5 gray-bg p-5" id="write-form" action="write" method="post"
+						enctype="multipart/form-data">
+						<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
-									 <select class="form-control" id="mbti" name="mbti" th:field="${write.mbti}">
-							             <option value="ISTJ">ISTJ</option>
-				                        <option value="ISTP">ISTP</option>
-				                        <option value="ISFJ">ISFJ</option>
-				                        <option value="ISFP">ISFP</option>
-				                        
-							        </select>
-							       <p>
-									 <select class="form-control" id="stress_level" name="stress_level" th:field="${write.stress_level}">
-							             <option value="1">1</option>
-				                        <option value="2">2</option>
-				                        <option value="3">3</option>
-				                        <option value="4">4</option>
-				                        
-							        </select>
-							        <p>
-                                    <input class="form-control" type="text" th:field="${write.title}" placeholder="제목 :">
-                                </div>
+									<th:block th:if="${#strings.equals(param.relief_category, 'MBTI')}">
+										<select class="form-control" id="mbti" name="mbti" th:field="${write.mbti}">
+											<option value="default" selected>MBTI 선택</option>
+											<option value="ISTJ">ISTJ</option>
+											<option value="ISTP">ISTP</option>
+											<option value="ISFJ">ISFJ</option>
+											<option value="ISFP">ISFP</option>
+										</select>
+									</th:block>
+									<p>
+										<th:block th:unless="${#strings.equals(param.relief_category, 'MBTI')}">
+											<select class="form-control" id="stress_level" name="stress_level"
+												th:field="${write.stress_level}">
+												<option value="default" selected>스트레스 지수 선택</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+
+											</select>
+										</th:block>
+									<p>
+										<input class="form-control" type="text" th:field="${write.title}"
+											placeholder="제목 :">
+								</div>
 							</div>
-                            <div class="col-lg-12">
-                                <textarea class="form-control mb-3" th:field="${write.content}" cols="30" rows="5"
-                                    placeholder="내용을 입력해주세요."></textarea>
-                            </div>
-                            <div class="col-lg-12">
+							<div class="col-lg-12">
+								<textarea class="form-control mb-3" th:field="${write.content}" cols="30" rows="5"
+									placeholder="내용을 입력해주세요."></textarea>
+							</div>
+							<div class="col-lg-12">
 								<input class="form-control" type="file" name="file">
 							</div>
-                        </div>
-						
+						</div>
+
 						<br>
 						<input type="hidden" th:field="${write.relief_category}">
-                        <input class="btn btn-primary" type="submit" value="작성하기">
-                        <input class="btn btn-primary" type="button" th:onclick="|location.href='@{/relief/list(relief_category=${param.relief_category})}'|" value="목록으로">
-                    </form>
-					
-                </div>
-            </div>
-        </div>
-    </section>
-    
+						<input class="btn btn-primary" type="submit" value="작성하기">
+						<input class="btn btn-primary" type="button"
+							th:onclick="|location.href='@{/relief/list(relief_category=${param.relief_category})}'|"
+							value="목록으로">
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<section th:replace="~{footer :: #footer}"></section>
 </body>
 

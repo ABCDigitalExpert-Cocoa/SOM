@@ -13,7 +13,7 @@ import com.example.som.model.relief.ReliefCategory;
 @Mapper
 public interface ReliefMapper {
 
-	List<Relief> findReliefs(@Param("relief_category")ReliefCategory relief_category, @Param("searchText")String searchText, @Param("mbti")String mbti, Long stress_level, RowBounds rowBounds);
+	List<Relief> findReliefs(@Param("relief_category")ReliefCategory relief_category, @Param("searchText")String searchText, @Param("mbti")String mbti, @Param("stress_level")Long stress_level, RowBounds rowBounds);
 
 	void saveRelief(Relief relief);
 	
@@ -30,5 +30,6 @@ public interface ReliefMapper {
 	SavedFile findFileBySeqId(Long seq_id);
 
 	int getTotal(@Param("relief_category")ReliefCategory relief_category, @Param("searchText")String searchText);
+
 
 }
