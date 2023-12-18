@@ -11,7 +11,7 @@ import com.example.som.model.diary.Diary;
 public interface DiaryMapper {
 	void saveDiary(Diary diary);
 	
-	List<Diary> findAllDiary(String member_id, RowBounds rowBounds);
+	List<Diary> findMyDiary(String member_id, RowBounds rowBounds);
 	
 	Diary findDiary(Long diary_id);
 
@@ -20,4 +20,6 @@ public interface DiaryMapper {
 	void removeDiary(Long diary_id);
 
 	int getTotal(String member_id);
+
+	List<Diary> findAllOpenDiary();
 }

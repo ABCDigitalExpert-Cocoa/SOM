@@ -47,7 +47,7 @@ public class MyDiaryController {
 		
 		PageNavigator navi = new PageNavigator(coutPerPage, pagePerGroup, page, total);
 		
-		List<Diary> diarys = diaryService.findAllDiary(userInfo.getUsername(), navi.getStartRecord(), navi.getCountPerPage());
+		List<Diary> diarys = diaryService.findMyDiary(userInfo.getUsername(), navi.getStartRecord(), navi.getCountPerPage());
 		model.addAttribute("diarys", diarys);
 		model.addAttribute("navi", navi);
 		

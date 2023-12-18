@@ -30,10 +30,10 @@ public class DiaryService {
 		}
 	}
 	
-	public List<Diary> findAllDiary(String member_id, int startRecord, int countPerPage){
+	public List<Diary> findMyDiary(String member_id, int startRecord, int countPerPage){
 		RowBounds rowBounds = new RowBounds(startRecord, countPerPage);
 		
-		return diaryMapper.findAllDiary(member_id, rowBounds);
+		return diaryMapper.findMyDiary(member_id, rowBounds);
 	}
 	
 	public Diary findDiary(Long diary_id) {
@@ -58,7 +58,8 @@ public class DiaryService {
 	public int getTotal(String member_id) {
 		return diaryMapper.getTotal(member_id);
 	}
-
+	
+	@Transactional
 	public void removeDiary(Long diary_id) {
 		SavedFile savedFile = savedFileService.findFileByDiaryId(diary_id);
 		if(savedFile != null) {
@@ -67,6 +68,9 @@ public class DiaryService {
 		diaryMapper.removeDiary(diary_id);
 	}
 	
+	public List<Diary> findAllOpenDiary(){
+		return diaryMapper.findAllOpenDiary();
+	}
 	
 	
 }
