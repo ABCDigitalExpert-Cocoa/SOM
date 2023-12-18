@@ -33,4 +33,5 @@ public class MemberUpdateForm {
     @Size(min=10, max=11)
     private String phone;
     private String gender;
+    private int point;
 }

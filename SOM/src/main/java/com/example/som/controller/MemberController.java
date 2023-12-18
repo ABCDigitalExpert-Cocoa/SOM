@@ -1,5 +1,7 @@
 package com.example.som.controller;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -148,10 +150,10 @@ public class MemberController {
 	
 	@GetMapping("update")
 	public String updateForm(Model model, 
-							@AuthenticationPrincipal PrincipalDetails principalDetails) {
+							@AuthenticationPrincipal PrincipalDetails userInfo) {
 	    
 	    // 아이디를 기반으로 DB에서 회원 정보를 조회.
-	    Member dbMember = memberService.findMember(principalDetails.getUsername());
+	    Member dbMember = memberService.findMember(userInfo.getUsername());
 
 	    if (dbMember == null) {
 	        // DB에서 회원 정보를 찾지 못하면 리다이렉트.
@@ -198,7 +200,19 @@ public class MemberController {
 	    // 메인 페이지로 리다이렉트한다.
 	    return "redirect:/";
 	}
-
+	
+	// 포인트 랭킹 조회
+	@GetMapping("rank")
+	public String rank(@AuthenticationPrincipal PrincipalDetails userInfo, Model model) {
+		
+		log.info("userInfo:{}", userInfo);
+		List<Member> ranking = memberService.getRanking();
+		log.info("ranking:{}", ranking);
+        model.addAttribute("ranking", ranking);
+		
+		
+		return "user/rank";
+	}
 
 	
 }

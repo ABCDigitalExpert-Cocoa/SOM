@@ -4,10 +4,26 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.som.repository.ReliefMapper">
-	<select id="findReliefs" resultType="relief">
+<!-- 	<select id="findReliefs" resultType="relief">
 		select * from relief where
-		relief_category = #{relief_category}
-	</select>
+		relief_category = #{arg0}
+		  <if test="_parameter != null">
+            and title like '%' || #{arg1} || '%'
+        </if>
+        order by create_date desc
+	</select> -->
+
+<select id="findReliefs" resultType="relief">
+    SELECT * FROM relief
+    WHERE 
+    	relief_category = #{relief_category} and
+    	(mbti = #{mbti} or
+    	stress_level = #{stress_level})
+      <if test="_parameter != null">
+            and title like '%' || #{searchText} || '%'
+        </if>
+    ORDER BY create_date DESC
+</select>
 
 	<insert id="saveRelief">
 		<selectKey keyProperty="seq_id" resultType="long"
@@ -18,12 +34,16 @@
 		seq_id,
 		title,
 		content,
-		relief_category
+		<if test="relief_category != null">relief_category,</if>
+		<if test="mbti != null">mbti</if>
+		<if test="stress_level != null">stress_level</if>
 		)values(
 		#{seq_id},
 		#{title},
 		#{content},
-		#{relief_category}
+		<if test="relief_category != null">#{relief_category},</if>
+		<if test="mbti != null">#{mbti}</if>
+		<if test="stress_level != null">#{stress_level}</if>
 		)
 	</insert>
 
@@ -41,6 +61,7 @@
 		</set>
 		where seq_id = #{seq_id}
 	</update>
+
 
 	<delete id="removeRelief">
 		delete from relief where seq_id = #{seq_id}
@@ -74,8 +95,16 @@
 		select * from saved_file where file_id = #{file_id}
 	</select>
 
-	<delete id="removeFile">
+	<delete id="removeSavedFile">
 		delete from saved_file where file_id = #{file_id}
 	</delete>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) from relief 
+		where relief_category = #{relief_category} 
+		<if test="_parameter != null">
+            and title like '%' || #{searchText} || '%'
+        </if>
+	</select>
 
 </mapper>

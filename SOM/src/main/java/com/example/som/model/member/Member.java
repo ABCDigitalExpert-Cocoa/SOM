@@ -46,4 +46,8 @@ public class Member {
 	       memberForm.setPhone(member.getPhone());
 	       return memberForm;
 	    }
+	    
+	    public void addPoint() {
+	    	this.point += 10;
+	    }
 }
