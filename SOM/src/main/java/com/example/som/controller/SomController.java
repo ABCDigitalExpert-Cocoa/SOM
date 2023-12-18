@@ -1,5 +1,6 @@
 package com.example.som.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -45,7 +46,9 @@ public class SomController {
 		}
 		
 		List<Long> stress = somMapper.getRecentStress(userInfo.getUsername());
+		Collections.reverse(stress);
 		List<String> testDate = somMapper.getRecentTestDate(userInfo.getUsername());
+		Collections.reverse(testDate);
 		List<Diary> diary = somMapper.getRecentDiary(userInfo.getUsername());
 		
 		log.info("point: {}", userInfo.getMember().getPoint());
