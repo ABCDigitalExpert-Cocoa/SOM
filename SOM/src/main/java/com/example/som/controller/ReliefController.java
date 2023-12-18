@@ -59,7 +59,7 @@ public class ReliefController {
 	@GetMapping("list")
 	public String list(@AuthenticationPrincipal PrincipalDetails userInfo,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam @Param("relief_category") ReliefCategory relief_category ,
+			@RequestParam("relief_category") ReliefCategory relief_category ,
 			@RequestParam(value="searchText", defaultValue="") String searchText,
 			Model model
 			) {

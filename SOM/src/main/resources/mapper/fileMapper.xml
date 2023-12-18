@@ -52,13 +52,13 @@
 		</selectKey>
 		insert into saved_file (
 		file_id,
-		diary_id,
+		seq_id,
 		original_filename,
 		saved_filename,
 		file_size
 		) values (
 		#{file_id},
-		#{diary_id},
+		#{seq_id},
 		#{original_filename},
 		#{saved_filename},
 		#{file_size}
