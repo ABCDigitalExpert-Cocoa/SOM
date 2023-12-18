@@ -39,10 +39,10 @@
 								<div class="about-author">
 									<img src="/images/som.png" alt="" class="img-fluid">
 								</div>
-								<h4 class="mb-0 mt-4">user name</h4>
-								<p>nick-name</p>
-								<p>I'm OOO, last year I decided to quit my job and travel the world. You can follow my
-									journey on this blog!</p>
+								<h4 class="mb-0 mt-4" th:text="${#authentication.principal.member.member_id}"></h4>
+								<p th:text="${#authentication.principal.member.nickname}"></p>
+								<p>MBTI : [[${#authentication.principal.member.mbti}]]<br>
+								Point : [[${#authentication.principal.member.point}]]</p>
 							</div>
 
 							<div class="sidebar-widget mb-5 ">
@@ -50,28 +50,33 @@
 
 								<div class="media border-bottom py-3 sidebar-post-item" th:each="diary : ${diary}">
 									<div class="media-body">
-										<span class="text-muted letter-spacing text-uppercase font-sm" th:text="${#temporals.format(diary.create_date, 'yyyy-MM-dd')}"></span>
-										<h4><a th:href="@{/mySpace/diary/read(diary_id=${diary.diary_id})}" th:text="${diary.title}"></a></h4>
+										<span class="text-muted letter-spacing text-uppercase font-sm"
+											th:text="${#temporals.format(diary.create_date, 'yyyy-MM-dd')}"></span>
+										<h4><a th:href="@{/mySpace/diary/read(diary_id=${diary.diary_id})}"
+												th:text="${diary.title}"></a></h4>
 									</div>
 								</div>
 							</div>
-
-							<div class="sidebar-widget sidebar-adv mb-5">
-								<a href="#"><img src="images/sidebar-banner3.png" alt="" class="img-fluid w-100"></a>
-							</div>
-
 						</div>
 					</div>
 				</div>
 
 				<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
 					<div class="single-post">
-						<div class="post-header mb-5 text-center">
-							<h2 class="post-title mt-2">Check Stress</h2>
-							<canvas id="myChart" style="width:100%;max-width:700px"></canvas>
-						</div>
 						<div class="post-body">
-
+							<h2 class="post-title mt-2 text-center">Som's Room</h2>
+							<div class="post-featured-image mt-5" th:switch="${pointLevel}">
+								<img th:case="0" src="/images/mySom/room.png" class="img-fluid w-100" alt="featured-image">
+								<img th:case="1" src="/images/mySom/roomLv1.png" class="img-fluid w-100" alt="featured-image">
+								<img th:case="2" src="/images/mySom/roomLv2.png" class="img-fluid w-100" alt="featured-image">
+								<img th:case="3" src="/images/mySom/roomLv3.png" class="img-fluid w-100" alt="featured-image">
+								<img th:case="4" src="/images/mySom/roomLv4.png" class="img-fluid w-100" alt="featured-image">
+								<img th:case="5" src="/images/mySom/roomLv5.png" class="img-fluid w-100" alt="featured-image">
+							</div>
+						</div>
+						<div class="post-body mt-5">
+							<h2 class="post-title mt-2 text-center">Check Stress</h2>
+							<canvas id="myChart" style="width:100%;max-width:700px"></canvas>
 						</div>
 					</div>
 				</div>

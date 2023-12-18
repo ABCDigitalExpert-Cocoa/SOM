@@ -19,6 +19,7 @@ public class Member {
 	    private String phone;
 	    private String gender;
 	    private AdminType admin;
+	    private int point;
 	    
 	    @Builder
 	    public Member(String member_id, String password, String member_name, String nickname, LocalDate birth,
