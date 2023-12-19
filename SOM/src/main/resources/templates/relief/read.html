@@ -33,7 +33,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<form th:action="@{/relief/read(seq_id=${relief.seq_id})}" method="post" class="comment-form mb-5 gray-bg p-5">
+					<form class="comment-form mb-5 gray-bg p-5">
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
@@ -52,10 +52,11 @@
 						</div>
 
 							<input type="hidden" th:field="${relief.relief_category}">
+							<input type="hidden" th:field="${relief.relief_id}">
 							<input class="btn btn-primary" type="button"
-								th:onclick="|location.href='@{/relief/update(seq_id=${relief.seq_id})}'|" value="수정하기">
+								th:onclick="|location.href='@{/relief/update(relief_id=${relief.relief_id})}'|" value="수정하기">
 							<input class="btn btn-primary" type="button"
-								th:onclick="|location.href='@{/relief/delete(seq_id=${relief.seq_id})}'|" value="삭제하기">
+								th:onclick="|location.href='@{/relief/delete(relief_id=${relief.relief_id})}'|" value="삭제하기">
 							<input class="btn btn-primary" type="button"
 								th:onclick="|location.href='@{/relief/list(relief_category=${relief.relief_category})}'|"
 								value="목록으로">

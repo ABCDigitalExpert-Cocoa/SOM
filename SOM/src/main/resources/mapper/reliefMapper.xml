@@ -4,41 +4,33 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.som.repository.ReliefMapper">
-<!-- 	<select id="findReliefs" resultType="relief">
-		select * from relief where
-		relief_category = #{arg0}
-		  <if test="_parameter != null">
-            and title like '%' || #{arg1} || '%'
-        </if>
-        order by create_date desc
-	</select> -->
 
-<select id="findReliefs" resultType="relief">
-    SELECT * FROM relief
-    WHERE 
-    	relief_category = #{relief_category} and
-    	(mbti = #{mbti} or
-    	stress_level = #{stress_level})
-      <if test="_parameter != null">
-            and title like '%' || #{searchText} || '%'
-        </if>
-    ORDER BY create_date DESC
-</select>
+	<select id="findReliefs" resultType="relief">
+		SELECT * FROM relief
+		WHERE
+		relief_category = #{relief_category} and
+		(mbti = #{mbti} or
+		stress_level = #{stress_level})
+		<if test="_parameter != null">
+			and title like '%' || #{searchText} || '%'
+		</if>
+		ORDER BY create_date DESC
+	</select>
 
 	<insert id="saveRelief">
-		<selectKey keyProperty="seq_id" resultType="long"
+		<selectKey keyProperty="relief_id" resultType="long"
 			order="BEFORE">
-			select seq_id.nextval from dual
+			select relief_id.nextval from dual
 		</selectKey>
 		insert into relief(
-		seq_id,
+		relief_id,
 		title,
 		content,
 		<if test="relief_category != null">relief_category,</if>
 		<if test="mbti != null">mbti</if>
 		<if test="stress_level != null">stress_level</if>
 		)values(
-		#{seq_id},
+		#{relief_id},
 		#{title},
 		#{content},
 		<if test="relief_category != null">#{relief_category},</if>
@@ -48,8 +40,9 @@
 	</insert>
 
 	<select id="findReliefById" resultType="relief">
-		select * from relief where
-		seq_id = #{seq_id}
+		select * from relief
+		where
+		relief_id = #{relief_id}
 	</select>
 
 	<update id="updateRelief">
@@ -59,52 +52,19 @@
 			<if test="content != null">content = #{content},</if>
 			update_date = sysdate
 		</set>
-		where seq_id = #{seq_id}
+		where relief_id = #{relief_id}
 	</update>
 
-
 	<delete id="removeRelief">
-		delete from relief where seq_id = #{seq_id}
+		delete from relief where relief_id = #{relief_id}
 	</delete>
 
-	<insert id="saveReliefFile">
-		<selectKey keyProperty="file_id" resultType="long"
-			order="BEFORE">
-			select file_id.nextval from dual
-		</selectKey>
-		insert into saved_file (
-		file_id,
-		seq_id,
-		original_filename,
-		saved_filename,
-		file_size
-		) values (
-		#{file_id},
-		#{seq_id},
-		#{original_filename},
-		#{saved_filename},
-		#{file_size}
-		)
-	</insert>
-
-	<select id="findFileBySeqId" resultType="file">
-		select * from saved_file where seq_id = #{seq_id}
-	</select>
-
-	<select id="findFileByFileId" resultType="file">
-		select * from saved_file where file_id = #{file_id}
-	</select>
-
-	<delete id="removeSavedFile">
-		delete from saved_file where file_id = #{file_id}
-	</delete>
-	
 	<select id="getTotal" resultType="int">
-		select count(*) from relief 
-		where relief_category = #{relief_category} 
+		select count(*) from relief
+		where relief_category = #{relief_category}
 		<if test="_parameter != null">
-            and title like '%' || #{searchText} || '%'
-        </if>
+			and title like '%' || #{searchText} || '%'
+		</if>
 	</select>
 
 </mapper>

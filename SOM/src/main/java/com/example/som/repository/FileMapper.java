@@ -10,7 +10,7 @@ public interface FileMapper {
 	
 	void saveBoardFile(SavedFile savedFile);
 
-	SavedFile findFileBySeqId(Long seq_id);
+	SavedFile findBoardFile(Long board_id);
 
 	void removeSavedFile(Long file_id);
 	
@@ -18,5 +18,7 @@ public interface FileMapper {
 	
 	void saveReliefFile(SavedFile savedFile);
 
-	SavedFile findFileByDiaryId(Long diary_id);
+	SavedFile findDiaryFile(Long diary_id);
+
+	SavedFile findReliefFile(Long relief_id);
 }

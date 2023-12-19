@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class Board {
-	private Long seq_id;
+	private Long board_id;
 	private String title;
 	private String content;
 	private String member_id;
@@ -17,7 +17,7 @@ public class Board {
 	
 	public static BoardUpdateForm toBoardUpdateForm(Board board) {
 		BoardUpdateForm boardUpdateForm = new BoardUpdateForm();
-		boardUpdateForm.setSeq_id(board.getSeq_id());
+		boardUpdateForm.setBoard_id(board.getBoard_id());
 		boardUpdateForm.setTitle(board.getTitle());
 		boardUpdateForm.setContent(board.getContent());
 		boardUpdateForm.setMember_id(board.getMember_id());

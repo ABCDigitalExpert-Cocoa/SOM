@@ -101,7 +101,7 @@ public class MyDiaryController {
 		
 		model.addAttribute("update", Diary.toDiaryUpdateForm(diary));
 		
-		SavedFile savedFile = savedFileService.findFileByDiaryId(diary_id);
+		SavedFile savedFile = savedFileService.findDiaryFile(diary_id);
 		model.addAttribute("file", savedFile);
 		
 		return "mySpace/diary/update";

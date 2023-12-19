@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
-import com.example.som.model.file.SavedFile;
 import com.example.som.model.relief.Relief;
 import com.example.som.model.relief.ReliefCategory;
 
@@ -22,12 +21,6 @@ public interface ReliefMapper {
 	void updateRelief(Relief relief);
 
 	void removeRelief(Long seq_id);
-
-	SavedFile findFileByFileId(Long file_id);
-	
-	void saveReliefFile(SavedFile savedFile);
-
-	SavedFile findFileBySeqId(Long seq_id);
 
 	int getTotal(@Param("relief_category")ReliefCategory relief_category, @Param("searchText")String searchText);
 

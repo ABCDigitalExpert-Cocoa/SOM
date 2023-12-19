@@ -12,13 +12,13 @@
 		</selectKey>
 		insert into saved_file (
 		file_id,
-		seq_id,
+		board_id,
 		original_filename,
 		saved_filename,
 		file_size
 		) values (
 		#{file_id},
-		#{seq_id},
+		#{board_id},
 		#{original_filename},
 		#{saved_filename},
 		#{file_size}
@@ -52,24 +52,28 @@
 		</selectKey>
 		insert into saved_file (
 		file_id,
-		seq_id,
+		relief_id,
 		original_filename,
 		saved_filename,
 		file_size
 		) values (
 		#{file_id},
-		#{seq_id},
+		#{relief_id},
 		#{original_filename},
 		#{saved_filename},
 		#{file_size}
 		)
 	</insert>
 
-	<select id="findFileBySeqId" resultType="file">
-		select * from saved_file where seq_id = #{seq_id}
+	<select id="findBoardFile" resultType="file">
+		select * from saved_file where board_id = #{board_id}
 	</select>
 	
-	<select id="findFileByDiaryId" resultType="file">
+	<select id="findReliefFile" resultType="file">
+		select * from saved_file where relief_id = #{relief_id}
+	</select>
+	
+	<select id="findDiaryFile" resultType="file">
 		select * from saved_file where diary_id = #{diary_id}
 	</select>
 	

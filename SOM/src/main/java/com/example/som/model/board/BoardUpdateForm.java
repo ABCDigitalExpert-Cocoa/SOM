@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class BoardUpdateForm {
-	private Long seq_id;
+	private Long board_id;
 	@NotBlank
 	private String title;
 	@NotBlank

@@ -14,18 +14,18 @@
 	</select>
 
 	<insert id="saveBoard">
-		<selectKey keyProperty="seq_id" resultType="long"
+		<selectKey keyProperty="board_id" resultType="long"
 			order="BEFORE">
-			select seq_id.nextval from dual
+			select board_id.nextval from dual
 		</selectKey>
 		insert into board(
-		seq_id,
+		board_id,
 		title,
 		content,
 		member_id,
 		board_category
 		)values(
-		#{seq_id},
+		#{board_id},
 		#{title},
 		#{content},
 		#{member_id},
@@ -35,7 +35,7 @@
 
 	<select id="findBoardById" resultType="board">
 		select * from board where
-		seq_id = #{seq_id}
+		board_id = #{board_id}
 	</select>
 
 	<update id="updateBoard">
@@ -45,49 +45,17 @@
 			<if test="content != null">content = #{content},</if>
 			update_date = sysdate
 		</set>
-		where seq_id = #{seq_id}
+		where board_id = #{board_id}
 	</update>
 	
 	<update id="addHit">
-		update board set hit = #{hit} where seq_id = #{seq_id}
+		update board set hit = #{hit} where board_id = #{board_id}
 	</update>
 
 	<delete id="removeBoard">
-		delete from board where seq_id = #{seq_id}
+		delete from board where board_id = #{board_id}
 	</delete>
 
-	<insert id="saveBoardFile">
-		<selectKey keyProperty="file_id" resultType="long"
-			order="BEFORE">
-			select file_id.nextval from dual
-		</selectKey>
-		insert into saved_file (
-		file_id,
-		seq_id,
-		original_filename,
-		saved_filename,
-		file_size
-		) values (
-		#{file_id},
-		#{seq_id},
-		#{original_filename},
-		#{saved_filename},
-		#{file_size}
-		)
-	</insert>
-
-	<select id="findFileBySeqId" resultType="file">
-		select * from saved_file where seq_id = #{seq_id}
-	</select>
-
-	<select id="findFileByFileId" resultType="file">
-		select * from saved_file where file_id = #{file_id}
-	</select>
-
-	<delete id="removeSavedFile">
-		delete from saved_file where file_id = #{file_id}
-	</delete>
-	
 	<select id="getTotal" resultType="int">
 		select count(*) from board 
 		where board_category = #{arg0} 

@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class SavedFile {
     private Long file_id;
-    private Long seq_id;
+    private Long board_id;
     private Long diary_id;
+    private Long hobby_id;
+    private Long relief_id;
     private String original_filename;
     private String saved_filename;
     private Long file_size;

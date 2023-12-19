@@ -120,13 +120,13 @@ public class BoardController {
 	
 	// 게시글 조회
 	@GetMapping("read")
-	public String read(@RequestParam Long seq_id,
+	public String read(@RequestParam Long board_id,
 						Model model) {
 		// seq_id가 같은 board를 찾아서 반환해준다.
-		Board board = boardService.findBoardById(seq_id);
-		boardService.readBoard(seq_id);
+		Board board = boardService.findBoardById(board_id);
+		boardService.readBoard(board_id);
 		// 첨부파일을 찾는다.
-		SavedFile savedFile = savedFileService.findFileBySeqId(seq_id);
+		SavedFile savedFile = savedFileService.findBoardFile(board_id);
 		// 찾은 객체를 model에 저장
 		model.addAttribute("board", board);
 		model.addAttribute("file", savedFile);
@@ -137,10 +137,10 @@ public class BoardController {
 	// 게시글 수정 페이지 이동
 	@GetMapping("update")
 	public String update(@AuthenticationPrincipal PrincipalDetails userInfo,
-						@RequestParam Long seq_id,
+						@RequestParam Long board_id,
 						Model model) {
 		// 수정할 게시물의 seq_id를 받아와서 DB에서 찾는다.
-		Board board = boardService.findBoardById(seq_id);
+		Board board = boardService.findBoardById(board_id);
 		
 		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 목록창으로 돌아간다.
 		if(board == null || !board.getMember_id().equals(userInfo.getUsername())) {
@@ -151,7 +151,7 @@ public class BoardController {
 		model.addAttribute("update", Board.toBoardUpdateForm(board));
 		
 		// 첨부파일을 찾아서 model에 담아준다.
-		SavedFile savedFile = savedFileService.findFileBySeqId(seq_id);
+		SavedFile savedFile = savedFileService.findBoardFile(board_id);
 		model.addAttribute("file", savedFile);
 		
 		return "board/update";
@@ -161,7 +161,7 @@ public class BoardController {
 	@PostMapping("update")
 	public String update(@AuthenticationPrincipal PrincipalDetails userInfo,
 						@Validated @ModelAttribute("update") BoardUpdateForm boardUpdateForm,
-						@RequestParam Long seq_id,
+						@RequestParam Long board_id,
 						BindingResult result,
 						@RequestParam(required = false) MultipartFile file) {
 		log.info("update: {}", boardUpdateForm);
@@ -171,7 +171,7 @@ public class BoardController {
 		}
 		
 		// 수정할 board를 찾는다.
-		Board board = boardService.findBoardById(seq_id);
+		Board board = boardService.findBoardById(board_id);
 		
 		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 목록창으로 돌아간다.
 		if(board == null || !board.getMember_id().equals(userInfo.getUsername())) {
@@ -191,17 +191,17 @@ public class BoardController {
 	// 게시물 삭제
 	@GetMapping("delete")
 	public String remove(@AuthenticationPrincipal PrincipalDetails userInfo,
-						@RequestParam Long seq_id) {
+						@RequestParam Long board_id) {
 		// 삭제할 board를 찾는다.
-		Board board = boardService.findBoardById(seq_id);
+		Board board = boardService.findBoardById(board_id);
 		
 		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 조회창으로 돌아간다.
 		if(board == null || !board.getMember_id().equals(userInfo.getUsername())) {
-			return "redirect:/board/read?seq_id=" + board.getSeq_id();
+			return "redirect:/board/read?board_id=" + board.getBoard_id();
 		}
 		
 		// 게시글을 삭제
-		boardService.removeBoard(seq_id);
+		boardService.removeBoard(board_id);
 		
 			return "redirect:/board/list?board_category=" + board.getBoard_category();
 	}

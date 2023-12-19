@@ -46,19 +46,19 @@ public class ReliefService {
 		reliefMapper.saveRelief(relief);
 		
 		if(file != null && file.getSize() > 0) {
-			savedFileService.saveReliefFile(file, relief.getSeq_id());
+			savedFileService.saveReliefFile(file, relief.getRelief_id());
 		}
 	}
 	
-	public Relief findReliefById(Long seq_id) {
-		return reliefMapper.findReliefById(seq_id);
+	public Relief findReliefById(Long relief_id) {
+		return reliefMapper.findReliefById(relief_id);
 	}
 
 	
 	@Transactional
-	public void practiceRelief(Long seq_id, Member member) {
+	public void practiceRelief(Long relief_id, Member member) {
 		
-		Relief relief = reliefMapper.findReliefById(seq_id);
+		Relief relief = reliefMapper.findReliefById(relief_id);
 		member.addPoint();
 		memberMapper.addPoint(member);
 		
@@ -67,27 +67,27 @@ public class ReliefService {
 	
 	@Transactional
 	public void updateRelief(Relief updateRelief, boolean isFileRemoved, MultipartFile file) {
-		Relief relief = reliefMapper.findReliefById(updateRelief.getSeq_id());
+		Relief relief = reliefMapper.findReliefById(updateRelief.getRelief_id());
 		if(relief != null) {
 			reliefMapper.updateRelief(updateRelief);
-			SavedFile savedFile = savedFileService.findFileBySeqId(updateRelief.getSeq_id());
+			SavedFile savedFile = savedFileService.findReliefFile(updateRelief.getRelief_id());
 			if(savedFile != null && (isFileRemoved || (file != null && file.getSize() > 0))) {
 				savedFileService.removeSavedFile(savedFile.getFile_id());
 			}
 			if(file != null && file.getSize() > 0) {
-				savedFileService.saveBoardFile(file, relief.getSeq_id());
+				savedFileService.saveBoardFile(file, relief.getRelief_id());
 			}
 		}
 	}
 
 	@Transactional
-	public void removeRelief(Long seq_id) {
-		SavedFile savedFile = savedFileService.findFileBySeqId(seq_id);
+	public void removeRelief(Long relief_id) {
+		SavedFile savedFile = savedFileService.findReliefFile(relief_id);
 		log.info("file:{}", savedFile);
 		if(savedFile != null) {
 			savedFileService.removeSavedFile(savedFile.getFile_id());
 		}
-		reliefMapper.removeRelief(seq_id);
+		reliefMapper.removeRelief(relief_id);
 	}
 
 	public int getTotal(ReliefCategory relief_category, String searchText) {

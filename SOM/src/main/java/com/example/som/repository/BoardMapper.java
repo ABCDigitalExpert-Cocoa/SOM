@@ -16,11 +16,11 @@ public interface BoardMapper {
 
 	void saveBoard(Board board);
 	
-	Board findBoardById(Long seq_id);
+	Board findBoardById(Long board_id);
 
 	void updateBoard(Board board);
 
-	void removeBoard(Long seq_id);
+	void removeBoard(Long board_id);
 
 	void addHit(Board board);
 	

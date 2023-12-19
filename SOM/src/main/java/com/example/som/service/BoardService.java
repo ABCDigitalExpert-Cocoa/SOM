@@ -37,45 +37,45 @@ public class BoardService {
 		boardMapper.saveBoard(board);
 		
 		if(file != null && file.getSize() > 0) {
-			savedFileService.saveBoardFile(file, board.getSeq_id());
+			savedFileService.saveBoardFile(file, board.getBoard_id());
 		}
 	}
 	
-	public Board findBoardById(Long seq_id) {
-		return boardMapper.findBoardById(seq_id);
+	public Board findBoardById(Long board_id) {
+		return boardMapper.findBoardById(board_id);
 	}
 	
 	@Transactional
-	public void readBoard(Long seq_id) {
-		Board board = findBoardById(seq_id);
+	public void readBoard(Long board_id) {
+		Board board = findBoardById(board_id);
 		board.addHit();
 		boardMapper.addHit(board);
 	}
 	
 	@Transactional
 	public void updateBoard(Board updateBoard, boolean isFileRemoved, MultipartFile file) {
-		Board board = boardMapper.findBoardById(updateBoard.getSeq_id());
+		Board board = boardMapper.findBoardById(updateBoard.getBoard_id());
 		if(board != null) {
 			boardMapper.updateBoard(updateBoard);
-			SavedFile savedFile = savedFileService.findFileBySeqId(updateBoard.getSeq_id());
+			SavedFile savedFile = savedFileService.findBoardFile(updateBoard.getBoard_id());
 			if(savedFile != null && (isFileRemoved || (file != null && file.getSize() > 0))) {
 				savedFileService.removeSavedFile(savedFile.getFile_id());
 			}
 			if(file != null && file.getSize() > 0) {
-				savedFileService.saveBoardFile(file, board.getSeq_id());
+				savedFileService.saveBoardFile(file, board.getBoard_id());
 			}
 		}
 	}
 	
 	@Transactional
-	public void removeBoard(Long seq_id) {
-		SavedFile savedFile = savedFileService.findFileBySeqId(seq_id);
+	public void removeBoard(Long board_id) {
+		SavedFile savedFile = savedFileService.findBoardFile(board_id);
 		log.info("file:{}", savedFile);
 		if(savedFile != null) {
 			savedFileService.removeSavedFile(savedFile.getFile_id());
 		}
-		replyMapper.removeAllReply(seq_id);
-		boardMapper.removeBoard(seq_id);
+		replyMapper.removeAllReply(board_id);
+		boardMapper.removeBoard(board_id);
 	}
 
 	public int getTotal(BoardCategory board_category, String searchText) {

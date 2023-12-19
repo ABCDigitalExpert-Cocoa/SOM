@@ -9,8 +9,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script th:inline="javascript">
+		let seq_id = /*[[${board.board_id}]]*/'';
+		
 		function writeReply() {
-			let seq_id = /*[[${board.seq_id}]]*/'';
 			let content = $("#reply").val();
 			// 리플 내용이 없으면 등록하지 않는다.
 			if (content === "") {
@@ -19,7 +20,7 @@
 				return;
 			}
 			$.ajax({
-				url: "/reply/" + seq_id,
+				url: "/reply/" + board_id,
 				type: "post",
 				data: {
 					"content": content
@@ -36,9 +37,8 @@
 		}
 
 		function getReplies() {
-			let seq_id = /*[[${board.seq_id}]]*/'';
 			$.ajax({
-				url: "/reply/" + seq_id,
+				url: "/reply/" + board_id,
 				success: function (data, success, xhr) {
 					console.log(data);
 					showReplies(data);
@@ -80,10 +80,9 @@
 		function updateReply(reply_id) {
 			let check = confirm("수정 하시겠습니까?");
 			if (check) {
-				let seq_id = /*[[${board.seq_id}]]*/'';
 				let content = $("#reply_" + reply_id).val();
 				$.ajax({
-					url: "/reply/" + seq_id + "/" + reply_id,
+					url: "/reply/" + board_id + "/" + reply_id,
 					type: "put",
 					data: {
 						"content": content
@@ -102,9 +101,8 @@
 		function removeReply(reply_id) {
 			let check = confirm("삭제 하시겠습니까?");
 			if (check) {
-				let seq_id = /*[[${board.seq_id}]]*/'';
 				$.ajax({
-					url: "/reply/" + seq_id + "/" + reply_id,
+					url: "/reply/" + board_id + "/" + reply_id,
 					type: "delete",
 					success: function (data) {
 						getReplies();
@@ -175,9 +173,9 @@
 
 						<input type="hidden" th:field="${board.board_category}">
 						<input class="btn btn-primary" type="button"
-							th:onclick="|location.href='@{/board/update(seq_id=${board.seq_id})}'|" value="수정하기">
+							th:onclick="|location.href='@{/board/update(board_id=${board.board_id})}'|" value="수정하기">
 						<input class="btn btn-primary" type="button"
-							th:onclick="|location.href='@{/board/delete(seq_id=${board.seq_id})}'|" value="삭제하기">
+							th:onclick="|location.href='@{/board/delete(board_id=${board.board_id})}'|" value="삭제하기">
 						<input class="btn btn-primary" type="button"
 							th:onclick="|location.href='@{/board/list(board_category=${board.board_category})}'|"
 							value="목록으로">

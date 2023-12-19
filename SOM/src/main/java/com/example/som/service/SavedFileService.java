@@ -37,17 +37,21 @@ public class SavedFileService {
 		return fileMapper.findFileByFileId(file_id);
 	}
 
-	public SavedFile findFileBySeqId(Long seq_id) {
-		return fileMapper.findFileBySeqId(seq_id);
+	public SavedFile findBoardFile(Long board_id) {
+		return fileMapper.findBoardFile(board_id);
 	}
 	
-	public SavedFile findFileByDiaryId(Long diary_id) {
-		return fileMapper.findFileByDiaryId(diary_id);
+	public SavedFile findDiaryFile(Long diary_id) {
+		return fileMapper.findDiaryFile(diary_id);
 	}
 	
-	public void saveBoardFile(MultipartFile file, Long seq_id) {
+	public SavedFile findReliefFile(Long relief_id) {
+		return fileMapper.findReliefFile(relief_id);
+	}
+	
+	public void saveBoardFile(MultipartFile file, Long board_id) {
 		SavedFile savedFile = fileService.saveFile(file);
-		savedFile.setSeq_id(seq_id);
+		savedFile.setBoard_id(board_id);
 		fileMapper.saveBoardFile(savedFile);
 	}
 	
@@ -57,9 +61,11 @@ public class SavedFileService {
 		fileMapper.saveDiaryFile(savedFile);
 	}
 	
-	public void saveReliefFile(MultipartFile file, Long seq_id) {
+	public void saveReliefFile(MultipartFile file, Long relief_id) {
 		SavedFile savedFile = fileService.saveFile(file);
-		savedFile.setSeq_id(seq_id);
+		savedFile.setRelief_id(relief_id);
 		fileMapper.saveReliefFile(savedFile);
 	}
+
+	
 }

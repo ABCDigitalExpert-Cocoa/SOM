@@ -3,18 +3,20 @@
 <html lang="ko">
 
 <head>
-    <meta charset="utf-8">
-    <title th:text="${param.board_category} ? ${T(com.example.som.model.board.BoardCategory).valueOf(param.board_category).description} : ''"></title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <div id="boardCategory" th:data-board-category="${board_category}"></div>
-    <script th:inline="javascript">
-		 function search() {
-        let searchText = document.getElementById("searchText").value;
-        let boardCategory = /*[[${param.board_category}]]*/
-        location.href="/board/list?board_category=" + boardCategory + '&searchText=' + searchText;
-      }
-    </script>
+	<meta charset="utf-8">
+	<title
+		th:text="${param.board_category} ? ${T(com.example.som.model.board.BoardCategory).valueOf(param.board_category).description} : ''">
+	</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<div id="boardCategory" th:data-board-category="${board_category}"></div>
+	<script th:inline="javascript">
+		function search() {
+			let searchText = document.getElementById("searchText").value;
+			let boardCategory = /*[[${param.board_category}]]*/
+				location.href = "/board/list?board_category=" + boardCategory + '&searchText=' + searchText;
+		}
+	</script>
 </head>
 
 <head th:replace="~{head :: #head}"></head>
@@ -22,35 +24,38 @@
 <body>
 	<header th:replace="~{header :: #menu}"></header>
 
-    <div class="breadcrumb-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="text-center">
-                        <h2 class="lg-title" th:text=" ${T(com.example.som.model.board.BoardCategory).valueOf(param.board_category).description}"></h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="breadcrumb-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="text-center">
+						<h2 class="lg-title"
+							th:text=" ${T(com.example.som.model.board.BoardCategory).valueOf(param.board_category).description}">
+						</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-        <section class="pt-5 padding-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					 <div class="text-right mb-3">
-						    <label for="searchText"></label>
-						    <input type="search" id="searchText" name="searchText" th:value="${searchText}">
-						    <input type="button" onclick="search()" class="btn btn-grey" style="padding: 5px 10px;" value="검색">
-						  </div>
-						  <p>
+	<section class="pt-5 padding-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="text-right mb-3">
+						<label for="searchText"></label>
+						<input type="search" id="searchText" name="searchText" th:value="${searchText}">
+						<input type="button" onclick="search()" class="btn btn-grey" style="padding: 5px 10px;"
+							value="검색">
+					</div>
+					<p>
 
 					<div class="mb-4 post-list border-bottom pb-4" th:each="board : ${boards}">
 						<div class="row no-gutters">
 							<div class="col-md-12">
 								<div class="post-article mt-sm-3">
 									<h3 class="mt-2" style="font-family: Open Sans, sans-serif;"><a
-											th:href="@{/board/read(seq_id=${board.seq_id})}"
+											th:href="@{/board/read(board_id=${board.board_id})}"
 											th:text="${board.title}"></a></h3>
 									<div class="post-meta">
 										<ul class="list-inline">
@@ -75,18 +80,21 @@
 					<div class="pagination mt-5 pt-4">
 						<ul class="list-inline">
 							<li class="list-inline-item" th:if="${navi.currentPage - 1 > 0}">
-								<a th:href="@{/board/list(page=${navi.currentPage - 1}, board_category=${board_category}, searchText=${searchText})}" class="next-posts">
+								<a th:href="@{/board/list(page=${navi.currentPage - 1}, board_category=${board_category}, searchText=${searchText})}"
+									class="next-posts">
 									<i class="ti-arrow-left"></i>
 								</a>
 							</li>
 							<li class="list-inline-item" th:if="${navi.endPageGroup ne 0}">
-								<th:block th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
+								<th:block
+									th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
 									<a th:href="@{/board/list(page=${counter}, board_category=${board_category}, searchText=${searchText})}"
 										th:text="${counter}"></a>&nbsp;
 								</th:block>
 							</li>
 							<li class="list-inline-item" th:if="${navi.currentPage < navi.totalPageCount}">
-								<a th:href="@{/board/list(page=${navi.currentPage + 1}, board_category=${board_category}, searchText=${searchText})}" class="prev-posts">
+								<a th:href="@{/board/list(page=${navi.currentPage + 1}, board_category=${board_category}, searchText=${searchText})}"
+									class="prev-posts">
 									<i class="ti-arrow-right"></i>
 								</a>
 							</li>

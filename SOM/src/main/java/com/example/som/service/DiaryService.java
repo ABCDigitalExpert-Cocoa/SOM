@@ -45,7 +45,7 @@ public class DiaryService {
 		Diary diary = findDiary(updateDiary.getDiary_id());
 		if(diary != null) {
 			diaryMapper.updateDiary(updateDiary);
-			SavedFile savedFile = savedFileService.findFileByDiaryId(updateDiary.getDiary_id());
+			SavedFile savedFile = savedFileService.findDiaryFile(updateDiary.getDiary_id());
 			if(savedFile != null && (isFileRemoved || (file != null && file.getSize() > 0))) {
 				savedFileService.removeSavedFile(savedFile.getFile_id());
 			}
@@ -61,7 +61,7 @@ public class DiaryService {
 	
 	@Transactional
 	public void removeDiary(Long diary_id) {
-		SavedFile savedFile = savedFileService.findFileByDiaryId(diary_id);
+		SavedFile savedFile = savedFileService.findDiaryFile(diary_id);
 		if(savedFile != null) {
 			savedFileService.removeSavedFile(savedFile.getFile_id());;
 		}

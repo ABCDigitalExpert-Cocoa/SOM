@@ -19,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MemberService {
 	private final MemberMapper memberMapper ;
-	private final ReliefService reliefService;
 	private final PasswordEncoder passwordEncoder;
 	
 	@Transactional
