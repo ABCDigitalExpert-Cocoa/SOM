@@ -8,6 +8,7 @@
         <typeAlias type="com.example.som.model.board.Board" alias="board"/>
         <typeAlias type="com.example.som.model.reply.Reply" alias="reply"/>
         <typeAlias type="com.example.som.model.relief.Relief" alias="relief"/>
+        <typeAlias type="com.example.som.model.hobby.HobbyBoard" alias="hobby"/>
         <typeAlias type="com.example.som.model.file.SavedFile" alias="file"/>
         <typeAlias type="com.example.som.model.diary.Diary" alias="diary"/>
         <typeAlias type="com.example.som.model.test.Test" alias="test"/>

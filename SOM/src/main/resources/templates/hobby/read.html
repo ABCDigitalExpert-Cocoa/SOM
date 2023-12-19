@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title th:text="${hobby.title}"></title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<head th:replace="~{head :: #head}"></head>
+
+<body>
+	<header th:replace="~{header :: #menu}"></header>
+
+	<div class="breadcrumb-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="text-center">
+						<h2 class="lg-title"
+							th:text="${T(com.example.som.model.hobby.HobbyCategory).valueOf(hobby.hobby_category).description}">
+						</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section class="pt-5 padding-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<form class="comment-form mb-5 gray-bg p-5">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="form-group">
+									<div class="form-control" th:text="${hobby.title}"></div>
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<textarea class="form-control mb-3" th:text="${hobby.content}" cols="30" rows="5"
+									readonly></textarea>
+							</div>
+							<div class="col-lg-12" th:if="${file}">
+								<div class="form-group">
+									<a class="form-control" th:href="@{/hobby/download/{id}(id=${file.file_id})}" th:text="${file.original_filename}"></a>
+								</div>
+							</div>
+						</div>
+
+							<input type="hidden" th:field="${hobby.hobby_category}">
+							<input class="btn btn-primary" type="button"
+								th:onclick="|location.href='@{/hobby/update(hobby_id=${hobby.hobby_id})}'|" value="수정하기">
+							<input class="btn btn-primary" type="button"
+								th:onclick="|location.href='@{/hobby/delete(hobby_id=${hobby.hobby_id})}'|" value="삭제하기">
+							<input class="btn btn-primary" type="button"
+								th:onclick="|location.href='@{/hobby/list(hobby_category=${hobby.hobby_category})}'|"
+								value="목록으로">
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section th:replace="~{footer :: #footer}"></section>
+</body>
+
+</html>

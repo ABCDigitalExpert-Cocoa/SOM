@@ -21,4 +21,8 @@ public interface FileMapper {
 	SavedFile findDiaryFile(Long diary_id);
 
 	SavedFile findReliefFile(Long relief_id);
+
+	SavedFile findHobbyFile(Long hobby_id);
+
+	void saveHobbyFile(SavedFile savedFile);
 }

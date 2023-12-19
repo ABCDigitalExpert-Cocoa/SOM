@@ -49,6 +49,10 @@ public class SavedFileService {
 		return fileMapper.findReliefFile(relief_id);
 	}
 	
+	public SavedFile findHobbyFile(Long hobby_id) {
+		return fileMapper.findReliefFile(hobby_id);
+	}
+	
 	public void saveBoardFile(MultipartFile file, Long board_id) {
 		SavedFile savedFile = fileService.saveFile(file);
 		savedFile.setBoard_id(board_id);
@@ -65,6 +69,12 @@ public class SavedFileService {
 		SavedFile savedFile = fileService.saveFile(file);
 		savedFile.setRelief_id(relief_id);
 		fileMapper.saveReliefFile(savedFile);
+	}
+	
+	public void saveHobbyFile(MultipartFile file, Long hobby_id) {
+		SavedFile savedFile = fileService.saveFile(file);
+		savedFile.setHobby_id(hobby_id);
+		fileMapper.saveHobbyFile(savedFile);
 	}
 
 	

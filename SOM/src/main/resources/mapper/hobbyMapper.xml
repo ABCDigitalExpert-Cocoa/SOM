@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.som.repository.HobbyMapper">
+	<select id="findBoards" resultType="hobby">
+		select * from hobby where
+		hobby_category = #{hobby_category}
+		order by create_date desc
+	</select>
+
+	<insert id="saveBoard">
+		<selectKey keyProperty="hobby_id" resultType="long"
+			order="BEFORE">
+			select hobby_id.nextval from dual
+		</selectKey>
+		insert into hobby(
+		hobby_id,
+		title,
+		content,
+		region,
+		hobby_category
+		)values(
+		#{hobby_id},
+		#{title},
+		#{content},
+		#{region},
+		#{hobby_category}
+		)
+	</insert>
+
+	<select id="findBoardById" resultType="hobby">
+		select * from hobby where
+		hobby_id = #{hobby_id}
+	</select>
+
+	<update id="updateBoard">
+		update hobby
+		<set>
+			<if test="title != null">title = #{title},</if>
+			<if test="content != null">content = #{content},</if>
+			<if test="hit != null">hit = #{hit},</if>
+			update_date = sysdate
+		</set>
+		where hobby_id = #{hobby_id}
+	</update>
+
+	<delete id="removeBoard">
+		delete from hobby where hobby_id = #{hobby_id}
+	</delete>
+
+	<select id="getTotal" resultType="int">
+		select count(*) from hobby
+		where hobby_category = #{hobby_category}
+	</select>
+
+</mapper>

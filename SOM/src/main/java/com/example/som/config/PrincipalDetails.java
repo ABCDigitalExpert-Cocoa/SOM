@@ -18,9 +18,11 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 	
 	private Member member;
 	private Map<String, Object> attributes;
+	private String region;
 	
 	public PrincipalDetails(Member member) {
 		this.member = member;
+		this.region = member.getRegion();  // 추가: 생성자에서 region 값을 설정
 	}
 	
 	public PrincipalDetails(Member member, Map<String, Object> attributes) {
