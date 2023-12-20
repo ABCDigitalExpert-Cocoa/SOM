@@ -9,8 +9,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script th:inline="javascript">
+
 		let board_id = /*[[${board.board_id}]]*/'';
-		
+
 		function writeReply() {
 			let content = $("#reply").val();
 			// 리플 내용이 없으면 등록하지 않는다.
@@ -59,13 +60,13 @@
 					str += "<h4 class='mb-0'>" + obj.nickname + "</h4>";
 					str += "<span class='date-comm font-sm text-capitalize text-color'>";
 					str += "<i class='ti-time mr-2'></i>" + obj.create_date + "</span>";
-					if(obj.writer == true){
+					if (obj.writer == true) {
 						str += "<a class='author-social ml-2' href='javascript:removeReply(" + obj.reply_id + ")'><i class='ti-trash'> 삭제</i></a>"
 						str += "<a class='author-social' href=\"javascript:getUpdateReply(" + obj.reply_id + ",'" + obj.content + "')\"><i class='ti-eraser'> 수정</i></a>"
 					}
 					str += "<div class='comment-content mb-3 border-bottom' id='" + obj.reply_id + "'>";
 					str += "<p>" + obj.content + "</p>";
-                    str += "</div>";
+					str += "</div>";
 				});
 			} else {
 				str += "<div class='comment-content mt-3' style='text-align: center;'>"
@@ -129,7 +130,7 @@
 			getReplies();
 			// 리플을 작성하고 엔터키를 입력하면 리플을 등록한다.
 			$("#reply").keydown(function (event) {
-				if (event.originalEvent.code === "Enter") {
+				if (event.originalEvent.code == "Enter") {
 					writeReply();
 				}
 			});
@@ -181,14 +182,28 @@
 							</div>
 						</div>
 
+						<div>
+							<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+								<input class="btn btn-primary" type="button"
+									th:onclick="|location.href='@{/board/update(board_id=${board.board_id})}'|"
+									value="수정하기">
+								<input class="btn btn-primary" type="button"
+									th:onclick="|location.href='@{/board/delete(board_id=${board.board_id})}'|"
+									value="삭제하기">
+							</th:block>
+							<th:block th:if="${#authentication.name} == ${board.member_id}">
+								<input class="btn btn-primary" type="button"
+									th:onclick="|location.href='@{/board/update(board_id=${board.board_id})}'|"
+									value="수정하기">
+								<input class="btn btn-primary" type="button"
+									th:onclick="|location.href='@{/board/delete(board_id=${board.board_id})}'|"
+									value="삭제하기">
+							</th:block>
+							<input class="btn btn-primary" type="button"
+								th:onclick="|location.href='@{/board/list(board_category=${board.board_category})}'|"
+								value="목록으로">
+						</div>
 						<input type="hidden" th:field="${board.board_category}">
-						<input class="btn btn-primary" type="button"
-							th:onclick="|location.href='@{/board/update(board_id=${board.board_id})}'|" value="수정하기">
-						<input class="btn btn-primary" type="button"
-							th:onclick="|location.href='@{/board/delete(board_id=${board.board_id})}'|" value="삭제하기">
-						<input class="btn btn-primary" type="button"
-							th:onclick="|location.href='@{/board/list(board_category=${board.board_category})}'|"
-							value="목록으로">
 					</form>
 
 					<form class="comment-form mb-5 gray-bg p-5" id="comment-form">

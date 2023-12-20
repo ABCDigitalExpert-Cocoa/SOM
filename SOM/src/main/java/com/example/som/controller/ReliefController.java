@@ -4,7 +4,6 @@ import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -221,9 +220,8 @@ public class ReliefController {
 
 		// 게시글을 삭제
 		reliefService.removeRelief(relief_id);
-
+		
 		return "redirect:/relief/list?relief_category=" + relief.getRelief_category();
-
 	}
 
 	@GetMapping("download/{id}")

@@ -10,19 +10,20 @@ public interface FileMapper {
 	
 	void saveBoardFile(SavedFile savedFile);
 
-	SavedFile findBoardFile(Long board_id);
-
-	void removeSavedFile(Long file_id);
-	
 	void saveDiaryFile(SavedFile savedFile);
 	
 	void saveReliefFile(SavedFile savedFile);
+	
+	void saveHobbyFile(SavedFile savedFile);
+	
+	SavedFile findBoardFile(Long board_id);
 
 	SavedFile findDiaryFile(Long diary_id);
-
+	
 	SavedFile findReliefFile(Long relief_id);
-
+	
 	SavedFile findHobbyFile(Long hobby_id);
-
-	void saveHobbyFile(SavedFile savedFile);
+	
+	void removeSavedFile(Long file_id);
+	
 }

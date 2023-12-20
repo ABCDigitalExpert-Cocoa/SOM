@@ -14,13 +14,13 @@ public interface ReliefMapper {
 
 	List<Relief> findReliefs(@Param("relief_category")ReliefCategory relief_category, @Param("searchText")String searchText, @Param("mbti")String mbti, @Param("stress_level")Long stress_level, RowBounds rowBounds);
 
-	void saveRelief(Relief relief);
+	Relief findReliefById(Long relief_id);
 	
-	Relief findReliefById(Long seq_id);
+	void saveRelief(Relief relief);
 
 	void updateRelief(Relief relief);
 
-	void removeRelief(Long seq_id);
+	void removeRelief(Long relief_id);
 
 	int getTotal(@Param("relief_category")ReliefCategory relief_category, @Param("searchText")String searchText);
 

@@ -69,14 +69,32 @@
 							</div>
 						</div>
 					</div>
+					<th:block th:if="${#strings.equals(param.board_category, 'NOTICE')}">
+						<div sec:authorize="hasRole('ROLE_ADMIN')">
+							<nav class="post-pagination">
+								<div class="next-post">
+									<a th:href="@{/board/write(board_category=${board_category})}">
+										<span class="text-uppercase font-sm ti-pencil-alt"> 작성하기</span>
+									</a>
+								</div>
+							</nav>
 
-					<nav class="post-pagination">
-						<div class="next-post">
-							<a th:href="@{/board/write(board_category=${board_category})}">
-								<span class="text-uppercase font-sm ti-pencil-alt"> 작성하기</span>
-							</a>
 						</div>
-					</nav>
+					</th:block>
+					<th:block th:unless="${#strings.equals(param.board_category, 'NOTICE')}">
+						<div sec:authorize="hasRole('ROLE_USER')">
+							<nav class="post-pagination">
+								<div class="next-post">
+									<a th:href="@{/board/write(board_category=${board_category})}">
+										<span class="text-uppercase font-sm ti-pencil-alt"> 작성하기</span>
+									</a>
+								</div>
+							</nav>
+
+						</div>
+
+					</th:block>
+
 
 					<div class="pagination mt-5 pt-4">
 						<ul class="list-inline">

@@ -6,6 +6,7 @@ import com.example.som.model.test.Test;
 
 @Mapper
 public interface TestMapper {
+	
 	void saveTest(Test test);
 	
 	Test getResentStressLevel(String member_id);

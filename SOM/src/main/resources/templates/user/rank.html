@@ -34,7 +34,7 @@
                                 <th>유저 닉네임</th>
                                 <th>누적 포인트</th>
                             </tr>
-                            <tr th:each="member, memberStat : ${ranking}">
+                            <tr th:if="${#strings.equals(member.admin, 'ROLE_USER')}" th:each="member, memberStat : ${ranking}">
                                 <td th:text="${memberStat.count}" class="center"></td>
                                 <td th:text="${member.nickname}" class="center"></td>
                                 <td th:text="${member.point}" class="center"></td>
