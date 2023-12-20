@@ -17,9 +17,9 @@ public interface HobbyMapper {
 
 	List<HobbyBoard> findBoardsByRegion(Region region, RowBounds rowBounds);
 
-	void saveBoard(HobbyBoard hobbyBoard);
-	
 	HobbyBoard findBoardById(Long hobby_id);
+	
+	void saveBoard(HobbyBoard hobbyBoard);
 
 	void updateBoard(HobbyBoard hobbyBoard);
 

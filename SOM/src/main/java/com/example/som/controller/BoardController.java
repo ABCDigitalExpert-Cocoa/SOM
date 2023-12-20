@@ -29,6 +29,7 @@ import com.example.som.model.board.BoardCategory;
 import com.example.som.model.board.BoardUpdateForm;
 import com.example.som.model.board.BoardWriteForm;
 import com.example.som.model.file.SavedFile;
+import com.example.som.model.member.AdminType;
 import com.example.som.service.BoardService;
 import com.example.som.service.SavedFileService;
 import com.example.som.util.PageNavigator;
@@ -195,10 +196,15 @@ public class BoardController {
 		// 삭제할 board를 찾는다.
 		Board board = boardService.findBoardById(board_id);
 		
+		if(!userInfo.getMember().getAdmin().equals(AdminType.ROLE_ADMIN)) {
+		
 		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 조회창으로 돌아간다.
 		if(board == null || !board.getMember_id().equals(userInfo.getUsername())) {
+			
 			return "redirect:/board/read?board_id=" + board.getBoard_id();
+			}
 		}
+		
 		
 		// 게시글을 삭제
 		boardService.removeBoard(board_id);

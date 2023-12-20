@@ -8,9 +8,9 @@
 	<select id="findReliefs" resultType="relief">
 		SELECT * FROM relief
 		WHERE
-		relief_category = #{relief_category} and
-		(mbti = #{mbti} or
-		stress_level = #{stress_level})
+		relief_category = #{relief_category}
+		<if test="mbti != null">and mbti = #{mbti}</if>
+		<if test="stress_level != null">and stress_level = #{stress_level}</if>
 		<if test="_parameter != null">
 			and title like '%' || #{searchText} || '%'
 		</if>

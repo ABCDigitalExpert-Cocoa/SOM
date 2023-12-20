@@ -46,7 +46,7 @@
 							<span class="ti-pencil-alt"> 작성하기</span>
 						</a>
 					</div>
-					<div>
+					<div class="mb-3">
 						<select id="region" style="width: 200px;">
 							<option value="" selected>지역 선택</option>
 							<option value="seoul">서울</option>
@@ -101,12 +101,12 @@
 										<h3 class="post-title mt-1"><a
 												th:href="@{/hobby/read(hobby_id=${hobbyBoard.hobby_id})}"
 												th:text="${hobbyBoard.title}"></a></h3>
-
 									</div>
 								</article>
 							</div>
 						</th:block>
 					</div>
+
 				</div>
 
 				<div class="pagination mt-5 pt-4">
@@ -130,6 +130,7 @@
 							</a>
 						</li>
 					</ul>
+
 				</div>
 			</div>
 		</div>

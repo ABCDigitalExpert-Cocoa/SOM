@@ -4,7 +4,6 @@ import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -64,11 +63,19 @@ public class ReliefController {
 		log.info("category: {}", relief_category);
 		log.info("searchText: {}", searchText);
 
-		String mbti = userInfo.getMember().getMbti();
-		Test test = reliefService.findStressLevelbyId(userInfo.getMember().getMember_id());
-		Long stress_level = test.getStress_level();
+		String mbti = null;
+		Long stress_level = 0l;
+		
+		if(relief_category.equals(ReliefCategory.MBTI)) {
+			mbti = userInfo.getMember().getMbti();
+		} else if(relief_category.equals(ReliefCategory.STRESS_LEVEL)) {
+			Test test = reliefService.findStressLevelbyId(userInfo.getMember().getMember_id());
+			if(test != null) {
+				stress_level = test.getStress_level();
+			}
+		}
+		
 		log.info("mbti:{}", mbti);
-		log.info("test:{}", test);
 		log.info("stress_level:{}", stress_level);
 
 		int total = reliefService.getTotal(relief_category, searchText);
@@ -221,9 +228,8 @@ public class ReliefController {
 
 		// 게시글을 삭제
 		reliefService.removeRelief(relief_id);
-
+		
 		return "redirect:/relief/list?relief_category=" + relief.getRelief_category();
-
 	}
 
 	@GetMapping("download/{id}")
