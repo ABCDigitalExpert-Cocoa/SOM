@@ -23,7 +23,7 @@
 			h.create_date desc
 	</select>
 	
-	<select id="findBoardsByCategory" resultType="hobby">
+	<select id="findBoardsByRegion" resultType="hobby">
 		select
 			h.hobby_id,
 			h.title,
@@ -39,7 +39,7 @@
 			hobby h left outer join saved_file f
 			on (h.hobby_id = f.hobby_id)
 		where
-			h.hobby_category = #{hobby_category}
+			h.region = #{region}
 		order by
 			create_date desc
 	</select>
@@ -54,12 +54,14 @@
 		title,
 		content,
 		region,
+		price,
 		hobby_category
 		)values(
 		#{hobby_id},
 		#{title},
 		#{content},
 		#{region},
+		#{price},
 		#{hobby_category}
 		)
 	</insert>
@@ -75,6 +77,9 @@
 			<if test="title != null">title = #{title},</if>
 			<if test="content != null">content = #{content},</if>
 			<if test="hit != null">hit = #{hit},</if>
+			<if test="region != null">region = #{region},</if>
+			<if test="hobby_category != null">hobby_category = #{hobby_category},</if>
+			<if test="price != null">price = #{price},</if>
 			update_date = sysdate
 		</set>
 		where hobby_id = #{hobby_id}
@@ -86,7 +91,7 @@
 
 	<select id="getTotal" resultType="int">
 		select count(*) from hobby
-		<if test="hobby_category != null">where hobby_category = #{hobby_category}</if>
+		<if test="region != null">where region = #{region}</if>
 	</select>
 
 </mapper>

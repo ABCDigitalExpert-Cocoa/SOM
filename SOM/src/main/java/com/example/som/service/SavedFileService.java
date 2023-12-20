@@ -50,7 +50,7 @@ public class SavedFileService {
 	}
 	
 	public SavedFile findHobbyFile(Long hobby_id) {
-		return fileMapper.findReliefFile(hobby_id);
+		return fileMapper.findHobbyFile(hobby_id);
 	}
 	
 	public void saveBoardFile(MultipartFile file, Long board_id) {

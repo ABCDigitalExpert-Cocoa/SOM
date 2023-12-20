@@ -31,7 +31,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<form class="comment-form mb-5 gray-bg p-5" id="write-form" action="write" method="post" enctype="multipart/form-data">
                         <div class="row">
-							<div class="col-lg-12">
+							<div class="col-lg-6">
 								<div class="form-group">
 									<select class="form-control" th:field="${write.region}">
 										<option value="" selected>지역 선택</option>
@@ -52,7 +52,10 @@
 										<option value="gangwon">강원도</option>
 										<option value="jeju">제주도</option>
 									</select>
-									<p></p>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
 									<select class="form-control" th:field="${write.hobby_category}">
 										<option value="" selected>카테고리 선택</option>
 										<option value="baking">베이킹</option>
@@ -64,8 +67,16 @@
 										<option value="music">음악</option>
 										<option value="leather">가죽</option>
 									</select>
-									<p></p>
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<div class="form-group">
                                     <input class="form-control" type="text" th:field="${write.title}" placeholder="제목 :">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+								<div class="form-group">
+                                    <input class="form-control" type="text" th:field="${write.price}" placeholder="클래스 비용">
                                 </div>
 							</div>
                             <div class="col-lg-12">

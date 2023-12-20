@@ -7,6 +7,17 @@
 	<title>Hobby</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script>
+		$(function(){
+		  $("#region").change(function(){
+		    var region = $("#region :selected").val();
+		    console.log(region);
+		    location.href = "/hobby/list?region=" + region;
+		  });
+		});
+		
+	</script>
 </head>
 
 <head th:replace="~{head :: #head}"></head>
@@ -30,10 +41,31 @@
 		<div class="container">
 			<div class="row">
 				<div class="post-pagination col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="next-post" style="margin-bottom: 30px;">
+					<div class="next-post" style="margin-bottom: 30px;" sec:authorize="hasRole('ROLE_ADMIN')">
 						<a href="/hobby/write">
 							<span class="ti-pencil-alt"> 작성하기</span>
 						</a>
+					</div>
+					<div>
+						<select id="region" style="width: 200px;">
+							<option value="" selected>지역 선택</option>
+							<option value="seoul">서울</option>
+							<option value="busan">부산</option>
+							<option value="incheon">인천</option>
+							<option value="daegu">대구</option>
+							<option value="ulsan">울산</option>
+							<option value="gwangju">광주</option>
+							<option value="daejeon">대전</option>
+							<option value="gyeonggi">경기도</option>
+							<option value="gyeongnam">경상남도</option>
+							<option value="gyeongbuk">경상북도</option>
+							<option value="jeonnam">전라남도</option>
+							<option value="jeonbuk">전라북도</option>
+							<option value="choongnam">충청남도</option>
+							<option value="choongbuk">충청북도</option>
+							<option value="gangwon">강원도</option>
+							<option value="jeju">제주도</option>
+						</select>
 					</div>
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -53,15 +85,19 @@
 										<img src="/images/noImage2.png" class="img-fluid w-100"
 											style="height: 300px; object-fit: cover;">
 									</a>
-									<div class="post-centent-grid">
+									<div class="post-content-grid">
 										<div class="label-date">
 											<span class="day"
 												th:text="${T(com.example.som.model.hobby.Region).valueOf(hobbyBoard.region).description}"></span>
-											<span class="month text-uppercase" th:text="${hobbyBoard.price}"></span>
+											<span class="month text-uppercase"
+												th:text="${hobbyBoard.price} + '원'"></span>
 										</div>
 										<span
 											class="cat-name text-color font-extra font-sm text-uppercase letter-spacing"
 											th:text="${hobbyBoard.hobby_category}"></span>
+										<span class="ti-eye mr-1" style="float: right;"
+											th:text="' ' + ${hobbyBoard.hit}">
+										</span>
 										<h3 class="post-title mt-1"><a
 												th:href="@{/hobby/read(hobby_id=${hobbyBoard.hobby_id})}"
 												th:text="${hobbyBoard.title}"></a></h3>

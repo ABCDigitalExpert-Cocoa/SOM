@@ -16,8 +16,8 @@ public class HobbyBoardUpdateForm {
 	private String title;
 	@NotBlank
 	private String content;
+	private String price;
 	private String region;
-	private String member_id;
 	private LocalDateTime create_date;
 	private LocalDateTime update_date;
 	private Long hit;

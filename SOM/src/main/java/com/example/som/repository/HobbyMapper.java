@@ -3,18 +3,19 @@ package com.example.som.repository;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.som.model.hobby.HobbyBoard;
-import com.example.som.model.hobby.HobbyCategory;
+import com.example.som.model.hobby.Region;
 
 @Mapper
 public interface HobbyMapper {
 	
 	List<HobbyBoard> findBoards(RowBounds rowBounds);
 
-	List<HobbyBoard> findBoardsByCategory(HobbyCategory hobby_category, RowBounds rowBounds);
+	List<HobbyBoard> findBoardsByRegion(Region region, RowBounds rowBounds);
 
 	void saveBoard(HobbyBoard hobbyBoard);
 	
@@ -24,5 +25,5 @@ public interface HobbyMapper {
 
 	void removeBoard(Long hobby_id);
 
-	int getTotal(@RequestParam(required = false) HobbyCategory hobby_category);
+	int getTotal(@RequestParam(required = false) Region region);
 }

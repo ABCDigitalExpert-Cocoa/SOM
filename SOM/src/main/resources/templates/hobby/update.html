@@ -37,9 +37,52 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<form class="comment-form mb-5 gray-bg p-5" action="update" method="post" enctype="multipart/form-data">
                         <div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<select class="form-control" th:field="${update.region}">
+										<option value="">지역 선택</option>
+										<option value="seoul" th:selected="${update.region}">서울</option>
+										<option value="busan" th:selected="${update.region}">부산</option>
+										<option value="incheon" th:selected="${update.region}">인천</option>
+										<option value="daegu" th:selected="${update.region}">대구</option>
+										<option value="ulsan" th:selected="${update.region}">울산</option>
+										<option value="gwangju" th:selected="${update.region}">광주</option>
+										<option value="daejeon" th:selected="${update.region}">대전</option>
+										<option value="gyeonggi" th:selected="${update.region}">경기도</option>
+										<option value="gyeongnam" th:selected="${update.region}">경상남도</option>
+										<option value="gyeongbuk" th:selected="${update.region}">경상북도</option>
+										<option value="jeonnam" th:selected="${update.region}">전라남도</option>
+										<option value="jeonbuk" th:selected="${update.region}">전라북도</option>
+										<option value="choongnam" th:selected="${update.region}">충청남도</option>
+										<option value="choongbuk" th:selected="${update.region}">충청북도</option>
+										<option value="gangwon" th:selected="${update.region}">강원도</option>
+										<option value="jeju" th:selected="${update.region}">제주도</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<select class="form-control" th:field="${update.hobby_category}">
+										<option value="">카테고리 선택</option>
+										<option value="baking" th:selected="${update.hobby_category}">베이킹</option>
+										<option value="ring" th:selected="${update.hobby_category}">반지</option>
+										<option value="dating" th:selected="${update.hobby_category}">데이트</option>
+										<option value="perfume" th:selected="${update.hobby_category}">향수</option>
+										<option value="sports" th:selected="${update.hobby_category}">스포츠</option>
+										<option value="candle" th:selected="${update.hobby_category}">캔들</option>
+										<option value="music" th:selected="${update.hobby_category}">음악</option>
+										<option value="leather" th:selected="${update.hobby_category}">가죽</option>
+									</select>
+								</div>
+							</div>
 							<div class="col-lg-12">
 								<div class="form-group">
                                     <input class="form-control" type="text" th:field="${update.title}" placeholder="제목 :">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+								<div class="form-group">
+                                     <input class="form-control" type="text" th:field="${update.price}" placeholder="클래스 비용">
                                 </div>
 							</div>
                             <div class="col-lg-12">

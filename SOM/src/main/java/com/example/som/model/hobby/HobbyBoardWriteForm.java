@@ -15,6 +15,7 @@ public class HobbyBoardWriteForm {
 	@NotBlank
 	private String content;
 	private String region;
+	private String price;
 	private HobbyCategory hobby_category;
 	
 	public static HobbyBoard toHobbyBoard(HobbyBoardWriteForm hobbyBoardWriteForm) {
@@ -22,6 +23,7 @@ public class HobbyBoardWriteForm {
 		hobbyBoard.setTitle(hobbyBoardWriteForm.getTitle());
 		hobbyBoard.setContent(hobbyBoardWriteForm.getContent());
 		hobbyBoard.setRegion(hobbyBoardWriteForm.getRegion());
+		hobbyBoard.setPrice(hobbyBoardWriteForm.getPrice());
 		hobbyBoard.setHobby_category(hobbyBoardWriteForm.getHobby_category());
 		
 		return hobbyBoard;

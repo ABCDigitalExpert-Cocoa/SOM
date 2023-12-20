@@ -17,7 +17,8 @@
 		function search() {
 			let searchText = document.getElementById("searchText").value;
 			let boardCategory = /*[[${param.board_category}]]*/
-				location.href = "/board/list?board_category=" + boardCategory + '&searchText=' + searchText;
+			
+			location.href = "/board/list?board_category=" + boardCategory + '&searchText=' + searchText;
 		}
 	</script>
 </head>

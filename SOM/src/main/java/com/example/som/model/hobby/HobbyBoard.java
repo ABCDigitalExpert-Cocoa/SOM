@@ -23,6 +23,8 @@ public class HobbyBoard {
 		hobbyBoardUpdateForm.setHobby_id(hobbyBoard.getHobby_id());
 		hobbyBoardUpdateForm.setTitle(hobbyBoard.getTitle());
 		hobbyBoardUpdateForm.setContent(hobbyBoard.getContent());
+		hobbyBoardUpdateForm.setPrice(hobbyBoard.getPrice());
+		hobbyBoardUpdateForm.setRegion(hobbyBoard.getRegion());
 		hobbyBoardUpdateForm.setCreate_date(hobbyBoard.getCreate_date());
 		hobbyBoardUpdateForm.setUpdate_date(hobbyBoard.getUpdate_date());
 		hobbyBoardUpdateForm.setHit(hobbyBoard.getHit());
