@@ -15,7 +15,7 @@ public interface ReplyMapper {
 	Reply findReply(Long reply_id);
 	
 	// 리플 목록
-	List<Reply> findReplies(Long seq_id);
+	List<Reply> findReplies(Long board_id);
 	
 	// 리플 수정
 	void updateReply(Reply reply);
@@ -24,7 +24,7 @@ public interface ReplyMapper {
 	void removeReply(Long reply_id);
 	
 	// 게시물 삭제
-	void removeAllReply(Long seq_id);
+	void removeAllReply(Long board_id);
 }
 
 

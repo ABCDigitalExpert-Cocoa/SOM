@@ -9,6 +9,9 @@
 	</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<head th:replace="~{head :: #head}"></head>
+<head>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<div id="reliefCategory" th:data-relief-category="${relief_category}"></div>
 	<!-- 뷰 페이지에 MBTI 값을 전달받아서 저장하는 스크립트 -->
@@ -24,8 +27,6 @@
 		}
 	</script>
 </head>
-
-<head th:replace="~{head :: #head}"></head>
 
 <body>
 	<header th:replace="~{header :: #menu}"></header>

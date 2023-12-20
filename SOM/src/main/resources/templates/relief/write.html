@@ -46,21 +46,21 @@
 											<option value="ISFP">ISFP</option>
 										</select>
 									</th:block>
-									<p>
-										<th:block th:unless="${#strings.equals(param.relief_category, 'MBTI')}">
-											<select class="form-control" id="stress_level" name="stress_level"
-												th:field="${write.stress_level}">
-												<option value="default" selected>스트레스 지수 선택</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
+									<p></p>
+									<th:block th:unless="${#strings.equals(param.relief_category, 'MBTI')}">
+										<select class="form-control" id="stress_level" name="stress_level"
+											th:field="${write.stress_level}">
+											<option value="default" selected>스트레스 지수 선택</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
 
-											</select>
-										</th:block>
-									<p>
-										<input class="form-control" type="text" th:field="${write.title}"
-											placeholder="제목 :">
+										</select>
+									</th:block>
+									<p></p>
+									<input class="form-control" type="text" th:field="${write.title}"
+										placeholder="제목 :">
 								</div>
 							</div>
 							<div class="col-lg-12">

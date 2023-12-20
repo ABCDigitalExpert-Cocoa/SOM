@@ -33,12 +33,12 @@ public class ReplyRestController {
 	private final ReplyMapper replyMapper;
 	
 	// 리플 등록
-	@PostMapping("{seq_id}")
-	public ResponseEntity<String> writeReply(@PathVariable Long seq_id,
+	@PostMapping("{board_id}")
+	public ResponseEntity<String> writeReply(@PathVariable Long board_id,
 											 @ModelAttribute Reply reply,
 											 @AuthenticationPrincipal PrincipalDetails userInfo) {
 		log.info("reply: {}", reply);
-		reply.setSeq_id(seq_id);
+		reply.setBoard_id(board_id);
 		reply.setMember_id(userInfo.getUsername());
 		
 		replyMapper.saveReply(reply);
@@ -47,10 +47,10 @@ public class ReplyRestController {
 	}
 	
 	// 리플 목록
-	@GetMapping("{seq_id}")
+	@GetMapping("{board_id}")
 	public ResponseEntity<List<ReplyDto>> findReplies(@AuthenticationPrincipal PrincipalDetails userInfo,
-												   	  @PathVariable Long seq_id) {
-		List<Reply> replies = replyMapper.findReplies(seq_id);
+												   	  @PathVariable Long board_id) {
+		List<Reply> replies = replyMapper.findReplies(board_id);
 		List<ReplyDto> replyDtos = new ArrayList<>();
         if (replies != null && replies.size() > 0) {
             for (Reply reply : replies) {
@@ -66,25 +66,27 @@ public class ReplyRestController {
 	}
 	
 	// 리플 수정
-	@PutMapping("{seq_id}/{reply_id}")
+	@PutMapping("{board_id}/{reply_id}")
 	public ResponseEntity<Reply> updateReply(@AuthenticationPrincipal PrincipalDetails userInfo,
-											 @PathVariable Long seq_id,
+											 @PathVariable Long board_id,
 											 @PathVariable Long reply_id,
 											 @ModelAttribute Reply reply) {
+		log.info("reply: {}", reply);
 		
 		// 수정 권한 확인
         Reply findReply = replyMapper.findReply(reply_id);
         if (findReply.getMember_id().equals(userInfo.getUsername())) {
-            replyMapper.updateReply(reply);
+            findReply.setContent(reply.getContent());
+        	replyMapper.updateReply(reply);
         }
 		
 		return ResponseEntity.ok(reply);
 	}
 	
 	// 리플 삭제
-	@DeleteMapping("{seq_id}/{reply_id}")
+	@DeleteMapping("{board_id}/{reply_id}")
 	public ResponseEntity<String> removeReply(@AuthenticationPrincipal PrincipalDetails userInfo,
-											  @PathVariable Long seq_id,
+											  @PathVariable Long board_id,
 											  @PathVariable Long reply_id) {
 		 // 삭제 권한 확인
         Reply findReply = replyMapper.findReply(reply_id);

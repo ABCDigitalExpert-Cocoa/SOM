@@ -10,7 +10,7 @@ public class Reply {
 	private String content;		// 리플 내용
 	private String member_id;	// 작성자 아이디
 	private String nickname;	// 작성자 닉네임
-	private Long seq_id;		// 게시글 아이디
+	private Long board_id;		// 게시글 아이디
 	private LocalDateTime create_date;	// 등록시간
 	
 	public static ReplyDto toDto(Reply reply) {
@@ -19,7 +19,7 @@ public class Reply {
         replyDto.setContent(reply.getContent());
         replyDto.setMember_id(reply.getMember_id());
         replyDto.setNickname(reply.getNickname());
-        replyDto.setSeq_id(reply.getSeq_id());
+        replyDto.setBoard_id(reply.getBoard_id());
         replyDto.setCreate_date(reply.getCreate_date());
 
         return replyDto;

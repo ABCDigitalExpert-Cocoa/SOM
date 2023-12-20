@@ -45,12 +45,13 @@
 										th:href="@{/mySpace/diary/read(diary_id=${diary.diary_id})}"
 										th:if="${diary.saved_filename}">
 										<img th:src="'/file/' + ${diary.saved_filename}" class="img-fluid w-100"
-											style="height: 300px;">
+											style="height: 300px; object-fit: cover;">
 									</a>
 									<a class="post-thumb mb-4 d-block"
 										th:href="@{/mySpace/diary/read(diary_id=${diary.diary_id})}"
 										th:unless="${diary.saved_filename}">
-										<img src="/images/som.png" class="img-fluid w-100" style="height: 300px;">
+										<img src="/images/noImage.png" class="img-fluid w-100"
+											style="height: 300px; object-fit: cover;">
 									</a>
 
 									<div class="post-content-grid">
@@ -76,20 +77,17 @@
 				<div class="pagination mt-5 pt-4">
 					<ul class="list-inline">
 						<li class="list-inline-item" th:if="${navi.currentPage - 1 > 0}">
-							<a th:href="@{/mySpace/diary/list(page=${navi.currentPage - 1})}"
-								class="next-posts">
+							<a th:href="@{/mySpace/diary/list(page=${navi.currentPage - 1})}" class="next-posts">
 								<i class="ti-arrow-left"></i>
 							</a>
 						</li>
 						<li class="list-inline-item" th:if="${navi.endPageGroup ne 0}">
 							<th:block th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
-								<a th:href="@{/mySpace/diary/list(page=${counter})}"
-									th:text="${counter}"></a>&nbsp;
+								<a th:href="@{/mySpace/diary/list(page=${counter})}" th:text="${counter}"></a>&nbsp;
 							</th:block>
 						</li>
 						<li class="list-inline-item" th:if="${navi.currentPage < navi.totalPageCount}">
-							<a th:href="@{/mySpace/diary/list(page=${navi.currentPage + 1})}"
-								class="prev-posts">
+							<a th:href="@{/mySpace/diary/list(page=${navi.currentPage + 1})}" class="prev-posts">
 								<i class="ti-arrow-right"></i>
 							</a>
 						</li>

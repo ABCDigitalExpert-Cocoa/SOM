@@ -5,9 +5,43 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.som.repository.HobbyMapper">
 	<select id="findBoards" resultType="hobby">
-		select * from hobby where
-		hobby_category = #{hobby_category}
-		order by create_date desc
+		select
+			h.hobby_id,
+			h.title,
+			h.content,
+			h.price,
+			h.region,
+			h.create_date,
+			h.update_date,
+			h.hit,
+			h.hobby_category,
+			f.saved_filename
+		from
+			hobby h left outer join saved_file f
+			on (h.hobby_id = f.hobby_id)
+		order by
+			h.create_date desc
+	</select>
+	
+	<select id="findBoardsByCategory" resultType="hobby">
+		select
+			h.hobby_id,
+			h.title,
+			h.content,
+			h.price,
+			h.region,
+			h.create_date,
+			h.update_date,
+			h.hit,
+			h.hobby_category,
+			f.saved_filename
+		from
+			hobby h left outer join saved_file f
+			on (h.hobby_id = f.hobby_id)
+		where
+			h.hobby_category = #{hobby_category}
+		order by
+			create_date desc
 	</select>
 
 	<insert id="saveBoard">
@@ -52,7 +86,7 @@
 
 	<select id="getTotal" resultType="int">
 		select count(*) from hobby
-		where hobby_category = #{hobby_category}
+		<if test="hobby_category != null">where hobby_category = #{hobby_category}</if>
 	</select>
 
 </mapper>

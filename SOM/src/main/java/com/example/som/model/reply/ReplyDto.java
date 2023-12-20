@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class ReplyDto {
 	private Long reply_id;
-    private Long seq_id;
+    private Long board_id;
     private String member_id;
     private String nickname;
     private String content;

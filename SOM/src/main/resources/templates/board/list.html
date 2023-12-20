@@ -9,6 +9,9 @@
 	</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<head th:replace="~{head :: #head}"></head>
+<head>
 	<div id="boardCategory" th:data-board-category="${board_category}"></div>
 	<script th:inline="javascript">
 		function search() {
@@ -18,8 +21,6 @@
 		}
 	</script>
 </head>
-
-<head th:replace="~{head :: #head}"></head>
 
 <body>
 	<header th:replace="~{header :: #menu}"></header>

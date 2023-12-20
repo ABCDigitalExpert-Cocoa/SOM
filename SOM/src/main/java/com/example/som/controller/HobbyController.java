@@ -55,7 +55,7 @@ public class HobbyController {
 	// 게시판 글 목록 출력
 	@GetMapping("list")
 	public String readNotice(@RequestParam(value = "page", defaultValue = "1") int page,
-							@RequestParam HobbyCategory hobby_category,
+							@RequestParam(required = false) HobbyCategory hobby_category,
 							Model model) {
 		log.info("category: {}", hobby_category);
 		
@@ -65,6 +65,8 @@ public class HobbyController {
 		
 		// DB에서 카테고리에 맞는 게시물들을 List형식으로 받아온다.
 		List<HobbyBoard> hobbyBoards = hobbyService.findBoards(hobby_category, navi.getStartRecord(), navi.getCountPerPage());
+		log.info("boards: {}", hobbyBoards);
+		
 		// 찾아온 List를 model에 담아서 view로 넘겨준다.
 		model.addAttribute("hobbyBoards", hobbyBoards);
 		model.addAttribute("navi", navi);
@@ -75,12 +77,9 @@ public class HobbyController {
 	
 	// 게시글 작성페이지 이동
 	@GetMapping("write")
-	public String wrtie(@RequestParam HobbyCategory hobby_category,
-						Model model) {
+	public String wrtie(Model model) {
 		// 새로운 board작성 형식 객체 생성
 		HobbyBoardWriteForm writeForm = new HobbyBoardWriteForm();
-		// 새로 생성한 객체의 카테고리를 지정
-		writeForm.setHobby_category(hobby_category);
 		// 작성페이지로 객체를 model에 담아서 넘겨준다
 		model.addAttribute("write", writeForm);
 		
@@ -103,8 +102,6 @@ public class HobbyController {
 		log.info("board: {}", hobbyBoardWriteForm);
 		// 파라미터로 받은 boardWriteForm 객체를 Board 타입으로 변환
 		HobbyBoard hobbyBoard = HobbyBoardWriteForm.toHobbyBoard(hobbyBoardWriteForm);
-		// board 객체 작성자 및 카테고리 설정
-		hobbyBoard.setRegion(userInfo.getRegion());
 		log.info("hobbyBoard : {}", hobbyBoard);
 		// board 객체 DB저장
 		hobbyService.saveBoard(hobbyBoard, file);

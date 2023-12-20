@@ -30,7 +30,7 @@
                                 <span class="text-uppercase font-sm letter-spacing-1" th:text="${#temporals.format(diary.create_date, 'yyyy. MM. dd')}"></span>
                             </div>
                             <div class="post-featured-image mt-5" th:if="${diary.saved_filename}">
-                                <img th:src="'/file/' + ${diary.saved_filename}" class="img-fluid w-100" style="height: 400px;" alt="featured-image">
+                                <img th:src="'/file/' + ${diary.saved_filename}" class="img-fluid w-100" style="height: 400px; object-fit: contain;" alt="featured-image">
                             </div>
                         </div>
                         <div class="post-body">

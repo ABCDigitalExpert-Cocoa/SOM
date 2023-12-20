@@ -12,12 +12,12 @@
     		reply_id,
     		content,
     		member_id,
-    		seq_id
+    		board_id
     	) values (
     		#{reply_id},
     		#{content},
     		#{member_id},
-    		#{seq_id}
+    		#{board_id}
     	)
     </insert>
     
@@ -33,24 +33,22 @@
 			 r.content,
 			 m.member_id,
 			 m.nickname,
-			 r.seq_id,
+			 r.board_id,
 			 r.create_date,
 			 r.update_date
 		from
 			reply r left outer join member m
 			on (r.member_id = m.member_id) 
 		where
-			r.seq_id = #{seq_id} 
+			r.board_id = #{board_id} 
 		order by
 			r.create_date desc
 	</select>
     
     <!-- 리플 수정 -->
     <update id="updateReply">
-        update reply
-        <set>
-            <if test="content != null">content = #{content}</if>
-        </set>
+        update reply set
+        content = #{content}
         where reply_id = #{reply_id}
     </update>
     
@@ -60,7 +58,7 @@
     </delete>
     
     <delete id="removeAllReply">
-        delete from reply where seq_id = #{seq_id}
+        delete from reply where board_id = #{board_id}
     </delete>
 </mapper>
 

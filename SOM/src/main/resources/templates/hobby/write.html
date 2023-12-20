@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>write</title>
+    <title>Write Hobby</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="text-center">
-                        <h2 class="lg-title" th:text="${T(com.example.som.model.hobby.HobbyCategory).valueOf(param.hobby_category).description}"></h2>
+                        <h2 class="lg-title">Hobby</h2>
                     </div>
                 </div>
             </div>
@@ -33,6 +33,38 @@
                         <div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
+									<select class="form-control" th:field="${write.region}">
+										<option value="" selected>지역 선택</option>
+										<option value="seoul">서울</option>
+										<option value="busan">부산</option>
+										<option value="incheon">인천</option>
+										<option value="daegu">대구</option>
+										<option value="ulsan">울산</option>
+										<option value="gwangju">광주</option>
+										<option value="daejeon">대전</option>
+										<option value="gyeonggi">경기도</option>
+										<option value="gyeongnam">경상남도</option>
+										<option value="gyeongbuk">경상북도</option>
+										<option value="jeonnam">전라남도</option>
+										<option value="jeonbuk">전라북도</option>
+										<option value="choongnam">충청남도</option>
+										<option value="choongbuk">충청북도</option>
+										<option value="gangwon">강원도</option>
+										<option value="jeju">제주도</option>
+									</select>
+									<p></p>
+									<select class="form-control" th:field="${write.hobby_category}">
+										<option value="" selected>카테고리 선택</option>
+										<option value="baking">베이킹</option>
+										<option value="ring">반지</option>
+										<option value="dating">데이트</option>
+										<option value="perfume">향수</option>
+										<option value="sports">스포츠</option>
+										<option value="candle">캔들</option>
+										<option value="music">음악</option>
+										<option value="leather">가죽</option>
+									</select>
+									<p></p>
                                     <input class="form-control" type="text" th:field="${write.title}" placeholder="제목 :">
                                 </div>
 							</div>
@@ -46,7 +78,6 @@
                         </div>
 						
 						<br>
-						<input type="hidden" th:field="${write.hobby_category}">
                         <input class="btn btn-primary" type="submit" value="작성하기">
                         <input class="btn btn-primary" type="button" th:onclick="|location.href='@{/hobby/list(hobby_category=${param.hobby_category})}'|" value="목록으로">
                     </form>

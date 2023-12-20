@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.som.model.file.SavedFile;
@@ -30,10 +31,19 @@ public class HobbyService {
 	@Value("${file.upload.path}")
 	private String uploadPath;
 	
-	public List<HobbyBoard> findBoards(HobbyCategory hobby_category, int startRecord, int countPerPage) {
+	public List<HobbyBoard> findBoards(@RequestParam(required = false) HobbyCategory hobby_category, int startRecord, int countPerPage) {
 		RowBounds rowBounds = new RowBounds(startRecord, countPerPage);
 		
-		return hobbyMapper.findBoards(hobby_category, rowBounds);
+		List<HobbyBoard> hobbyBoards;
+		
+		if(hobby_category != null) {
+			hobbyBoards = hobbyMapper.findBoardsByCategory(hobby_category, rowBounds);
+		} else {
+			hobbyBoards = hobbyMapper.findBoards(rowBounds);
+		}
+		
+		
+		return hobbyBoards;
 	}
 	
 	@Transactional
@@ -74,7 +84,7 @@ public class HobbyService {
 		hobbyMapper.removeBoard(hobby_id);
 	}
 
-	public int getTotal(HobbyCategory hobby_category) {
+	public int getTotal(@RequestParam(required = false) HobbyCategory hobby_category) {
 		return hobbyMapper.getTotal(hobby_category);
 	}
 	

@@ -38,12 +38,12 @@
 										th:href="@{/mySpace/diary/read(diary_id=${diary.diary_id})}"
 										th:if="${diary.saved_filename}">
 										<img th:src="'/file/' + ${diary.saved_filename}" class="img-fluid w-100"
-											style="height: 300px;">
+											style="height: 300px; object-fit: cover;">
 									</a>
 									<a class="post-thumb mb-4 d-block"
 										th:href="@{/mySpace/diary/read(diary_id=${diary.diary_id})}"
 										th:unless="${diary.saved_filename}">
-										<img src="/images/som.png" class="img-fluid w-100" style="height: 300px;">
+										<img src="/images/noImage.png" class="img-fluid w-100" style="height: 300px; object-fit: cover;">
 									</a>
 
 									<div class="post-content-grid">
