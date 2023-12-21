@@ -27,15 +27,28 @@
     <section class="pt-5 padding-bottom">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-8" style="margin: auto;">
                     <table class="text-center">
                             <tr>
-                                <th>순위</th>
-                                <th>유저 닉네임</th>
-                                <th>누적 포인트</th>
+                                <th>Rank</th>
+                                <th>Nickname</th>
+                                <th>Points</th>
                             </tr>
-                            <tr th:if="${#strings.equals(member.admin, 'ROLE_USER')}" th:each="member, memberStat : ${ranking}">
-                                <td th:text="${memberStat.count}" class="center"></td>
+                            <tr th:each="member, memberStat : ${ranking}">
+								<th:block th:if="${memberStat.count == 1}">
+									<td style="width: 25%;">
+										<img src="/images/goldmedal.png" style="display: inline-block; width: 25%; height: auto;"></img>
+									</td>
+								</th:block>
+								<th:block th:if="${memberStat.count == 2}">
+									<td><img src="/images/silvermedal.png" style="display: inline-block; width: 25%; height: auto;"></img></td>
+								</th:block>
+								<th:block th:if="${memberStat.count == 3}">
+									<td ><img src="/images/bronzemedal.png" style="display: inline-block; width: 25%; height: auto;"></img></td>
+								</th:block>
+								<th:block th:if="${memberStat.count > 3}">
+									<td th:text="${memberStat.count}"></td>
+								</th:block>
                                 <td th:text="${member.nickname}" class="center"></td>
                                 <td th:text="${member.point}" class="center"></td>
                             </tr>
