@@ -32,7 +32,7 @@
     </select>
     
      <select id="getRanking" resultType="member">
-        SELECT * FROM member ORDER BY point DESC
+        SELECT * FROM member where admin = 'ROLE_USER' ORDER BY point DESC
     </select>
     
    	<update id="updateMember">
