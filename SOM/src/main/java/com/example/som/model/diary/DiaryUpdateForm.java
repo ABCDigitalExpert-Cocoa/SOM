@@ -14,7 +14,7 @@ public class DiaryUpdateForm {
 	private String title;
 	@NotBlank
 	private String content;
-	private String emotion;
+	private Emotion emotion;
 	private LocalDateTime create_date;
 	private LocalDateTime update_date;
 	private String member_id;

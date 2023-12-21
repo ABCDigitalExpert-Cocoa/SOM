@@ -32,6 +32,23 @@
                             <div class="post-featured-image mt-5" th:if="${diary.saved_filename}">
                                 <img th:src="'/file/' + ${diary.saved_filename}" class="img-fluid w-100" style="height: 400px; object-fit: contain;" alt="featured-image">
                             </div>
+                            <th:block th:switch="${#strings.toString(diary.emotion)}">
+	                            <div th:case="'happy'" class="ti-shine mt-1">
+									<span th:text="${T(com.example.som.model.diary.Emotion).valueOf(diary.emotion).description}"></span>
+								</div>
+	                            <div th:case="'funny'" class="ti-music-alt mt-1">
+									<span th:text="${T(com.example.som.model.diary.Emotion).valueOf(diary.emotion).description}"></span>
+								</div>
+	                            <div th:case="'good'" class="ti-face-smile mt-1">
+									<span th:text="${T(com.example.som.model.diary.Emotion).valueOf(diary.emotion).description}"></span>
+								</div>
+	                            <div th:case="'bad'" class="ti-bolt mt-1">
+									<span th:text="${T(com.example.som.model.diary.Emotion).valueOf(diary.emotion).description}"></span>
+								</div>
+	                            <div th:case="'sad'" class="ti-face-sad mt-1">
+									<span th:text="${T(com.example.som.model.diary.Emotion).valueOf(diary.emotion).description}"></span>
+								</div>
+							</th:block>
                         </div>
                         <div class="post-body">
                             <div class="entry-content">
@@ -40,13 +57,21 @@
                         </div>
                     </div>
                     
-					<input class="btn btn-primary" type="button"
-						th:onclick="|location.href='@{/mySpace/diary/update(diary_id=${diary.diary_id})}'|" value="수정하기">
-					<input class="btn btn-primary" type="button"
-						th:onclick="|location.href='@{/mySpace/diary/delete(diary_id=${diary.diary_id})}'|" value="삭제하기">
-					<input class="btn btn-primary" type="button"
-						th:onclick="|location.href='@{/mySpace/diary/list(member_id=${diary.member_id})}'|"
-						value="목록으로">
+                    <th:block>
+						<input class="btn btn-primary" type="button"
+							th:onclick="|location.href='@{/diary/list}'|" value="전체 목록으로">
+					</th:block>
+                    <th:block th:if="${#authentication.name} == ${diary.member_id}">
+						<input class="btn btn-primary" type="button"
+							th:onclick="|location.href='@{/mySpace/diary/list(member_id=${diary.member_id})}'|"
+							value="내 다이어리로">
+						<input class="btn btn-primary" type="button"
+							th:onclick="|location.href='@{/mySpace/diary/update(diary_id=${diary.diary_id})}'|" value="수정하기">
+					</th:block>
+					<th:block th:if="${#authorization.expression('hasRole(''ADMIN'')')} or ${#authentication.name} == ${diary.member_id}">
+						<input class="btn btn-primary" type="button"
+							th:onclick="|location.href='@{/mySpace/diary/delete(diary_id=${diary.diary_id})}'|" value="삭제하기">
+					</th:block>
 					
                 </div>
             </div>

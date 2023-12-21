@@ -11,7 +11,7 @@ public class DiaryWriteForm {
 	private String title;
 	@NotBlank
 	private String content;
-	private String emotion;
+	private Emotion emotion;
 	@NotNull
 	private char open_or_not;
 	
