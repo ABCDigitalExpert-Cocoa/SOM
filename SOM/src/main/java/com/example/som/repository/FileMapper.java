@@ -23,6 +23,10 @@ public interface FileMapper {
 	SavedFile findReliefFile(Long relief_id);
 
 	SavedFile findHobbyFile(Long hobby_id);
+	
+	SavedFile findEtcFile(Long etc_id);
 
 	void saveHobbyFile(SavedFile savedFile);
+	
+	void saveEtcFile(SavedFile savedFile);
 }

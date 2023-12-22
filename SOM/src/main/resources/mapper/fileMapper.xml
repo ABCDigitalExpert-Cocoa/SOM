@@ -84,6 +84,26 @@
 		#{file_size}
 		)
 	</insert>
+	
+		<insert id="saveEtcFile">
+		<selectKey keyProperty="file_id" resultType="long"
+			order="BEFORE">
+			select file_id.nextval from dual
+		</selectKey>
+		insert into saved_file (
+		file_id,
+		etc_id,
+		original_filename,
+		saved_filename,
+		file_size
+		) values (
+		#{file_id},
+		#{etc_id},
+		#{original_filename},
+		#{saved_filename},
+		#{file_size}
+		)
+	</insert>
 
 	<select id="findBoardFile" resultType="file">
 		select * from saved_file where board_id = #{board_id}
@@ -99,6 +119,10 @@
 	
 	<select id="findHobbyFile" resultType="file">
 		select * from saved_file where hobby_id = #{hobby_id}
+	</select>
+	
+	<select id="findEtcFile" resultType="file">
+		select * from saved_file where etc_id = #{etc_id}
 	</select>
 	
 	<select id="findFileByFileId" resultType="file">

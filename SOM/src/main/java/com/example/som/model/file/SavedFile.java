@@ -11,6 +11,7 @@ public class SavedFile {
     private Long diary_id;
     private Long hobby_id;
     private Long relief_id;
+    private Long etc_id;
     private String original_filename;
     private String saved_filename;
     private Long file_size;

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.som.repository.EtcMapper">
+
+	<select id="findBoards" resultType="etc">
+		select * from etc
+		order by create_date desc
+	</select>
+
+	<select id="getTotal" resultType="int">
+		select count(*) from etc
+	</select>
+	
+	<insert id="saveBoard">
+		<selectKey keyProperty="etc_id" resultType="long"
+			order="BEFORE">
+			select etc_id.nextval from dual
+		</selectKey>
+		insert into etc(
+		etc_id,
+		title,
+		content,
+		hit
+		)values(
+		#{etc_id},
+		#{title},
+		#{content},
+		#{hit}
+		)
+	</insert>
+	
+	<select id="findBoardById" resultType="etc">
+		select * from etc where
+		etc_id = #{etc_id}
+	</select>
+	
+	<update id="updateBoard">
+		update etc
+		<set>
+			<if test="title != null">title = #{title},</if>
+			<if test="content != null">content = #{content},</if>
+			<if test="hit != null">hit = #{hit},</if>
+			update_date = sysdate
+		</set>
+		where etc_id = #{etc_id}
+	</update>
+	
+	<delete id="removeBoard">
+		delete from etc where etc_id = #{etc_id}
+	</delete>
+
+</mapper>
