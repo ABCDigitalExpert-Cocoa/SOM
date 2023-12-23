@@ -53,6 +53,10 @@ public class SavedFileService {
 		return fileMapper.findHobbyFile(hobby_id);
 	}
 	
+	public SavedFile findEtcFile(Long etc_id) {
+		return fileMapper.findEtcFile(etc_id);
+	}
+	
 	public void saveBoardFile(MultipartFile file, Long board_id) {
 		SavedFile savedFile = fileService.saveFile(file);
 		savedFile.setBoard_id(board_id);
@@ -75,6 +79,13 @@ public class SavedFileService {
 		SavedFile savedFile = fileService.saveFile(file);
 		savedFile.setHobby_id(hobby_id);
 		fileMapper.saveHobbyFile(savedFile);
+	}
+	
+	public void saveEtcFile(MultipartFile file, Long etc_id) {
+		SavedFile savedFile = fileService.saveFile(file);
+		savedFile.setEtc_id(etc_id);
+		log.info("savedFile : {}", savedFile);
+		fileMapper.saveEtcFile(savedFile);
 	}
 
 	

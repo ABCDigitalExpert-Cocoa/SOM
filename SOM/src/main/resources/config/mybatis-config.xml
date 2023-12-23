@@ -12,5 +12,6 @@
         <typeAlias type="com.example.som.model.file.SavedFile" alias="file"/>
         <typeAlias type="com.example.som.model.diary.Diary" alias="diary"/>
         <typeAlias type="com.example.som.model.test.Test" alias="test"/>
+        <typeAlias type="com.example.som.model.etc.EtcBoard" alias="etc"/>
     </typeAliases>
 </configuration>

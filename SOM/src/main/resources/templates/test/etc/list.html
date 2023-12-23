@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>ETC</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<head th:replace="~{head :: #head}"></head>
+
+<body>
+	<header th:replace="~{header :: #menu}"></header>
+
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-center">
+                        <h2 class="lg-title">Test for Fun</h2>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section class="pt-5 padding-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+					<div class="mb-4 post-list border-bottom pb-4" th:each="etcBoard : ${etcBoards}">
+						<div class="row no-gutters">
+							<div class="col-md-12">
+								<div class="post-article mt-sm-3">
+									<h3 class="mt-2" style="font-family: Open Sans, sans-serif;"><a
+											th:href="@{/test/etc/read(etc_id=${etcBoard.etc_id})}"
+											th:text="${etcBoard.title}"></a></h3>
+									<div class="post-meta">
+										<ul class="list-inline">
+											<li class="list-inline-item letter-spacing-1">[[${etcBoard.hit}]] views</li>
+											<li class="list-inline-item letter-spacing-1" style="float: right;"
+												th:text="${#temporals.format(etcBoard.create_date, 'yyyy-MM-dd')}"></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<nav class="post-pagination">
+						<div class="next-post" sec:authorize="hasRole('ADMIN')">
+							<a href="/test/etc/write">
+								<span class="text-uppercase font-sm ti-pencil-alt"> 작성하기</span>
+							</a>
+						</div>
+					</nav>
+
+					<div class="pagination mt-5 pt-4">
+						<ul class="list-inline">
+							<li class="list-inline-item" th:if="${navi.currentPage - 1 > 0}">
+								<a th:href="@{/test/etc/list(page=${navi.currentPage - 1})}" class="next-posts">
+									<i class="ti-arrow-left"></i>
+								</a>
+							</li>
+							<li class="list-inline-item" th:if="${navi.endPageGroup ne 0}">
+								<th:block th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
+									<a th:href="@{/test/etc/list(page=${counter})}"
+										th:text="${counter}"></a>&nbsp;
+								</th:block>
+							</li>
+							<li class="list-inline-item" th:if="${navi.currentPage < navi.totalPageCount}">
+								<a th:href="@{/test/etc/list(page=${navi.currentPage + 1})}" class="prev-posts">
+									<i class="ti-arrow-right"></i>
+								</a>
+							</li>
+						</ul>
+					</div> 
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section th:replace="~{footer :: #footer}"></section>
+</body>
+
+</html>

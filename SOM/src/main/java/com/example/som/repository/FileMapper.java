@@ -26,4 +26,7 @@ public interface FileMapper {
 	
 	void removeSavedFile(Long file_id);
 	
+	SavedFile findEtcFile(Long etc_id);
+
+	void saveEtcFile(SavedFile savedFile);
 }

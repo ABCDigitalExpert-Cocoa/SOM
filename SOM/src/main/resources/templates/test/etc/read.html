@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>심리 테스트</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<head th:replace="~{head :: #head}"></head>
+
+<body>
+	<header th:replace="~{header :: #menu}"></header>
+
+	<section class="single-block-wrapper section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                    <div class="single-post">
+                        <div class="post-header mb-5 text-center">
+                            <h2 class="post-title mt-2" th:text="${etc.title}"></h2>
+                            <div class="post-featured-image mt-5" th:if="${file}">
+                                <img th:src="'/file/' + ${file.saved_filename}" class="img-fluid w-100" style="height: 400px;" alt="featured-image">
+                            </div>
+                        </div>
+                        <div class="post-body">
+                            <div class="entry-content">
+                                <p th:text="${etc.content}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+					<input class="btn btn-primary" type="button"
+						th:onclick="|location.href='@{/test/etc/update(etc_id=${etc.etc_id})}'|" value="수정하기">
+					<input class="btn btn-primary" type="button"
+						th:onclick="|location.href='@{/test/etc/delete(etc_id=${etc.etc_id})}'|" value="삭제하기">
+					<input class="btn btn-primary" type="button"
+						th:onclick="|location.href='@{/test/etc/list}'|"value="목록으로">
+					
+                </div>
+            </div>
+        </div>
+    </section>
+
+	<section th:replace="~{footer :: #footer}"></section>
+</body>
+
+</html>
