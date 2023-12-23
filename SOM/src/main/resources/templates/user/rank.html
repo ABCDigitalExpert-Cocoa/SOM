@@ -37,14 +37,14 @@
                             <tr th:each="member, memberStat : ${ranking}">
 								<th:block th:if="${memberStat.count == 1}">
 									<td style="width: 25%;">
-										<img src="/images/goldmedal.png" style="display: inline-block; width: 25%; height: auto;"></img>
+										<img src="/images/rank/goldmedal.png" style="display: inline-block; width: 25%; height: auto;"></img>
 									</td>
 								</th:block>
 								<th:block th:if="${memberStat.count == 2}">
-									<td><img src="/images/silvermedal.png" style="display: inline-block; width: 25%; height: auto;"></img></td>
+									<td><img src="/images/rank/silvermedal.png" style="display: inline-block; width: 25%; height: auto;"></img></td>
 								</th:block>
 								<th:block th:if="${memberStat.count == 3}">
-									<td ><img src="/images/bronzemedal.png" style="display: inline-block; width: 25%; height: auto;"></img></td>
+									<td ><img src="/images/rank/bronzemedal.png" style="display: inline-block; width: 25%; height: auto;"></img></td>
 								</th:block>
 								<th:block th:if="${memberStat.count > 3}">
 									<td th:text="${memberStat.count}"></td>

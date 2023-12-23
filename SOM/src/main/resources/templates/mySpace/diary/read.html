@@ -29,9 +29,6 @@
                             <div class="post-meta">
                                 <span class="text-uppercase font-sm letter-spacing-1" th:text="${#temporals.format(diary.create_date, 'yyyy. MM. dd')}"></span>
                             </div>
-                            <div class="post-featured-image mt-5" th:if="${diary.saved_filename}">
-                                <img th:src="'/file/' + ${diary.saved_filename}" class="img-fluid w-100" style="height: 400px; object-fit: contain;" alt="featured-image">
-                            </div>
                             <th:block th:switch="${#strings.toString(diary.emotion)}">
 	                            <div th:case="'happy'" class="ti-shine mt-1">
 									<span th:text="${T(com.example.som.model.diary.Emotion).valueOf(diary.emotion).description}"></span>
@@ -49,6 +46,9 @@
 									<span th:text="${T(com.example.som.model.diary.Emotion).valueOf(diary.emotion).description}"></span>
 								</div>
 							</th:block>
+							<div class="post-featured-image mt-3" th:if="${diary.saved_filename}">
+                                <img th:src="'/file/' + ${diary.saved_filename}" class="img-fluid w-100" style="height: 400px; object-fit: contain;" alt="featured-image">
+                            </div>
                         </div>
                         <div class="post-body">
                             <div class="entry-content">
@@ -59,7 +59,7 @@
                     
                     <th:block>
 						<input class="btn btn-primary" type="button"
-							th:onclick="|location.href='@{/diary/list}'|" value="전체 목록으로">
+							th:onclick="|location.href='@{/diary/list}'|" value="공개 다이어리로">
 					</th:block>
                     <th:block th:if="${#authentication.name} == ${diary.member_id}">
 						<input class="btn btn-primary" type="button"
