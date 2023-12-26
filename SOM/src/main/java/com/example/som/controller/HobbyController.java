@@ -3,7 +3,6 @@ package com.example.som.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.som.config.PrincipalDetails;
@@ -23,7 +20,6 @@ import com.example.som.model.file.SavedFile;
 import com.example.som.model.hobby.HobbyBoard;
 import com.example.som.model.hobby.HobbyBoardUpdateForm;
 import com.example.som.model.hobby.HobbyBoardWriteForm;
-import com.example.som.model.hobby.HobbyCategory;
 import com.example.som.model.hobby.Region;
 import com.example.som.service.HobbyService;
 import com.example.som.service.SavedFileService;
@@ -101,7 +97,7 @@ public class HobbyController {
 		// board 객체 DB저장
 		hobbyService.saveBoard(hobbyBoard, file);
 		
-		return "redirect:/hobby/list?region=" + hobbyBoard.getRegion();
+		return "redirect:/hobby/list";
 	}
 	
 	// 게시글 조회
@@ -132,7 +128,7 @@ public class HobbyController {
 		
 		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 목록창으로 돌아간다.
 		if(hobbyBoard == null) {
-			return "redirect:/hobby/list?hobby_category=" + hobbyBoard.getHobby_category();
+			return "redirect:/hobby/list";
 		}
 		
 		// model에 찾은 객체를 update라는 이름으로 담아서 view로 보내준다.
@@ -163,7 +159,7 @@ public class HobbyController {
 		
 		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 목록창으로 돌아간다.
 		if(hobbyBoard == null) {
-			return "redirect:/hobby/list?hobby_category=" + hobbyBoard.getHobby_category();
+			return "redirect:/hobby/list";
 		}
 		
 		// 찾은 board 객체에 수정받은 제목과 내용으로 수정해준다.
@@ -175,7 +171,7 @@ public class HobbyController {
 		// 새롭게 수정된 객체로 DB를 update해준다.
 		hobbyService.updateBoard(hobbyBoard, hobbyBoardUpdateForm.isFileRemoved(), file);
 		
-		return "redirect:/hobby/list?hobby_category=" + hobbyBoard.getHobby_category();
+		return "redirect:/hobby/list";
 	}
 	
 	// 게시물 삭제
@@ -184,17 +180,16 @@ public class HobbyController {
 						@RequestParam Long hobby_id) {
 		// 삭제할 board를 찾는다.
 		HobbyBoard hobbyBoard = hobbyService.findBoardById(hobby_id);
-		HobbyCategory hobby_category = hobbyBoard.getHobby_category();
 		
 		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 조회창으로 돌아간다.
 		if(hobbyBoard == null) {
-			return "redirect:/hobby/list?hobby_category=" + hobbyBoard.getHobby_category();
+			return "redirect:/hobby/list";
 		}
 		
 		// 게시글을 삭제
 		hobbyService.removeBoard(hobby_id);
 		
-		return "redirect:/hobby/list?hobby_category=" + hobby_category;
+		return "redirect:/hobby/list";
 	}
 	
 }

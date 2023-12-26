@@ -224,7 +224,6 @@ public class ReliefController {
 	public String remove(@AuthenticationPrincipal PrincipalDetails userInfo, @RequestParam Long relief_id) {
 		// 삭제할 relief를 찾는다.
 		Relief relief = reliefService.findReliefById(relief_id);
-		ReliefCategory relief_category = relief.getRelief_category();
 
 		// 게시글을 삭제
 		reliefService.removeRelief(relief_id);

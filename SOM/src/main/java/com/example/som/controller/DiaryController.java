@@ -11,12 +11,10 @@ import com.example.som.model.diary.Diary;
 import com.example.som.service.DiaryService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("diary")
 @RequiredArgsConstructor
-@Slf4j
 public class DiaryController {
 	
 	private final DiaryService diaryService;

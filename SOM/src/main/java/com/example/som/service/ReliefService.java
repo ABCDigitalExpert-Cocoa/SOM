@@ -3,13 +3,10 @@ package com.example.som.service;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.som.config.PrincipalDetails;
-import com.example.som.model.board.Board;
 import com.example.som.model.file.SavedFile;
 import com.example.som.model.member.Member;
 import com.example.som.model.relief.Relief;
