@@ -32,10 +32,12 @@
                         </div>
                     </div>
                     
-					<input class="btn btn-primary" type="button"
-						th:onclick="|location.href='@{/test/etc/update(etc_id=${etc.etc_id})}'|" value="수정하기">
-					<input class="btn btn-primary" type="button"
-						th:onclick="|location.href='@{/test/etc/delete(etc_id=${etc.etc_id})}'|" value="삭제하기">
+                    <th:block th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+						<input class="btn btn-primary" type="button"
+							th:onclick="|location.href='@{/test/etc/update(etc_id=${etc.etc_id})}'|" value="수정하기">
+						<input class="btn btn-primary" type="button"
+							th:onclick="|location.href='@{/test/etc/delete(etc_id=${etc.etc_id})}'|" value="삭제하기">
+					</th:block>
 					<input class="btn btn-primary" type="button"
 						th:onclick="|location.href='@{/test/etc/list}'|"value="목록으로">
 					
