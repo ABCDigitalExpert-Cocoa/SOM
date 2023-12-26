@@ -22,7 +22,7 @@ public interface ReliefMapper {
 
 	void removeRelief(Long relief_id);
 
-	int getTotal(@Param("relief_category")ReliefCategory relief_category, @Param("searchText")String searchText);
+	int getTotal(@Param("relief_category")ReliefCategory relief_category, @Param("searchText")String searchText, @Param("mbti") String mbti, @Param("stress_level") Long stress_level);
 
 
 }

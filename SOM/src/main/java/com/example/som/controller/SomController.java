@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.som.config.PrincipalDetails;
 import com.example.som.model.diary.Diary;
+import com.example.som.model.member.Member;
 import com.example.som.repository.SomMapper;
 import com.example.som.service.MemberService;
 
@@ -45,6 +46,8 @@ public class SomController {
 			level = 5;
 		}
 		
+		Member findMember = memberService.findMember(userInfo.getUsername());
+		
 		List<Long> stress = somMapper.getRecentStress(userInfo.getUsername());
 		Collections.reverse(stress);
 		List<String> testDate = somMapper.getRecentTestDate(userInfo.getUsername());
@@ -53,6 +56,7 @@ public class SomController {
 		
 		log.info("point: {}", userInfo.getMember().getPoint());
 		
+		model.addAttribute("member", findMember);
 		model.addAttribute("stress", stress);
 		model.addAttribute("date", testDate);
 		model.addAttribute("diary", diary);

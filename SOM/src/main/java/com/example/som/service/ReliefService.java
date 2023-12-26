@@ -87,8 +87,8 @@ public class ReliefService {
 		reliefMapper.removeRelief(relief_id);
 	}
 
-	public int getTotal(ReliefCategory relief_category, String searchText) {
-		return reliefMapper.getTotal(relief_category, searchText);
+	public int getTotal(ReliefCategory relief_category, String searchText, String mbti, Long stress_level) {
+		return reliefMapper.getTotal(relief_category, searchText, mbti, stress_level);
 	}
 	
 	public Test findStressLevelbyId(String member_id) {

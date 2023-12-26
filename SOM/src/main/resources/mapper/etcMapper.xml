@@ -23,11 +23,13 @@
 		etc_id,
 		title,
 		content,
+		results,
 		hit
 		)values(
 		#{etc_id},
 		#{title},
 		#{content},
+		#{results},
 		#{hit}
 		)
 	</insert>

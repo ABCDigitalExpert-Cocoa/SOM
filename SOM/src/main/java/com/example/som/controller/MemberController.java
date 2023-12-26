@@ -81,7 +81,7 @@ public class MemberController {
         // 메인 페이지로 리다이렉트한다.
         return "redirect:/";
     }
-	
+    
 	@GetMapping("login")
 	public String loginForm(@RequestParam(value="error", required = false) boolean error,
 							@RequestParam(value="message", required = false) String message,

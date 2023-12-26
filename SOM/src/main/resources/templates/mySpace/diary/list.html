@@ -50,7 +50,7 @@
 									<a class="post-thumb mb-4 d-block"
 										th:href="@{/mySpace/diary/read(diary_id=${diary.diary_id})}"
 										th:unless="${diary.saved_filename}">
-										<img src="/images/noImage.png" class="img-fluid w-100"
+										<img src="/images/default/noImage.png" class="img-fluid w-100"
 											style="height: 300px; object-fit: cover;">
 									</a>
 
@@ -65,6 +65,7 @@
 											class="cat-name text-color font-extra font-sm text-uppercase letter-spacing"
 											th:text="${diary.open_or_not} == '0' ? 'Private Diary' : 'Open Diary'"></span>
 										<h3 class="post-title mt-1"><a
+												style="font-family: Open Sans, sans-serif;"
 												th:href="@{/mySpace/diary/read(diary_id=${diary.diary_id})}"
 												th:text="${diary.title}"></a></h3>
 									</div>

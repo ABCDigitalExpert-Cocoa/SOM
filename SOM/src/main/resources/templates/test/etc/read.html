@@ -7,6 +7,18 @@
 	<title>심리 테스트</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script>
+		$(function(){
+			$("#result").hide();
+		});
+		
+		function showResults(){
+			$("#result").show();
+			$("#resultBtn").hide();
+		};
+	</script>
 </head>
 
 <head th:replace="~{head :: #head}"></head>
@@ -27,11 +39,17 @@
                         </div>
                         <div class="post-body">
                             <div class="entry-content">
-                                <p th:text="${etc.content}"></p>
+                                <textarea class="form-control mb-3" col="30" rows="15" th:text="${etc.content}" readonly></textarea>
+                            </div>
+                        </div>
+                        <div class="post-body" id="result">
+                            <div class="entry-content">
+                                <textarea class="form-control mb-3" col="30" rows="15" th:text="${etc.results}" readonly></textarea>
                             </div>
                         </div>
                     </div>
-                    
+                    <input class="btn btn-dark mb-5" type="button" id="resultBtn" onclick="showResults()" value="결과보기">
+                    <br>
                     <th:block th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
 						<input class="btn btn-primary" type="button"
 							th:onclick="|location.href='@{/test/etc/update(etc_id=${etc.etc_id})}'|" value="수정하기">

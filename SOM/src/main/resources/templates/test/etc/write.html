@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="text-center">
-                        <h2 class="lg-title" th:text="'글쓰기'"></h2>
+                        <h2 class="lg-title">Test for Fun</h2>
                     </div>
                 </div>
             </div>
@@ -36,13 +36,17 @@
                                     <input class="form-control" type="text" th:field="${write.title}" placeholder="제목 :">
                                 </div>
 							</div>
+							<div class="col-lg-12">
+								<input class="form-control mb-3" type="file" name="file">
+							</div>
                             <div class="col-lg-12">
-                                <textarea class="form-control mb-3" th:field="${write.content}" cols="30" rows="5"
+                                <textarea class="form-control mb-3" th:field="${write.content}" cols="30" rows="10"
                                     placeholder="내용을 입력해주세요."></textarea>
                             </div>   
-                            <div class="col-lg-12">
-								<input class="form-control" type="file" name="file">
-							</div>
+							<div class="col-lg-12">
+                                <textarea class="form-control mb-3" th:field="${write.results}" cols="30" rows="10"
+                                    placeholder="결과를 입력해주세요."></textarea>
+                            </div>
                         </div>
 						
 						<br>

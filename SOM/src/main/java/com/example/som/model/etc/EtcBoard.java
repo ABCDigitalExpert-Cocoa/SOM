@@ -10,6 +10,7 @@ public class EtcBoard {
 	private Long etc_id; //게시물 아이디
 	private String title; //글 제목
 	private String content; //내용
+	private String results; //내용
 	private LocalDateTime create_date; //작성일
 	private LocalDateTime update_date;
 	private Long hit;
@@ -20,6 +21,7 @@ public class EtcBoard {
 		etcBoardUpdateForm.setEtc_id(etcBoard.getEtc_id());
 		etcBoardUpdateForm.setTitle(etcBoard.getTitle());
 		etcBoardUpdateForm.setContent(etcBoard.getContent());
+		etcBoardUpdateForm.setResults(etcBoard.getResults());
 		etcBoardUpdateForm.setCreate_date(etcBoard.getCreate_date());
 		etcBoardUpdateForm.setUpdate_date(etcBoard.getUpdate_date());
 		etcBoardUpdateForm.setHit(etcBoard.getHit());

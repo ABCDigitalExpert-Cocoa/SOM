@@ -10,7 +10,7 @@
 		WHERE
 		relief_category = #{relief_category}
 		<if test="mbti != null">and mbti = #{mbti}</if>
-		<if test="stress_level != null">and stress_level = #{stress_level}</if>
+		<if test="stress_level != 0">and stress_level = #{stress_level}</if>
 		<if test="_parameter != null">
 			and title like '%' || #{searchText} || '%'
 		</if>
@@ -62,6 +62,8 @@
 	<select id="getTotal" resultType="int">
 		select count(*) from relief
 		where relief_category = #{relief_category}
+		<if test="mbti != null">and mbti = #{mbti}</if>
+		<if test="stress_level != 0">and stress_level = #{stress_level}</if>
 		<if test="_parameter != null">
 			and title like '%' || #{searchText} || '%'
 		</if>

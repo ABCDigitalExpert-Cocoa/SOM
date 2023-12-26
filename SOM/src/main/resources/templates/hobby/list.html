@@ -82,7 +82,7 @@
 									<a class="post-thumb mb-4 d-block"
 										th:href="@{/hobby/read(hobby_id=${hobbyBoard.hobby_id})}"
 										th:unless="${hobbyBoard.saved_filename}">
-										<img src="/images/noImage2.png" class="img-fluid w-100"
+										<img src="/images/default/noImage2.png" class="img-fluid w-100"
 											style="height: 300px; object-fit: cover;">
 									</a>
 									<div class="post-content-grid">
@@ -99,6 +99,7 @@
 											th:text="' ' + ${hobbyBoard.hit}">
 										</span>
 										<h3 class="post-title mt-1"><a
+												style="font-family: Open Sans, sans-serif;"
 												th:href="@{/hobby/read(hobby_id=${hobbyBoard.hobby_id})}"
 												th:text="${hobbyBoard.title}"></a></h3>
 									</div>

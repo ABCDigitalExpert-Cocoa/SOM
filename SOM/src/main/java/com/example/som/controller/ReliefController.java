@@ -78,7 +78,7 @@ public class ReliefController {
 		log.info("mbti:{}", mbti);
 		log.info("stress_level:{}", stress_level);
 
-		int total = reliefService.getTotal(relief_category, searchText);
+		int total = reliefService.getTotal(relief_category, searchText, mbti, stress_level);
 
 		PageNavigator navi = new PageNavigator(coutPerPage, pagePerGroup, page, total);
 

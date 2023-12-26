@@ -13,6 +13,8 @@ public class EtcBoardUpdateForm {
 	private String title;
 	@NotBlank
 	private String content;
+	@NotBlank
+	private String results;
 	private LocalDateTime create_date;
 	private LocalDateTime update_date;
 	private Long hit;
