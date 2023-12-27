@@ -46,7 +46,7 @@
 
 ### 프로젝트
 
--  2023.09.08 ~ 2023.11.03 (일/시간)
+-  2023.11.14 ~ 2023.12.27 (44일)
 - [Github](https://github.com/ABCDigitalExpert-Cocoa/SOM)
 
 <br/>
