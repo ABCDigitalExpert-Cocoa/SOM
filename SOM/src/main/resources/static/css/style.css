@@ -233,6 +233,11 @@ blockquote {
   text-align: center;
 }
 
+.error {
+	color: red;
+	font-style: italic;
+}
+
 /* Button */
 .btn {
   border-radius: 0px;

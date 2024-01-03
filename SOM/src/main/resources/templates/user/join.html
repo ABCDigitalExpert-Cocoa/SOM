@@ -3,177 +3,181 @@
 <html lang="ko">
 
 <head>
-    <meta charset="utf-8">
-    <title>SOM - Sign Up</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8">
+	<title>SOM - Sign Up</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
+
 <head th:replace="~{head :: #head}"></head>
 
 <body>
 	<header th:replace="~{header :: #menu}"></header>
 
-    <div class="breadcrumb-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="text-center">
-                        <h2 class="lg-title">Welcome To SOM</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="breadcrumb-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="text-center">
+						<h2 class="lg-title">Welcome To SOM</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
-    <section class="pt-5 padding-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<section class="pt-5 padding-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <h2 class="mb-4">Sign Up</h2>
+					<div class="row justify-content-center">
+						<div class="col-lg-8">
+							<h2 class="mb-4">Sign Up</h2>
 
-                            <form action="/user/join" method="post" th:object="${joinForm}" id="contact-form" class="contact-form ">
-								<div th:if="${#fields.hasGlobalErrors()}">
-      								<p class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-  							  </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="email">ID (email)</label>
-                                            <input class="form-control form-control-email" name="member_id" id="member_id"
-                                                type="email" placeholder="이메일 형식으로 입력">
-                                                <div class="error" th:errors="*{member_id}"></div>
-                                           </div>
-
-                                        <div class="form-group">
-                                            <label for="password">Password</label>
-                                            <input class="form-control form-control-password" name="password"
-                                                id="password" type="password"></input>
-                                                <div class="error" th:errors="*{password}"></div>
-                                        </div>
-										
+							<form action="/user/join" method="post" th:object="${joinForm}" class="contact-form">
+								<th:block th:if="${#fields.hasGlobalErrors()}">
+									<div class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+								</th:block>
+								<div class="row">
+									<div class="col-md-12">
 										<div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input class="form-control form-control-name" name="member_name"
-                                                id="member_name" type="text"></input>
-                                                <div class="error" th:errors="*{member_name}"></div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label for="nickname">Nickname</label>
-                                            <input class="form-control form-control-nickname" name="nickname"
-                                                id="nickname" type="text"></input>
-                                                <div class="error" th:errors="*{nickname}"></div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label for="birth">Birth</label>
-                                            <input class="form-control form-control-age" name="birth"
-                                                id="birth" type="date"></input>
-                                                <div class="error" th:errors="*{birth}"></div>
-                                        </div>
+											<label for="email">ID (email)</label>
+											<input class="form-control form-control-email" th:field="*{member_id}"
+												type="email" placeholder="이메일 형식으로 입력">
+											<div class="error" th:errors="*{member_id}"></div>
+										</div>
 
 										<div class="form-group">
-                                            <label for="region">Region</label>
-												<input type="button" onclick="searchPost()" class="btn btn-dark" style="padding: 5px 10px;" value="우편번호 찾기"><br>
-												<input class="form-control form-control-region" type="text" name="region"  id="region" placeholder="주소입력">
-                                                <div class="error" th:errors="*{region}"></div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label for="mbti">MBTI</label>
-                                            <select class="form-control form-control-mbti" name="mbti" id="mbti" size="1">
-												<option value="MBTI" selected>MBTI 선택</option>
-							                        <option value="ISTJ">ISTJ</option>
-							                        <option value="ISTP">ISTP</option>
-							                        <option value="ISFJ">ISFJ</option>
-							                        <option value="ISFP">ISFP</option>
-							                        <option value="INTJ">INTJ</option>
-							                        <option value="INTP">INTP</option>
-							                        <option value="INFJ">INFJ</option>
-							                        <option value="INFP">INFP</option>
-							                        <option value="ESTJ">ESTJ</option>
-							                        <option value="ESTP">ESTP</option>
-							                        <option value="ESFJ">ESFJ</option>
-							                        <option value="ESFP">ESFP</option>
-							                        <option value="ENTJ">ENTJ</option>
-							                        <option value="ENTP">ENTP</option>
-							                        <option value="ENFJ">ENFJ</option>
-							                        <option value="ENFP">ENFP</option>
+											<label for="password">Password</label>
+											<input class="form-control form-control-password" th:field="*{password}"
+												type="password"></input>
+											<div class="error" th:errors="*{password}"></div>
+										</div>
+
+										<div class="form-group">
+											<label for="name">Name</label>
+											<input class="form-control form-control-name" th:field="*{member_name}"
+												type="text"></input>
+											<div class="error" th:errors="*{member_name}"></div>
+										</div>
+
+										<div class="form-group">
+											<label for="nickname">Nickname</label>
+											<input class="form-control form-control-nickname" th:field="*{nickname}"
+												type="text"></input>
+											<div class="error" th:errors="*{nickname}"></div>
+										</div>
+
+										<div class="form-group">
+											<label for="birth">Birth</label>
+											<input class="form-control form-control-age" th:field="*{birth}"
+												type="date"></input>
+											<div class="error" th:errors="*{birth}"></div>
+										</div>
+
+										<div class="form-group">
+											<label for="region">Region</label>
+											<input type="button" onclick="searchPost()" class="btn btn-dark"
+												style="padding: 5px 10px;" value="우편번호 찾기"><br>
+											<input class="form-control form-control-region" type="text"
+												th:field="*{region}" placeholder="주소입력">
+											<div class="error" th:errors="*{region}"></div>
+										</div>
+
+										<div class="form-group">
+											<label for="mbti">MBTI</label>
+											<select class="form-control form-control-mbti" th:field="*{mbti}">
+												<option value="" selected>MBTI 선택</option>
+												<option value="ISTJ">ISTJ</option>
+												<option value="ISTP">ISTP</option>
+												<option value="ISFJ">ISFJ</option>
+												<option value="ISFP">ISFP</option>
+												<option value="INTJ">INTJ</option>
+												<option value="INTP">INTP</option>
+												<option value="INFJ">INFJ</option>
+												<option value="INFP">INFP</option>
+												<option value="ESTJ">ESTJ</option>
+												<option value="ESTP">ESTP</option>
+												<option value="ESFJ">ESFJ</option>
+												<option value="ESFP">ESFP</option>
+												<option value="ENTJ">ENTJ</option>
+												<option value="ENTP">ENTP</option>
+												<option value="ENFJ">ENFJ</option>
+												<option value="ENFP">ENFP</option>
 											</select>
-                                                <div class="error" th:errors="*{mbti}"></div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label for="phone">Phone</label>
-                                            <input class="form-control form-control-phone" name="phone"
-                                                id="phone" type="text" placeholder="휴대폰번호 입력 ('-'제외하고 입력)"></input>
-                                                <div class="error" th:errors="*{phone}"></div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label for="gender">Gender</label>
-                                            <select class="form-control form-control-gender" name="gender" id="gender" size="1">
+											<div class="error" th:errors="*{mbti}"></div>
+										</div>
+
+										<div class="form-group">
+											<label for="phone">Phone</label>
+											<input class="form-control form-control-phone" th:field="*{phone}"
+												type="text" placeholder="휴대폰번호 입력 ('-'제외하고 입력)"></input>
+											<div class="error" th:errors="*{phone}"></div>
+										</div>
+
+										<div class="form-group">
+											<label for="gender">Gender</label>
+											<select class="form-control form-control-gender" th:field="*{gender}">
 												<option value="default" selected>성별 선택</option>
-							                        <option value="Male">Male</option>
-							                        <option value="Female">Female</option>
-                                            </select>
-                                                  <div class="error" th:errors="*{gender}"></div>
-                                        </div>
+												<option value="Male">Male</option>
+												<option value="Female">Female</option>
+											</select>
+											<div class="error" th:errors="*{gender}"></div>
+										</div>
 
 
-                                        <button class="btn btn-primary solid blank mt-3" type="submit">Sign Up</button>
-                                        <button class="btn btn-primary solid blank mt-3" type="reset">Rewrite</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+										<button class="btn btn-primary solid blank mt-3" type="submit">Sign Up</button>
+										<button class="btn btn-primary solid blank mt-3" type="reset">Rewrite</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
 
 
 
 
-                </div>
-            </div>
-        </div>
-    </section>
-    <section th:replace="~{footer :: #footer}"></section>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section th:replace="~{footer :: #footer}"></section>
 
 </body>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-    function searchPost() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+	function searchPost() {
+		new daum.Postcode({
+			oncomplete: function (data) {
+				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
+				// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+				var roadAddr = data.roadAddress; // 도로명 주소 변수
+				var extraRoadAddr = ''; // 참고 항목 변수
 
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
+				// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+				// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+				if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+					extraRoadAddr += data.bname;
+				}
+				// 건물명이 있고, 공동주택일 경우 추가한다.
+				if (data.buildingName !== '' && data.apartment === 'Y') {
+					extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				}
+				// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+				if (extraRoadAddr !== '') {
+					extraRoadAddr = ' (' + extraRoadAddr + ')';
+				}
 
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById("region").value = data.jibunAddress;
-                }
-        }).open();
-    }
+				// 우편번호와 주소 정보를 해당 필드에 넣는다.
+				document.getElementById("region").value = data.jibunAddress;
+			}
+		}).open();
+	}
 </script>
+
 </html>

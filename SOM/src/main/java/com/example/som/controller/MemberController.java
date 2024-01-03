@@ -90,7 +90,6 @@ public class MemberController {
 		log.info("message: {}", message);
 	
 		if(error) {
-			model.addAttribute("error", error);
 			model.addAttribute("message", message);
 		}
 	
@@ -167,9 +166,6 @@ public class MemberController {
 	    return "user/update";
 	}
 
-
-
-	
 	// 회원정보 수정 저장
 	@PostMapping("update")
 	public String update(@RequestParam("member_id") String memberId,

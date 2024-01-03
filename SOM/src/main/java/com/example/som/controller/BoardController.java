@@ -29,7 +29,6 @@ import com.example.som.model.board.BoardCategory;
 import com.example.som.model.board.BoardUpdateForm;
 import com.example.som.model.board.BoardWriteForm;
 import com.example.som.model.file.SavedFile;
-import com.example.som.model.member.AdminType;
 import com.example.som.service.BoardService;
 import com.example.som.service.SavedFileService;
 import com.example.som.util.PageNavigator;
@@ -56,8 +55,9 @@ public class BoardController {
 	// 게시판 글 목록 출력
 	@GetMapping("list")
 	public String readNotice(@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam BoardCategory board_category,
-			@RequestParam(value = "searchText", defaultValue = "") String searchText, Model model) {
+							@RequestParam BoardCategory board_category,
+							@RequestParam(value = "searchText", defaultValue = "") String searchText, Model model) {
+		
 		log.info("category: {}", board_category);
 		log.info("searchText: {}", searchText);
 
@@ -92,9 +92,12 @@ public class BoardController {
 
 	// 게시글 작성 저장
 	@PostMapping("write")
-	public String write(@AuthenticationPrincipal PrincipalDetails userInfo, @RequestParam BoardCategory board_category,
-			@Validated @ModelAttribute("write") BoardWriteForm boardWriteForm,
-			@RequestParam(required = false) MultipartFile file, BindingResult result) {
+	public String write(@AuthenticationPrincipal PrincipalDetails userInfo,
+						@RequestParam BoardCategory board_category,
+						@Validated @ModelAttribute("write") BoardWriteForm boardWriteForm,
+						BindingResult result,
+						@RequestParam(required = false) MultipartFile file) {
+		
 		log.info("filesize: {}", file.getSize());
 
 		// validation 에러가 있으면 작성페이지로 다시 이동.
@@ -105,7 +108,7 @@ public class BoardController {
 		log.info("board: {}", boardWriteForm);
 		// 파라미터로 받은 boardWriteForm 객체를 Board 타입으로 변환
 		Board board = BoardWriteForm.toBoard(boardWriteForm);
-		// board 객체 작성자 및 카테고리 설정
+		// board 객체 작성자 설정
 		board.setMember_id(userInfo.getUsername());
 		// board 객체 DB저장
 		boardService.saveBoard(board, file);
@@ -117,8 +120,9 @@ public class BoardController {
 	// 게시글 조회
 	@GetMapping("read")
 	public String read(@RequestParam Long board_id, Model model) {
-		// seq_id가 같은 board를 찾아서 반환해준다.
+		// id가 같은 board를 찾아서 반환해준다.
 		Board board = boardService.findBoardById(board_id);
+		
 		boardService.readBoard(board_id);
 		// 첨부파일을 찾는다.
 		SavedFile savedFile = savedFileService.findBoardFile(board_id);
@@ -131,8 +135,10 @@ public class BoardController {
 
 	// 게시글 수정 페이지 이동
 	@GetMapping("update")
-	public String update(@AuthenticationPrincipal PrincipalDetails userInfo, @RequestParam Long board_id, Model model) {
-		// 수정할 게시물의 seq_id를 받아와서 DB에서 찾는다.
+	public String update(@AuthenticationPrincipal PrincipalDetails userInfo,
+						@RequestParam Long board_id,
+						Model model) {
+		// 수정할 게시물의 id를 받아와서 DB에서 찾는다.
 		Board board = boardService.findBoardById(board_id);
 
 		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 목록창으로 돌아간다.
@@ -153,8 +159,10 @@ public class BoardController {
 	// 게시글 수정 저장
 	@PostMapping("update")
 	public String update(@AuthenticationPrincipal PrincipalDetails userInfo,
-			@Validated @ModelAttribute("update") BoardUpdateForm boardUpdateForm, @RequestParam Long board_id,
-			BindingResult result, @RequestParam(required = false) MultipartFile file) {
+						@Validated @ModelAttribute("update") BoardUpdateForm boardUpdateForm,
+						BindingResult result, 
+						@RequestParam Long board_id,
+						@RequestParam(required = false) MultipartFile file) {
 		log.info("update: {}", boardUpdateForm);
 
 		if (result.hasErrors()) {
@@ -185,13 +193,9 @@ public class BoardController {
 		// 삭제할 board를 찾는다.
 		Board board = boardService.findBoardById(board_id);
 
-		if (!userInfo.getMember().getAdmin().equals(AdminType.ROLE_ADMIN)) {
-
-			// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 조회창으로 돌아간다.
-			if (board == null || !board.getMember_id().equals(userInfo.getUsername())) {
-
-				return "redirect:/board/read?board_id=" + board.getBoard_id();
-			}
+		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 조회창으로 돌아간다.
+		if (board == null || !board.getMember_id().equals(userInfo.getUsername())) {
+			return "redirect:/board/read?board_id=" + board.getBoard_id();
 		}
 
 		// 게시글을 삭제

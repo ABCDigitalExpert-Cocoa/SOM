@@ -57,9 +57,10 @@ public class ReliefController {
 	// 각 해소법 페이지 이동
 	@GetMapping("list")
 	public String list(@AuthenticationPrincipal PrincipalDetails userInfo,
-			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam("relief_category") ReliefCategory relief_category,
-			@RequestParam(value = "searchText", defaultValue = "") String searchText, Model model) {
+						@RequestParam(value = "page", defaultValue = "1") int page,
+						@RequestParam("relief_category") ReliefCategory relief_category,
+						@RequestParam(value = "searchText", defaultValue = "") String searchText,
+						Model model) {
 		log.info("category: {}", relief_category);
 		log.info("searchText: {}", searchText);
 
@@ -83,10 +84,9 @@ public class ReliefController {
 		PageNavigator navi = new PageNavigator(coutPerPage, pagePerGroup, page, total);
 
 		// DB에서 카테고리에 맞는 게시물들을 List형식으로 받아온다.
-		// List<Relief> reliefs = reliefService.findReliefs(relief_category, searchText,
-		// navi.getStartRecord(), navi.getCountPerPage());
 		List<Relief> reliefs = reliefService.findReliefs(relief_category, searchText, mbti, stress_level,
 				navi.getStartRecord(), navi.getCountPerPage());
+		
 		// 찾아온 List를 model에 담아서 view로 넘겨준다.
 		model.addAttribute("relief_category", relief_category);
 		model.addAttribute("navi", navi);
@@ -95,7 +95,6 @@ public class ReliefController {
 		model.addAttribute("mbti", mbti);
 		model.addAttribute("stress_level", stress_level);
 
-		log.info("reliefs:{}", reliefs);
 		return "relief/list";
 	}
 
@@ -115,9 +114,10 @@ public class ReliefController {
 	// 게시글 작성 저장
 	@PostMapping("write")
 	public String write(@AuthenticationPrincipal PrincipalDetails userInfo,
-			@RequestParam ReliefCategory relief_category,
-			@Validated @ModelAttribute("write") ReliefWriteForm reliefWriteForm,
-			@RequestParam(required = false) MultipartFile file, BindingResult result) {
+						@RequestParam ReliefCategory relief_category,
+						@Validated @ModelAttribute("write") ReliefWriteForm reliefWriteForm,
+						BindingResult result,
+						@RequestParam(required = false) MultipartFile file) {
 		log.info("filesize: {}", file.getSize());
 
 		// validation 에러가 있으면 작성페이지로 다시 이동.
@@ -142,11 +142,12 @@ public class ReliefController {
 	// 게시글 조회
 	@GetMapping("read")
 	public String read(@RequestParam Long relief_id, @AuthenticationPrincipal PrincipalDetails userInfo, Model model) {
+		
 		Member member = userInfo.getMember();
 		log.info("member:{}", member);
-		// seq_id가 같은 relief를 찾아서 반환해준다.
+		
+		// relief를 찾아서 반환해준다.
 		Relief relief = reliefService.findReliefById(relief_id);
-//		reliefService.practiceRelief(seq_id, member);
 		// 첨부파일을 찾는다.
 		SavedFile savedFile = savedFileService.findReliefFile(relief_id);
 
@@ -159,8 +160,9 @@ public class ReliefController {
 
 	// 실천하기
 	@PostMapping("read")
-	public String practice(@RequestParam Long relief_id, @RequestParam ReliefCategory relief_category,
-			@AuthenticationPrincipal PrincipalDetails userInfo) {
+	public String practice(@RequestParam Long relief_id,
+							@RequestParam ReliefCategory relief_category,
+							@AuthenticationPrincipal PrincipalDetails userInfo) {
 
 		Member member = userInfo.getMember();
 		log.info("member:{}", member);
@@ -168,7 +170,7 @@ public class ReliefController {
 		log.info("relief: {}", relief);
 
 		// ReliefService를 통해 실천 처리
-		reliefService.practiceRelief(relief_id, member);
+		reliefService.practiceRelief(member);
 
 		// 실천하기 버튼을 클릭하면 포인트가 지급되고, 리스트로 돌아간다.
 		return "redirect:/relief/list?relief_category=" + relief.getRelief_category();
@@ -176,11 +178,17 @@ public class ReliefController {
 
 	// 게시글 수정 페이지 이동
 	@GetMapping("update")
-	public String update(@AuthenticationPrincipal PrincipalDetails userInfo, @RequestParam Long relief_id,
-			Model model) {
+	public String update(@AuthenticationPrincipal PrincipalDetails userInfo,
+						@RequestParam Long relief_id,
+						Model model) {
+		
 		// 수정할 게시물의 id를 받아와서 DB에서 찾는다.
 		Relief relief = reliefService.findReliefById(relief_id);
 
+		// 게시물이 없을 경우 목록창으로 돌아간다.
+		if (relief == null) {
+			return "redirect:/relief/list?relief_category=" + relief.getRelief_category();
+		}
 		// model에 찾은 객체를 update라는 이름으로 담아서 view로 보내준다.
 		model.addAttribute("update", Relief.toReliefUpdateForm(relief));
 
@@ -194,8 +202,11 @@ public class ReliefController {
 	// 게시글 수정 저장
 	@PostMapping("update")
 	public String update(@AuthenticationPrincipal PrincipalDetails userInfo,
-			@ModelAttribute("update") ReliefUpdateForm reliefUpdateForm, @RequestParam Long relief_id,
-			ReliefCategory relief_category, @RequestParam(required = false) MultipartFile file, BindingResult result) {
+						@Validated @ModelAttribute("update") ReliefUpdateForm reliefUpdateForm,
+						BindingResult result,
+						@RequestParam Long relief_id,
+						@RequestParam(required = false) MultipartFile file) {
+		
 		log.info("update: {}", reliefUpdateForm);
 
 		// validation 에러가 있으면 작성페이지로 다시 이동.

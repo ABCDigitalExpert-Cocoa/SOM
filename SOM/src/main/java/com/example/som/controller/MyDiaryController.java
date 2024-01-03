@@ -64,9 +64,9 @@ public class MyDiaryController {
 	
 	@PostMapping("write")
 	public String writeDiary(@Validated @ModelAttribute("write") DiaryWriteForm writeForm,
+							BindingResult result,
 							@RequestParam(required = false) MultipartFile file,
-							@AuthenticationPrincipal PrincipalDetails userInfo,
-							BindingResult result) {
+							@AuthenticationPrincipal PrincipalDetails userInfo) {
 		if(result.hasErrors()) {
 			return "mySpace/diary/write";
 		}
@@ -110,9 +110,9 @@ public class MyDiaryController {
 	@PostMapping("update")
 	public String updateDiary(@AuthenticationPrincipal PrincipalDetails userInfo,
 								@Validated @ModelAttribute("update") DiaryUpdateForm diaryUpdateForm,
+								BindingResult result,
 								@RequestParam Long diary_id,
-								@RequestParam(required = false) MultipartFile file,
-								BindingResult result) {
+								@RequestParam(required = false) MultipartFile file) {
 		log.info("update: {}", diaryUpdateForm);
 		if(result.hasErrors()) {
 			return "mySpace/diary/update";

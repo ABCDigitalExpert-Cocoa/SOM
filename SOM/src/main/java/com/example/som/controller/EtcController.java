@@ -68,7 +68,8 @@ public class EtcController {
 
 	@PostMapping("write")
 	public String write(@Validated @ModelAttribute("write") EtcBoardWriteForm etcBoardWriteForm,
-						@RequestParam(required = false) MultipartFile file, BindingResult result) {
+			 			BindingResult result,
+						@RequestParam(required = false) MultipartFile file) {
 
 		log.info("filesize: {}", file.getSize());
 
@@ -79,10 +80,7 @@ public class EtcController {
 		log.info("board: {}", etcBoardWriteForm);
 		// 파라미터로 받은 etcboardWriteForm 객체를 EtcBoard 타입으로 변환
 		EtcBoard etcBoard = EtcBoardWriteForm.toEtcBoard(etcBoardWriteForm);
-		// board 객체 작성자 및 카테고리 설정
-		log.info("etcBoard : {}", etcBoard);
-		log.info("file : {}", file);
-		// board 객체 DB저장
+		// DB저장
 		etcService.saveBoard(etcBoard, file);
 
 		return "redirect:/test/etc/list";
@@ -99,8 +97,6 @@ public class EtcController {
 		// 찾은 객체를 model에 저장
 		model.addAttribute("etc", etcBoard);
 		model.addAttribute("file", savedFile);
-		log.info("etcBoard : {}", etcBoard);
-		log.info("hit : {}", etcBoard.getHit());
 
 		return "test/etc/read";
 	}
@@ -111,7 +107,7 @@ public class EtcController {
 		// 수정할 게시물의 etc_id를 받아와서 DB에서 찾는다.
 		EtcBoard etcBoard = etcService.findBoardById(etc_id);
 
-		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 목록창으로 돌아간다.
+		// 게시물이 없을 경우 목록창으로 돌아간다.
 		if (etcBoard == null) {
 			return "redirect:/test/etc/list";
 		}
@@ -129,8 +125,11 @@ public class EtcController {
 	// 게시글 수정 저장
 	@PostMapping("update")
 	public String update(@AuthenticationPrincipal PrincipalDetails userInfo,
-			@Validated @ModelAttribute("update") EtcBoardUpdateForm etcBoardUpdateForm, BindingResult result,
-			@RequestParam Long etc_id, @RequestParam(required = false) MultipartFile file) {
+						@Validated @ModelAttribute("update") EtcBoardUpdateForm etcBoardUpdateForm,
+						BindingResult result,
+						@RequestParam Long etc_id,
+						@RequestParam(required = false) MultipartFile file) {
+		
 		log.info("update: {}", etcBoardUpdateForm);
 
 		if (result.hasErrors()) {

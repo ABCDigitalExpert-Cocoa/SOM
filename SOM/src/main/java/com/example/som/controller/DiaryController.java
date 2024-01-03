@@ -22,7 +22,6 @@ public class DiaryController {
 	@GetMapping("list")
 	public String list(Model model) {
 		List<Diary> findAllOpenDiary = diaryService.findAllOpenDiary();
-//		log.info("findAllOpenDiary: {}", findAllOpenDiary);
 		
 		model.addAttribute("diarys", findAllOpenDiary);
 		

@@ -40,11 +40,15 @@
 							<div class="col-lg-12">
 								<div class="form-group">
                                     <input class="form-control" type="text" th:field="${update.title}" placeholder="제목 :">
+                                    <div class="error" th:errors="${update.title}"></div>
                                 </div>
 							</div>
                             <div class="col-lg-12">
-                                <textarea class="form-control mb-3" th:field="${update.content}" cols="30" rows="5"
-                                    placeholder="내용을 입력해주세요."></textarea>
+								<div class="form-group">
+	                                <textarea class="form-control mb-3" th:field="${update.content}" cols="30" rows="5"
+	                                    placeholder="내용을 입력해주세요."></textarea>
+	                                <div class="error" th:errors="${update.content}"></div>
+	                            </div>
                             </div>
 							<div class="col-lg-12">
 								<div class="form-group">

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
@@ -29,6 +28,7 @@ public class MemberJoinForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birth;
     private String region;
+    @NotBlank(message = "MBTI를 선택해 주세요.")
     private String mbti;
     @Size(min=10, max=11)
     private String phone;

@@ -34,6 +34,7 @@
 							<div class="col-lg-6">
 								<div class="form-group">
                                     <input class="form-control" type="text" th:field="${write.title}" placeholder="제목 :">
+                                    <div class="error" th:errors="${write.title}"></div>
                                 </div>
 							</div>
 							<div class="col-lg-6">
@@ -51,6 +52,7 @@
                             <div class="col-lg-12">
                                 <textarea class="form-control mb-3" th:field="${write.content}" cols="30" rows="20"
                                     placeholder="내용을 입력해주세요."></textarea>
+                                <div class="error" th:errors="${write.content}"></div>
                             </div>
                             <div class="col-lg-6">
 								<input class="form-control" type="file" name="file">
@@ -62,6 +64,7 @@
 									<label for="not_open" class="ml-2">비공개</label>
 									<input type="radio" name="open_or_not" id="not_open" value="0" style="vertical-align: middle;" checked>
 								</div>
+								<div class="error" th:errors="${write.open_or_not}"></div>
 							</div>
                         </div>
 						

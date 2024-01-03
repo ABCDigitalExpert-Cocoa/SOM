@@ -58,6 +58,7 @@
 										<option value="gangwon" th:selected="${update.region}">강원도</option>
 										<option value="jeju" th:selected="${update.region}">제주도</option>
 									</select>
+									<div class="error" th:errors="${update.region}"></div>
 								</div>
 							</div>
 							<div class="col-lg-6">
@@ -73,11 +74,13 @@
 										<option value="music" th:selected="${update.hobby_category}">음악</option>
 										<option value="leather" th:selected="${update.hobby_category}">가죽</option>
 									</select>
+									<div class="error" th:errors="${update.hobby_category}"></div>
 								</div>
 							</div>
 							<div class="col-lg-12">
 								<div class="form-group">
                                     <input class="form-control" type="text" th:field="${update.title}" placeholder="제목 :">
+                                    <div class="error" th:errors="${update.title}"></div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -88,6 +91,7 @@
                             <div class="col-lg-12">
                                 <textarea class="form-control mb-3" th:field="${update.content}" cols="30" rows="5"
                                     placeholder="내용을 입력해주세요."></textarea>
+                                <div class="error" th:errors="${update.content}"></div>
                             </div>
 							<div class="col-lg-12">
 								<div class="form-group">

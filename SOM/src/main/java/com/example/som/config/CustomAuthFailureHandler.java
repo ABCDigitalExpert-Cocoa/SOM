@@ -26,7 +26,7 @@ public class CustomAuthFailureHandler extends SimpleUrlAuthenticationFailureHand
 		String errorMessage;
 		
 		if(exception instanceof BadCredentialsException) {
-			errorMessage = "아이디 또는 패스워드가 맞지 않습니다.";
+			errorMessage = "아이디 또는 패스워드를 확인해 주세요.";
 		}
 		else if(exception instanceof LockedException) {
 			errorMessage = "잠겨 있는 계정입니다.";

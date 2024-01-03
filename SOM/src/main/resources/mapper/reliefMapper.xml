@@ -28,7 +28,7 @@
 		content,
 		<if test="relief_category != null">relief_category,</if>
 		<if test="mbti != null">mbti</if>
-		<if test="stress_level != null">stress_level</if>
+		<if test="stress_level != 0">stress_level</if>
 		)values(
 		#{relief_id},
 		#{title},

@@ -9,11 +9,11 @@ import lombok.Data;
 @Data
 public class EtcBoardUpdateForm {
 	private Long etc_id;
-	@NotBlank
+	@NotBlank(message = "제목을 입력해 주세요.")
 	private String title;
-	@NotBlank
+	@NotBlank(message = "내용을 입력해 주세요.")
 	private String content;
-	@NotBlank
+	@NotBlank(message = "결과를 입력해 주세요.")
 	private String results;
 	private LocalDateTime create_date;
 	private LocalDateTime update_date;

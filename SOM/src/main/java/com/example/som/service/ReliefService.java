@@ -53,9 +53,8 @@ public class ReliefService {
 
 	
 	@Transactional
-	public void practiceRelief(Long relief_id, Member member) {
+	public void practiceRelief(Member member) {
 		
-		Relief relief = reliefMapper.findReliefById(relief_id);
 		member.addPoint();
 		memberMapper.addPoint(member);
 		

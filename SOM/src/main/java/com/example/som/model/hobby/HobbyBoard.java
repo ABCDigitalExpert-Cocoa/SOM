@@ -13,7 +13,7 @@ public class HobbyBoard {
 	private String price;
 	private String region;
 	private LocalDateTime create_date; //작성일
-	private HobbyCategory hobby_category;
+	private String hobby_category;
 	private LocalDateTime update_date;
 	private Long hit;
 	private String saved_filename;

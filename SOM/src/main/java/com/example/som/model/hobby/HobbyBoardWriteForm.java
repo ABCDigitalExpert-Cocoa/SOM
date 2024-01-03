@@ -2,21 +2,20 @@ package com.example.som.model.hobby;
 
 import javax.validation.constraints.NotBlank;
 
-import com.example.som.model.board.Board;
-import com.example.som.model.board.BoardCategory;
-import com.example.som.model.board.BoardWriteForm;
 
 import lombok.Data;
 
 @Data
 public class HobbyBoardWriteForm {
-	@NotBlank
+	@NotBlank(message = "제목을 입력해 주세요.")
 	private String title;
-	@NotBlank
+	@NotBlank(message = "내용을 입력해 주세요.")
 	private String content;
+	@NotBlank(message = "지역을 선택해 주세요.")
 	private String region;
 	private String price;
-	private HobbyCategory hobby_category;
+	@NotBlank(message = "카테고리를 선택해 주세요.")
+	private String hobby_category;
 	
 	public static HobbyBoard toHobbyBoard(HobbyBoardWriteForm hobbyBoardWriteForm) {
 		HobbyBoard hobbyBoard = new HobbyBoard();

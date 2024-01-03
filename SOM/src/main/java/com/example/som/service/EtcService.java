@@ -2,7 +2,6 @@ package com.example.som.service;
 
 import java.util.List;
 
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.som.model.etc.EtcBoard;
 import com.example.som.model.file.SavedFile;
-import com.example.som.model.hobby.HobbyBoard;
 import com.example.som.repository.EtcMapper;
 
 

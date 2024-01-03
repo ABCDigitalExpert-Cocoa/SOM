@@ -79,22 +79,25 @@ public class HobbyController {
 	@PostMapping("write")
 	public String write(@AuthenticationPrincipal PrincipalDetails userInfo,
 						@Validated @ModelAttribute("write") HobbyBoardWriteForm hobbyBoardWriteForm,
-						@RequestParam(required = false) MultipartFile file,
-						BindingResult result) {
+						BindingResult result,
+						@RequestParam(required = false) MultipartFile file) {
 		log.info("filesize: {}", file.getSize());
 		
 		// validation 에러가 있으면 작성페이지로 다시 이동.
 		if(result.hasErrors()) {
 			return "hobby/write";
 		}
+
 		log.info("board: {}", hobbyBoardWriteForm);
+		
+		// 가격 입력값이 없을 경우 0으로 세팅
 		if(hobbyBoardWriteForm.getPrice().isEmpty()) {
 			hobbyBoardWriteForm.setPrice("0");
 		}
-		// 파라미터로 받은 boardWriteForm 객체를 Board 타입으로 변환
+		
 		HobbyBoard hobbyBoard = HobbyBoardWriteForm.toHobbyBoard(hobbyBoardWriteForm);
-		log.info("hobbyBoard : {}", hobbyBoard);
-		// board 객체 DB저장
+
+		// DB저장
 		hobbyService.saveBoard(hobbyBoard, file);
 		
 		return "redirect:/hobby/list";
@@ -105,15 +108,14 @@ public class HobbyController {
 	public String read(@RequestParam Long hobby_id,
 						Model model) {
 		
-		// seq_id가 같은 board를 찾아서 반환해준다.
 		HobbyBoard hobbyBoard = hobbyService.readHobbyBoard(hobby_id);
+
 		// 첨부파일을 찾는다.
 		SavedFile savedFile = savedFileService.findHobbyFile(hobby_id);
+		
 		// 찾은 객체를 model에 저장
 		model.addAttribute("hobby", hobbyBoard);
 		model.addAttribute("file", savedFile);
-		
-		log.info("hit : {}", hobbyBoard.getHit());
 		
 		return "hobby/read";
 	}
@@ -123,10 +125,10 @@ public class HobbyController {
 	public String update(@AuthenticationPrincipal PrincipalDetails userInfo,
 						@RequestParam Long hobby_id,
 						Model model) {
-		// 수정할 게시물의 seq_id를 받아와서 DB에서 찾는다.
+		// 수정할 게시물 찾기
 		HobbyBoard hobbyBoard = hobbyService.findBoardById(hobby_id);
 		
-		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 목록창으로 돌아간다.
+		// 게시물이 없을 경우 목록창으로 돌아간다.
 		if(hobbyBoard == null) {
 			return "redirect:/hobby/list";
 		}
@@ -157,7 +159,7 @@ public class HobbyController {
 		// 수정할 board를 찾는다.
 		HobbyBoard hobbyBoard = hobbyService.findBoardById(hobby_id);
 		
-		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 목록창으로 돌아간다.
+		// 게시물이 없을 경우 목록창으로 돌아간다.
 		if(hobbyBoard == null) {
 			return "redirect:/hobby/list";
 		}
@@ -181,7 +183,7 @@ public class HobbyController {
 		// 삭제할 board를 찾는다.
 		HobbyBoard hobbyBoard = hobbyService.findBoardById(hobby_id);
 		
-		// 게시물이 없거나 작성자가 로그인한 사용자와 다를 경우 조회창으로 돌아간다.
+		// 게시물이 없을 경우 조회창으로 돌아간다.
 		if(hobbyBoard == null) {
 			return "redirect:/hobby/list";
 		}

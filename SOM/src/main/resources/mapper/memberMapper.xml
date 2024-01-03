@@ -9,21 +9,21 @@
             password,
             member_name,
             nickname,
-            birth,
-            region,
             mbti,
-            phone,
-            gender
+            <if test="birth != null">birth,</if>
+            <if test="region != null">region,</if>
+            <if test="phone != null">phone,</if>
+            <if test="gender != null">gender</if>
         ) values (
             #{member_id},
             #{password},
             #{member_name},
             #{nickname},
-            #{birth},
-            #{region},
             #{mbti},
-            #{phone},
-            #{gender}
+            <if test="birth != null">#{birth},</if>
+            <if test="region != null">#{region},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="gender != null">#{gender}</if>
         )
     </insert>
 

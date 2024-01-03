@@ -29,24 +29,29 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<form class="comment-form mb-5 gray-bg p-5" id="write-form" action="write" method="post" enctype="multipart/form-data">
+					<form class="comment-form mb-5 gray-bg p-5" action="write" method="post" enctype="multipart/form-data" th:object="${write}">
                         <div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
-                                    <input class="form-control" type="text" th:field="${write.title}" placeholder="제목 :">
+                                    <input class="form-control" type="text" th:field="*{title}" placeholder="제목 :">
+                                    <div class="error" th:errors="*{title}"></div>
                                 </div>
 							</div>
                             <div class="col-lg-12">
-                                <textarea class="form-control mb-3" th:field="${write.content}" cols="30" rows="5"
-                                    placeholder="내용을 입력해주세요."></textarea>
+								<div class="form-group">
+	                                <textarea class="form-control" th:field="*{content}" cols="30" rows="5" placeholder="내용을 입력해주세요."></textarea>
+	                                <div class="error" th:errors="*{content}"></div>
+	                            </div>
                             </div>
                             <div class="col-lg-12">
-								<input class="form-control" type="file" name="file">
+								<div class="form-group">
+									<input class="form-control" type="file" name="file">
+								</div>
 							</div>
                         </div>
 						
 						<br>
-						<input type="hidden" th:field="${write.board_category}">
+						<input type="hidden" th:field="*{board_category}">
                         <input class="btn btn-primary" type="submit" value="작성하기">
                         <input class="btn btn-primary" type="button" th:onclick="|location.href='@{/board/list(board_category=${param.board_category})}'|" value="목록으로">
                     </form>
